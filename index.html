@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>引っ越しごみナビ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero">
+        <div class="hero-inner">
+          <div>
+            <div class="hero-sub">引っ越しサポート</div>
+            <div class="hero-title">引っ越しごみナビ</div>
+          </div>
+
+          <div class="icon-badge" aria-label="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M6 9.5V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2.5"></path>
+              <path d="M5 9.5h14l-1.12 8.73A2 2 0 0 1 15.9 20h-7.8a2 2 0 0 1-1.98-1.77L5 9.5Z"></path>
+              <path d="M9 12h6"></path>
+            </svg>
+          </div>
+        </div>
+      </header>
+
+      <main class="main">
+        <section class="panel">
+          <div class="field">
+            <label class="label" for="municipality">自治体選択</label>
+            <div class="select-wrap">
+              <select id="municipality">
+                <option>世田谷区</option>
+                <option>中野区</option>
+              </select>
+              <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="item-search">品目検索</label>
+            <div class="search-row">
+              <div class="search-input-wrap">
+                <input id="item-search" type="text" value="布団" />
+                <button type="button" class="search-icon-btn" aria-label="検索">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="6"></circle>
+                    <path d="m16 16 5 5"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <label class="camera-btn" aria-label="カメラ撮影">
+                <input type="file" accept="image/*" capture="environment" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M7 16.5A3.5 3.5 0 0 1 7 9.5l1.2-1.2a3 3 0 0 1 4.2 0l.3.3a3 3 0 0 1 4.2 4.2L16 16.5a3.5 3.5 0 0 1-9 0Z"></path>
+                  <path d="M12 9.5v7"></path>
+                  <path d="M9.5 12h5"></path>
+                </svg>
+              </label>
+            </div>
+          </div>
+
+          <button type="button" class="search-button">検索する</button>
+        </section>
+
+        <section>
+          <div class="results-header">
+            <div class="results-title">検索結果</div>
+            <div class="count-badge">1件</div>
+          </div>
+
+          <article class="result-card">
+            <div class="result-top">
+              <div class="result-tag">比較結果</div>
+              <div class="result-sub">世田谷区 → 中野区</div>
+            </div>
+
+            <div class="result-body">
+              <div class="comparison-box">
+                <div class="comparison-header">
+                  <div class="comparison-title">分別ルールの差分</div>
+                  <div class="item-pill">品目: 布団</div>
+                </div>
+
+                <div class="compare-grid">
+                  <div class="compare-panel left">
+                    <div class="compare-label">現在の自治体</div>
+                    <div class="compare-city">世田谷区</div>
+                    <div class="compare-note">粗大ごみの回収対象</div>
+                  </div>
+
+                  <div class="compare-panel right">
+                    <div class="compare-label">前の街</div>
+                    <div class="compare-city">中野区</div>
+                    <div class="compare-note">有料の大型ごみ扱い</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="info-stack">
+                <div class="info-box">
+                  <div class="info-label">アドバイス</div>
+                  <div class="info-text">
+                    世田谷区では布団は粗大ごみとして収集対象です。回収依頼の前に、事前予約とサイズ確認を行い、袋や梱包が必要な場合は指定の方法で準備してください。
+                  </div>
+                </div>
+
+                <div class="info-box">
+                  <div class="info-label">前後の街の分別差分</div>
+                  <div class="info-text">
+                    中野区では「布団」を有料の粗大ごみとして扱うケースが多く、自治体ごとに回収方法や料金基準が異なります。新居の自治体のルールを優先して確認するのが安全です。
+                  </div>
+                </div>
+
+                <div class="info-box">
+                  <div class="info-label">粗大ごみ窓口案内</div>
+                  <div class="info-text">
+                    世田谷区 生活環境部 ごみ対策課<br />
+                    受付時間: 平日 9:00〜17:30<br />
+                    電話: 03-5432-1531
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
