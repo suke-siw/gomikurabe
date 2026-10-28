@@ -1,0 +1,1369 @@
+[
+  {
+    "town": "赤堤",
+    "blocks": [
+      {
+        "target_blocks": ["1", "3", "4", "5"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4月曜日",
+          "bottle": "第1・第3月曜日"
+        }
+      },
+      {
+        "target_blocks": ["2"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4木曜日",
+          "bottle": "第1・第3木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "池尻",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4火曜日",
+          "bottle": "第1・第3火曜日"
+        }
+      },
+      {
+        "target_blocks": ["3"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第1・第3土曜日",
+          "bottle": "第2・第4土曜日"
+        }
+      },
+      {
+        "target_blocks": ["4"],
+        "schedule": {
+          "resource": "水曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第1・第3土曜日",
+          "bottle": "第2・第4土曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "宇奈根",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4土曜日",
+          "bottle": "第1・第3土曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "梅丘",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4水曜日",
+          "bottle": "第1・第3水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "大蔵",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "4"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3土曜日",
+          "bottle": "第2・第4土曜日"
+        }
+      },
+      {
+        "target_blocks": ["5", "6"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3水曜日",
+          "bottle": "第2・第4水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "大原",
+    "blocks": [
+      {
+        "target_blocks": ["1"],
+        "schedule": {
+          "resource": "水曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4土曜日",
+          "bottle": "第1・第3土曜日"
+        }
+      },
+      {
+        "target_blocks": ["2"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3木曜日",
+          "bottle": "第2・第4木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "岡本",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4土曜日",
+          "bottle": "第1・第3土曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "奥沢",
+    "blocks": [
+      {
+        "target_blocks": ["1", "3", "4"],
+        "schedule": {
+          "resource": "水曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第1・第3金曜日",
+          "bottle": "第2・第4金曜日"
+        }
+      },
+      {
+        "target_blocks": ["2", "5", "6"],
+        "schedule": {
+          "resource": "水曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4金曜日",
+          "bottle": "第1・第3金曜日"
+        }
+      },
+      {
+        "target_blocks": ["7"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第1・第3火曜日",
+          "bottle": "第2・第4火曜日"
+        }
+      },
+      {
+        "target_blocks": ["8"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4金曜日",
+          "bottle": "第1・第3金曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "尾山台",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4火曜日",
+          "bottle": "第1・第3火曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "粕谷",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4木曜日",
+          "bottle": "第1・第3木曜日"
+        }
+      },
+      {
+        "target_blocks": ["3", "4"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4木曜日",
+          "bottle": "第1・第3木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "鎌田",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "4"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4土曜日",
+          "bottle": "第1・第3土曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "上馬",
+    "blocks": [
+      {
+        "target_blocks": ["1"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4火曜日",
+          "bottle": "第1・第3火曜日"
+        }
+      },
+      {
+        "target_blocks": ["2", "3", "4", "5"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3水曜日",
+          "bottle": "第2・第4水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "上北沢",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "4"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第1・第3火曜日",
+          "bottle": "第2・第4火曜日"
+        }
+      },
+      {
+        "target_blocks": ["5"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4火曜日",
+          "bottle": "第1・第3火曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "上祖師谷",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "5", "6", "7"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4木曜日",
+          "bottle": "第1・第3木曜日"
+        }
+      },
+      {
+        "target_blocks": ["3", "4"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第1・第3木曜日",
+          "bottle": "第2・第4木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "上野毛",
+    "blocks": [
+      {
+        "target_blocks": ["1", "4"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4土曜日",
+          "bottle": "第1・第3土曜日"
+        }
+      },
+      {
+        "target_blocks": ["2", "3"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第1・第3月曜日",
+          "bottle": "第2・第4月曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "上用賀",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "4"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第1・第3木曜日",
+          "bottle": "第2・第4木曜日"
+        }
+      },
+      {
+        "target_blocks": ["5", "6"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第1・第3木曜日",
+          "bottle": "第2・第4木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "北烏山",
+    "blocks": [
+      {
+        "target_blocks": ["1", "3"],
+        "schedule": {
+          "resource": "水曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4火曜日",
+          "bottle": "第1・第3火曜日"
+        }
+      },
+      {
+        "target_blocks": ["2", "4", "5", "6", "7", "8", "9"],
+        "schedule": {
+          "resource": "水曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4金曜日",
+          "bottle": "第1・第3金曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "北沢",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "4", "5"],
+        "schedule": {
+          "resource": "水曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4土曜日",
+          "bottle": "第1・第3土曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "喜多見",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3水曜日",
+          "bottle": "第2・第4水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "砧",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "4", "5"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3土曜日",
+          "bottle": "第2・第4土曜日"
+        }
+      },
+      {
+        "target_blocks": ["6", "8"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4水曜日",
+          "bottle": "第1・第3水曜日"
+        }
+      },
+      {
+        "target_blocks": ["7"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4水曜日",
+          "bottle": "第1・第3水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "砧公園",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3土曜日",
+          "bottle": "第2・第4土曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "給田",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第1・第3金曜日",
+          "bottle": "第2・第4金曜日"
+        }
+      },
+      {
+        "target_blocks": ["4", "5"],
+        "schedule": {
+          "resource": "水曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第1・第3金曜日",
+          "bottle": "第2・第4金曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "経堂",
+    "blocks": [
+      {
+        "target_blocks": ["1", "4", "5"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第1・第3月曜日",
+          "bottle": "第2・第4月曜日"
+        }
+      },
+      {
+        "target_blocks": ["2","3"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4月曜日",
+          "bottle": "第1・第3月曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "豪徳寺",
+    "blocks": [
+      {
+        "target_blocks": ["1"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4木曜日",
+          "bottle": "第1・第3木曜日"
+        }
+      },
+      {
+        "target_blocks": [ "2"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4金曜日",
+          "bottle": "第1・第3金曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "駒沢",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3水曜日",
+          "bottle": "第2・第4水曜日"
+        }
+      },
+      {
+        "target_blocks": ["3"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4木曜日",
+          "bottle": "第1・第3木曜日"
+        }
+      },
+      {
+        "target_blocks": ["4", "5"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4水曜日",
+          "bottle": "第1・第3水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "駒沢公園",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4水曜日",
+          "bottle": "第1・第3水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "桜",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4金曜日",
+          "bottle": "第1・第3金曜日"
+        }
+      },
+      {
+        "target_blocks": ["3"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4金曜日",
+          "bottle": "第1・第3金曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "桜丘",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "4", "5"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第1・第3月曜日",
+          "bottle": "第2・第4月曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "桜新町",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4木曜日",
+          "bottle": "第1・第3木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "桜上水",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "4", "5"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4月曜日",
+          "bottle": "第1・第3月曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "三軒茶屋",
+    "blocks": [
+      {
+        "target_blocks": ["1"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4火曜日",
+          "bottle": "第1・第3火曜日"
+        }
+      },
+      {
+        "target_blocks": ["2"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3水曜日",
+          "bottle": "第2・第4水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "下馬",
+    "blocks": [
+      {
+        "target_blocks": ["1", "3", "4", "5", "6"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第1・第3火曜日",
+          "bottle": "第2・第4火曜日"
+        }
+      },
+      {
+        "target_blocks": ["2"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4火曜日",
+          "bottle": "第1・第3火曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "新町",
+    "blocks": [
+      {
+        "target_blocks": ["1"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4水曜日",
+          "bottle": "第1・第3水曜日"
+        }
+      },
+      {
+        "target_blocks": ["2", "3"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4木曜日",
+          "bottle": "第1・第3木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "成城",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "4", "5", "6"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4水曜日",
+          "bottle": "第1・第3水曜日"
+        }
+      },
+      {
+        "target_blocks": ["7", "8", "9"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第1・第3木曜日",
+          "bottle": "第2・第4木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "瀬田",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第1・第3月曜日",
+          "bottle": "第2・第4月曜日"
+        }
+      },
+      {
+        "target_blocks": ["3"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第1・第3月曜日",
+          "bottle": "第2・第4月曜日"
+        }
+      },
+      {
+        "target_blocks": ["4", "5"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4月曜日",
+          "bottle": "第1・第3月曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "世田谷",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "4"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4金曜日",
+          "bottle": "第1・第3金曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "祖師谷",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4月曜日",
+          "bottle": "第1・第3月曜日"
+        }
+      },
+      {
+        "target_blocks": ["3"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4月曜日",
+          "bottle": "第1・第3月曜日"
+        }
+      },
+      {
+        "target_blocks": ["4", "5", "6"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第1・第3木曜日",
+          "bottle": "第2・第4木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "太子堂",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4火曜日",
+          "bottle": "第1・第3火曜日"
+        }
+      },
+      {
+        "target_blocks": ["3"],
+        "schedule": {
+          "resource": "水曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第1・第3土曜日",
+          "bottle": "第2・第4土曜日"
+        }
+      },
+      {
+        "target_blocks": ["4", "5"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4水曜日",
+          "bottle": "第1・第3水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "代沢",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "5"],
+        "schedule": {
+          "resource": "水曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第1・第3土曜日",
+          "bottle": "第2・第4土曜日"
+        }
+      },
+      {
+        "target_blocks": ["4"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3木曜日",
+          "bottle": "第2・第4木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "代田",
+    "blocks": [
+      {
+        "target_blocks": ["1"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3木曜日",
+          "bottle": "第2・第4木曜日"
+        }
+      },
+      {
+        "target_blocks": ["2", "5"],
+        "schedule": {
+          "resource": "水曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3木曜日",
+          "bottle": "第2・第4木曜日"
+        }
+      },
+      {
+        "target_blocks": ["3"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4水曜日",
+          "bottle": "第1・第3水曜日"
+        }
+      },
+      {
+        "target_blocks": ["4"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3木曜日",
+          "bottle": "第2・第4木曜日"
+        }
+      },
+      {
+        "target_blocks": ["6"],
+        "schedule": {
+          "resource": "水曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4土曜日",
+          "bottle": "第1・第3土曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "玉川",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第1・第3月曜日",
+          "bottle": "第2・第4月曜日"
+        }
+      },
+      {
+        "target_blocks": ["3", "4"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4月曜日",
+          "bottle": "第1・第3月曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "玉川台",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4月曜日",
+          "bottle": "第1・第3月曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "玉川田園調布",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2"],
+        "schedule": {
+          "resource": "水曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4金曜日",
+          "bottle": "第1・第3金曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "玉堤",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4火曜日",
+          "bottle": "第1・第3火曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "千歳台",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "4", "5", "6"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4月曜日",
+          "bottle": "第1・第3月曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "弦巻",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "4", "5"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第1・第3金曜日",
+          "bottle": "第2・第4金曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "等々力",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4火曜日",
+          "bottle": "第1・第3火曜日"
+        }
+      },
+      {
+        "target_blocks": ["3"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3土曜日",
+          "bottle": "第2・第4土曜日"
+        }
+      },
+      {
+        "target_blocks": ["4", "5", "6"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第1・第3火曜日",
+          "bottle": "第2・第4火曜日"
+        }
+      },
+      {
+        "target_blocks": ["7"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3水曜日",
+          "bottle": "第2・第4水曜日"
+        }
+      },
+      {
+        "target_blocks": ["8"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3土曜日",
+          "bottle": "第2・第4土曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "中町",
+    "blocks": [
+      {
+        "target_blocks": ["1", "5"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4土曜日",
+          "bottle": "第1・第3土曜日"
+        }
+      },
+      {
+        "target_blocks": ["2", "3", "4"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3土曜日",
+          "bottle": "第2・第4土曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "野毛",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4土曜日",
+          "bottle": "第1・第3土曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "野沢",
+    "blocks": [
+      {
+        "target_blocks": ["1"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4火曜日",
+          "bottle": "第1・第3火曜日"
+        }
+      },
+      {
+        "target_blocks": ["2", "3"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第1・第3火曜日",
+          "bottle": "第2・第4火曜日"
+        }
+      },
+      {
+        "target_blocks": ["4"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3水曜日",
+          "bottle": "第2・第4水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "八幡山",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第1・第3火曜日",
+          "bottle": "第2・第4火曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "羽根木",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3木曜日",
+          "bottle": "第2・第4木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "東玉川",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2"],
+        "schedule": {
+          "resource": "水曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第1・第3金曜日",
+          "bottle": "第2・第4金曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "深沢",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "4"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3水曜日",
+          "bottle": "第2・第4水曜日"
+        }
+      },
+      {
+        "target_blocks": ["5"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3土曜日",
+          "bottle": "第2・第4土曜日"
+        }
+      },
+      {
+        "target_blocks": ["6", "7"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4水曜日",
+          "bottle": "第1・第3水曜日"
+        }
+      },
+      {
+        "target_blocks": ["8"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4水曜日",
+          "bottle": "第1・第3水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "船橋",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "4", "5", "6", "7"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第1・第3月曜日",
+          "bottle": "第2・第4月曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "松原",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "4", "5"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4木曜日",
+          "bottle": "第1・第3木曜日"
+        }
+      },
+      {
+        "target_blocks": ["6"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3木曜日",
+          "bottle": "第2・第4木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "三宿",
+    "blocks": [
+      {
+        "target_blocks": ["1"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4火曜日",
+          "bottle": "第1・第3火曜日"
+        }
+      },
+      {
+        "target_blocks": ["2"],
+        "schedule": {
+          "resource": "水曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第1・第3土曜日",
+          "bottle": "第2・第4土曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "南烏山",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "5"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第2・第4火曜日",
+          "bottle": "第1・第3火曜日"
+        }
+      },
+      {
+        "target_blocks": ["3", "4", "6"],
+        "schedule": {
+          "resource": "水曜日",
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第1・第3金曜日",
+          "bottle": "第2・第4金曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "宮坂",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第1・第3月曜日",
+          "bottle": "第2・第4月曜日"
+        }
+      },
+      {
+        "target_blocks": ["3"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4月曜日",
+          "bottle": "第1・第3月曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "用賀",
+    "blocks": [
+      {
+        "target_blocks": ["1"],
+        "schedule": {
+          "resource": "木曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第1・第3月曜日",
+          "bottle": "第2・第4月曜日"
+        }
+      },
+      {
+        "target_blocks": ["2"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4木曜日",
+          "bottle": "第1・第3木曜日"
+        }
+      },
+      {
+        "target_blocks": ["3", "4"],
+        "schedule": {
+          "resource": "金曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第1・第3木曜日",
+          "bottle": "第2・第4木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "若林",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2"],
+        "schedule": {
+          "resource": "月曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4水曜日",
+          "bottle": "第1・第3水曜日"
+        }
+      },
+      {
+        "target_blocks": ["3", "4"],
+        "schedule": {
+          "resource": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "non_burnable": "第2・第4金曜日",
+          "bottle": "第1・第3金曜日"
+        }
+      },
+      {
+        "target_blocks": [ "5"],
+        "schedule": {
+          "resource": "土曜日",
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第2・第4水曜日",
+          "bottle": "第1・第3水曜日"
+        }
+      }
+    ]
+  }
+]
