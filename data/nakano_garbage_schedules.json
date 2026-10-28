@@ -1,0 +1,475 @@
+[
+  {
+    "town": "新井",
+    "blocks": [
+      {
+        "target_blocks": ["一", "二", "四", "五"],
+        "schedule": {
+          "resource": "木曜日",
+          "plastic": "金曜日",
+          "burnable": "火曜日・金曜日",
+          "glass_metal": "第2・第4土曜日"
+        }
+      },
+      {
+        "target_blocks": ["三"],
+        "schedule": {
+          "resource": "木曜日",
+          "plastic": "金曜日",
+          "burnable": "火曜日・金曜日",
+          "glass_metal": "第1・第3土曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "江古田",
+    "blocks": [
+      {
+        "target_blocks": ["一", "三"],
+        "schedule": {
+          "resource": "金曜日",
+          "plastic": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "glass_metal": "第2・第4木曜日"
+        }
+      },
+      {
+        "target_blocks": ["二", "四"],
+        "schedule": {
+          "resource": "火曜日",
+          "plastic": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "glass_metal": "第1・第3月曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "江原町",
+    "blocks": [
+      {
+        "target_blocks": ["全域"],
+        "schedule": {
+          "resource": "金曜日",
+          "plastic": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "glass_metal": "第2・第4木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "上鷺宮",
+    "blocks": [
+      {
+        "target_blocks": ["全域"],
+        "schedule": {
+          "resource": "月曜日",
+          "plastic": "水曜日",
+          "burnable": "火曜日・金曜日",
+          "glass_metal": "第2・第4水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "上高田",
+    "blocks": [
+      {
+        "target_blocks": ["一"],
+        "schedule": {
+          "resource": "土曜日",
+          "plastic": "火曜日",
+          "burnable": "月曜日・木曜日",
+          "glass_metal": "第2・第4金曜日"
+        }
+      },
+      {
+        "target_blocks": ["二"],
+        "schedule": {
+          "resource": "木曜日",
+          "plastic": "金曜日",
+          "burnable": "火曜日・金曜日",
+          "glass_metal": "第2・第4土曜日"
+        }
+      },
+      {
+        "target_blocks": ["三", "四", "五"],
+        "schedule": {
+          "resource": "木曜日",
+          "plastic": "火曜日",
+          "burnable": "火曜日・金曜日",
+          "glass_metal": "第2・第4土曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "鷺宮",
+    "blocks": [
+      {
+        "target_blocks": ["一", "三"],
+        "schedule": {
+          "resource": "月曜日",
+          "plastic": "水曜日",
+          "burnable": "火曜日・金曜日",
+          "glass_metal": "第1・第3水曜日"
+        }
+      },
+      {
+        "target_blocks": ["二"],
+        "schedule": {
+          "resource": "火曜日",
+          "plastic": "水曜日",
+          "burnable": "水曜日・土曜日",
+          "glass_metal": "第1・第3月曜日"
+        }
+      },
+      {
+        "target_blocks": ["四", "五", "六"],
+        "schedule": {
+          "resource": "月曜日",
+          "plastic": "水曜日",
+          "burnable": "火曜日・金曜日",
+          "glass_metal": "第2・第4水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "白鷺",
+    "blocks": [
+      {
+        "target_blocks": ["一", "二"],
+        "schedule": {
+          "resource": "月曜日",
+          "plastic": "水曜日",
+          "burnable": "火曜日・金曜日",
+          "glass_metal": "第1・第3水曜日"
+        }
+      },
+      {
+        "target_blocks": ["三"],
+        "schedule": {
+          "resource": "月曜日",
+          "plastic": "水曜日",
+          "burnable": "火曜日・金曜日",
+          "glass_metal": "第2・第4水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "中央",
+    "blocks": [
+      {
+        "target_blocks": ["一", "二"],
+        "schedule": {
+          "resource": "土曜日",
+          "plastic": "木曜日",
+          "burnable": "月曜日・木曜日",
+          "glass_metal": "第2・第4火曜日"
+        }
+      },
+      {
+        "target_blocks": ["三", "四", "五"],
+        "schedule": {
+          "resource": "水曜日",
+          "plastic": "金曜日",
+          "burnable": "月曜日・木曜日",
+          "glass_metal": "第1・第3金曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "中野",
+    "blocks": [
+      {
+        "target_blocks": ["一"],
+        "schedule": {
+          "resource": "水曜日",
+          "plastic": "木曜日",
+          "burnable": "月曜日・木曜日",
+          "glass_metal": "第2・第4金曜日"
+        }
+      },
+      {
+        "target_blocks": ["二", "三", "五"],
+        "schedule": {
+          "resource": "水曜日",
+          "plastic": "金曜日",
+          "burnable": "月曜日・木曜日",
+          "glass_metal": "第2・第4金曜日"
+        }
+      },
+      {
+        "target_blocks": ["四"],
+        "schedule": {
+          "resource": "水曜日",
+          "plastic": "金曜日",
+          "burnable": "月曜日・木曜日",
+          "glass_metal": "第1・第3土曜日"
+        }
+      },
+      {
+        "target_blocks": ["六"],
+        "schedule": {
+          "resource": "土曜日",
+          "plastic": "木曜日",
+          "burnable": "月曜日・木曜日",
+          "glass_metal": "第2・第4金曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "沼袋",
+    "blocks": [
+      {
+        "target_blocks": ["全域"],
+        "schedule": {
+          "resource": "火曜日",
+          "plastic": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "glass_metal": "第2・第4月曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "野方",
+    "blocks": [
+      {
+        "target_blocks": ["一", "二"],
+        "schedule": {
+          "resource": "木曜日",
+          "plastic": "金曜日",
+          "burnable": "火曜日・金曜日",
+          "glass_metal": "第1・第3土曜日"
+        }
+      },
+      {
+        "target_blocks": ["三"],
+        "schedule": {
+          "resource": "木曜日",
+          "plastic": "火曜日",
+          "burnable": "火曜日・金曜日",
+          "glass_metal": "第1・第3土曜日"
+        }
+      },
+      {
+        "target_blocks": ["四"],
+        "schedule": {
+          "resource": "火曜日",
+          "plastic": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "glass_metal": "第2・第4月曜日"
+        }
+      },
+      {
+        "target_blocks": ["五", "六"],
+        "schedule": {
+          "resource": "火曜日",
+          "plastic": "水曜日",
+          "burnable": "水曜日・土曜日",
+          "glass_metal": "第1・第3月曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "東中野",
+    "blocks": [
+      {
+        "target_blocks": ["一", "二", "四", "五"],
+        "schedule": {
+          "resource": "土曜日",
+          "plastic": "木曜日",
+          "burnable": "月曜日・木曜日",
+          "glass_metal": "第1・第3火曜日"
+        }
+      },
+      {
+        "target_blocks": ["三"],
+        "schedule": {
+          "resource": "土曜日",
+          "plastic": "木曜日",
+          "burnable": "月曜日・木曜日",
+          "glass_metal": "第2・第4金曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "本町",
+    "blocks": [
+      {
+        "target_blocks": ["一", "二"],
+        "schedule": {
+          "resource": "土曜日",
+          "plastic": "木曜日",
+          "burnable": "月曜日・木曜日",
+          "glass_metal": "第2・第4火曜日"
+        }
+      },
+      {
+        "target_blocks": ["三"],
+        "schedule": {
+          "resource": "火曜日",
+          "plastic": "木曜日",
+          "burnable": "水曜日・土曜日",
+          "glass_metal": "第2・第4木曜日"
+        }
+      },
+      {
+        "target_blocks": ["四", "五", "六"],
+        "schedule": {
+          "resource": "水曜日",
+          "plastic": "土曜日",
+          "burnable": "月曜日・木曜日",
+          "glass_metal": "第1・第3金曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "松が丘",
+    "blocks": [
+      {
+        "target_blocks": ["一"],
+        "schedule": {
+          "resource": "木曜日",
+          "plastic": "火曜日",
+          "burnable": "火曜日・金曜日",
+          "glass_metal": "第2・第4土曜日"
+        }
+      },
+      {
+        "target_blocks": ["二"],
+        "schedule": {
+          "resource": "火曜日",
+          "plastic": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "glass_metal": "第2・第4月曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "丸山",
+    "blocks": [
+      {
+        "target_blocks": ["一"],
+        "schedule": {
+          "resource": "火曜日",
+          "plastic": "火曜日",
+          "burnable": "水曜日・土曜日",
+          "glass_metal": "第1・第3月曜日"
+        }
+      },
+      {
+        "target_blocks": ["二"],
+        "schedule": {
+          "resource": "火曜日",
+          "plastic": "水曜日",
+          "burnable": "水曜日・土曜日",
+          "glass_metal": "第1・第3月曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "南台",
+    "blocks": [
+      {
+        "target_blocks": ["全域"],
+        "schedule": {
+          "resource": "金曜日",
+          "plastic": "土曜日",
+          "burnable": "水曜日・土曜日",
+          "glass_metal": "第1・第3木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "大和町",
+    "blocks": [
+      {
+        "target_blocks": ["一", "二"],
+        "schedule": {
+          "resource": "木曜日",
+          "plastic": "水曜日",
+          "burnable": "火曜日・金曜日",
+          "glass_metal": "第1・第3土曜日"
+        }
+      },
+      {
+        "target_blocks": ["三", "四"],
+        "schedule": {
+          "resource": "月曜日",
+          "plastic": "水曜日",
+          "burnable": "火曜日・金曜日",
+          "glass_metal": "第1・第3土曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "弥生町",
+    "blocks": [
+      {
+        "target_blocks": ["一"],
+        "schedule": {
+          "resource": "金曜日",
+          "plastic": "土曜日",
+          "burnable": "水曜日・土曜日",
+          "glass_metal": "第2・第4木曜日"
+        }
+      },
+      {
+        "target_blocks": ["二"],
+        "schedule": {
+          "resource": "火曜日",
+          "plastic": "土曜日",
+          "burnable": "水曜日・土曜日",
+          "glass_metal": "第2・第4木曜日"
+        }
+      },
+      {
+        "target_blocks": ["三", "四", "五", "六"],
+        "schedule": {
+          "resource": "金曜日",
+          "plastic": "土曜日",
+          "burnable": "水曜日・土曜日",
+          "glass_metal": "第1・第3木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "若宮",
+    "blocks": [
+      {
+        "target_blocks": ["一"],
+        "schedule": {
+          "resource": "火曜日",
+          "plastic": "水曜日",
+          "burnable": "水曜日・土曜日",
+          "glass_metal": "第1・第3月曜日"
+        }
+      },
+      {
+        "target_blocks": ["二", "三"],
+        "schedule": {
+          "resource": "月曜日",
+          "plastic": "水曜日",
+          "burnable": "火曜日・金曜日",
+          "glass_metal": "第1・第3水曜日"
+        }
+      }
+    ]
+  }
+]
