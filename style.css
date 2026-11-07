@@ -395,16 +395,114 @@ select {
   white-space: pre-line;
 }
 
+.form-heading {
+  margin: 0 0 16px;
+  color: #0f172a;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.comparison-selectors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.city-fieldset {
+  min-width: 0;
+  margin: 0 0 16px;
+  padding: 12px;
+  border: 1px solid #dbe7e5;
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.city-fieldset > .label {
+  padding: 0 4px;
+  color: #047857;
+}
+
+.city-fieldset .field {
+  margin-bottom: 12px;
+}
+
+.city-fieldset .field:last-child {
+  margin-bottom: 0;
+}
+
+.field-hint {
+  margin: 7px 0 0;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.error-message {
+  min-height: 1.4em;
+  margin: 10px 0 0;
+  color: #b91c1c;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.matched-item {
+  margin: 0 0 12px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.comparison-results {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.result-details {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.result-details div {
+  padding: 10px;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.result-details dt {
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.result-details dd {
+  margin: 4px 0 0;
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.photo-mock-result {
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid #a7f3d0;
+  border-radius: 16px;
+  background: #ecfdf5;
+  color: #065f46;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
 .hidden {
   display: none;
 }
 
 @media (max-width: 420px) {
-  .hero-title {
-    font-size: 24px;
-  }
-
-  .main {
-    padding: 12px;
+  .comparison-selectors,
+  .comparison-results {
+    grid-template-columns: 1fr;
   }
 }
