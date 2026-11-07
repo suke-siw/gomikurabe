@@ -142,8 +142,7 @@ function populateTowns(slotName) {
 
   const towns = city.schedules
     .map((record) => record.town)
-    .filter((town) => typeof town === "string" && town.trim())
-    .sort((a, b) => a.localeCompare(b, "ja"));
+    .filter((town) => typeof town === "string" && town.trim());
 
   for (const town of towns) {
     addOption(slot.town, town, town);
