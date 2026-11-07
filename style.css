@@ -353,6 +353,48 @@ select {
   white-space: pre-line;
 }
 
+.result-section {
+  margin-top: 20px;
+}
+
+.result-details {
+  display: grid;
+  gap: 12px;
+}
+
+.result-details div {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.result-details dt {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.result-details dd {
+  margin: 4px 0 0;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.result-status {
+  font-weight: 800;
+  color: #047857;
+}
+
+.error-message {
+  color: #b91c1c;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.info-text {
+  white-space: pre-line;
+}
+
 .hidden {
   display: none;
 }

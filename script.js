@@ -1,292 +1,302 @@
-const CITY_CONFIGS = [
-  { id: "setagaya", name: "世田谷区", file: "data/setagaya.json" },
-  { id: "nakano", name: "中野区", file: "data/nakano.json" }
-];
+import {
+  CATEGORY_LABELS,
+  GARBAGE_CATEGORIES,
+  MUNICIPALITIES,
+  getCollectionSchedule,
+  loadSchedules,
+  mapCategory,
+} from "./src/utils/garbage-mapping.js";
 
-const cityMap = new Map();
-const itemAliases = {
-  "布団": ["布団", "ふとん", "ふとんケット"],
-  "ベッド": ["ベッド", "ベット", "寝具", "すのこベッド"],
-  "テレビ": ["テレビ", "液晶テレビ", "TV"],
-  "冷蔵庫": ["冷蔵庫", "れいぞうこ", "冷凍庫"],
-  "ダンボール": ["ダンボール", "段ボール", "ダンボール箱", "段ボール箱"],
-  "掃除機": ["掃除機", "クリーナー"],
-  "自転車": ["自転車", "チャリ"],
-  "ガスボンベ": ["ガスボンベ", "ボンベ", "ガス缶"],
-  "衣類": ["衣類", "服", "洋服", "衣類袋"]
+const ITEM_DATA_URLS = {
+  nakano: "data/nakano_garbage_items.json",
+  setagaya: "data/setagaya_garbage_items.json",
 };
 
-const previousCitySelect = document.getElementById("previous-city");
-const newCitySelect = document.getElementById("new-city");
-const itemSearchInput = document.getElementById("item-search");
-const searchBtn = document.getElementById("search-btn");
-const searchIconBtn = document.getElementById("search-icon-btn");
-const cameraInput = document.getElementById("camera-input");
-const resultSection = document.getElementById("result-section");
+const elements = {
+  municipality: document.getElementById("municipality"),
+  town: document.getElementById("town"),
+  townOptions: document.getElementById("town-options"),
+  block: document.getElementById("block"),
+  item: document.getElementById("item-search"),
+  searchButton: document.getElementById("search-btn"),
+  resultSection: document.getElementById("result-section"),
+  resultStatus: document.getElementById("result-status"),
+  resultLocation: document.getElementById("result-location"),
+  resultItem: document.getElementById("result-item"),
+  resultCategory: document.getElementById("result-category"),
+  resultDay: document.getElementById("result-day"),
+  resultNote: document.getElementById("result-note"),
+  errorMessage: document.getElementById("error-message"),
+};
 
-function normalizeKey(value = "") {
-  return String(value).replace(/[（）()]/g, "").replace(/[ 　]/g, "").toLowerCase();
-}
+const municipalityData = new Map();
 
-function matchAlias(inputValue) {
-  const raw = String(inputValue || "").trim();
-  if (!raw) return "";
+function getRecords(json, keys) {
+  if (Array.isArray(json)) return json;
 
-  const normalized = normalizeKey(raw);
-
-  for (const [canonical, aliases] of Object.entries(itemAliases)) {
-    if (aliases.some((alias) => normalizeKey(alias) === normalized)) {
-      return canonical;
+  if (json && typeof json === "object") {
+    for (const key of keys) {
+      if (Array.isArray(json[key])) return json[key];
     }
   }
 
-  return raw;
+  return [];
 }
 
-function getDataFromFile(filePath) {
-  return fetch(filePath, { cache: "no-store" })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Failed to load ${filePath}`);
-      }
-      return response.json();
-    })
-    .then((payload) => {
-      const items = Array.isArray(payload)
-        ? payload
-        : Array.isArray(payload.items)
-          ? payload.items
-          : Array.isArray(payload.data)
-            ? payload.data
-            : [];
-
-      return items.map((item) => {
-        const normalized = {
-          item:
-            item.item ||
-            item.name ||
-            item.category ||
-            item.label ||
-            item.title ||
-            "不明",
-          status:
-            item.status ||
-            item.result ||
-            item.rule ||
-            item.categoryText ||
-            item.garbageType ||
-            "要確認",
-          note:
-            item.note ||
-            item.description ||
-            item.summary ||
-            item.detail ||
-            item.ruleText ||
-            "",
-          advice:
-            item.advice ||
-            item.guidance ||
-            item.recommendation ||
-            item.description ||
-            item.note ||
-            "",
-          contact:
-            item.contact ||
-            item.contactInfo ||
-            item.callCenter ||
-            item.window ||
-            "",
-          municipality:
-            item.municipality || payload.municipality || payload.name || ""
-        };
-
-        return normalized;
-      });
-    });
+function normalize(value) {
+  return String(value ?? "")
+    .normalize("NFKC")
+    .trim()
+    .replace(/[ 　\t\r\n]/g, "")
+    .toLowerCase();
 }
 
-async function loadCityData() {
+function getItemName(item) {
+  if (typeof item === "string") return item;
+
+  return (
+    item?.item_name ??
+    item?.name ??
+    item?.item ??
+    item?.品目名 ??
+    item?.品目 ??
+    item?.名称 ??
+    item?.title ??
+    ""
+  );
+}
+
+function getItemCategory(item) {
+  if (typeof item === "string") return "";
+
+  return (
+    item?.category_name ??
+    item?.category ??
+    item?.classification ??
+    item?.garbage_category ??
+    item?.分別区分 ??
+    item?.分別 ??
+    item?.区分 ??
+    ""
+  );
+}
+
+function getItemNote(item) {
+  if (typeof item === "string") return "";
+
+  return (
+    item?.note ??
+    item?.notes ??
+    item?.caution ??
+    item?.remarks ??
+    item?.description ??
+    item?.注意事項 ??
+    item?.備考 ??
+    ""
+  );
+}
+
+function getTownNames(schedules) {
+  return schedules
+    .map((record) => record?.town)
+    .filter((town) => typeof town === "string" && town.trim() !== "");
+}
+
+function setError(message = "") {
+  elements.errorMessage.textContent = message;
+}
+
+function populateTownOptions() {
+  const city = municipalityData.get(elements.municipality.value);
+
+  elements.townOptions.replaceChildren();
+  elements.block.replaceChildren();
+
+  if (!city) return;
+
+  const towns = getTownNames(city.schedules);
+
+  for (const town of towns) {
+    const option = document.createElement("option");
+    option.value = town;
+    elements.townOptions.append(option);
+  }
+
+  elements.block.add(new Option("丁目を選択してください", ""));
+}
+
+function updateBlockOptions() {
+  const city = municipalityData.get(elements.municipality.value);
+  const selectedTown = normalize(elements.town.value);
+
+  elements.block.replaceChildren();
+  elements.block.add(new Option("丁目を選択してください", ""));
+
+  if (!city || !selectedTown) return;
+
+  const townRecord = city.schedules.find(
+    (record) => normalize(record?.town) === selectedTown,
+  );
+
+  if (!townRecord) return;
+
+  const blocks = [
+    ...new Set(
+      (townRecord.blocks ?? []).flatMap((record) =>
+        (record.target_blocks ?? []).map(String),
+      ),
+    ),
+  ].sort((a, b) => Number(a) - Number(b));
+
+  for (const block of blocks) {
+    elements.block.add(new Option(`${block}丁目`, block));
+  }
+}
+
+function findItem(items, searchText) {
+  const query = normalize(searchText);
+  if (!query) return null;
+
+  return (
+    items.find((item) => normalize(getItemName(item)) === query) ??
+    items.find((item) => {
+      const itemName = normalize(getItemName(item));
+      return itemName && (itemName.includes(query) || query.includes(itemName));
+    }) ??
+    null
+  );
+}
+
+function showResult({ city, town, block, itemName, category, schedule, note }) {
+  elements.resultSection.classList.remove("hidden");
+
+  elements.resultStatus.textContent = schedule.requiresApplication
+    ? "粗大ごみのため、個別申し込みが必要です"
+    : schedule.found
+      ? "収集ルールが見つかりました"
+      : "該当する収集曜日を確認できませんでした";
+
+  elements.resultLocation.textContent =
+    `${city.name} ${town}${block}丁目`;
+
+  elements.resultItem.textContent = itemName || "品目";
+  elements.resultCategory.textContent =
+    schedule.categoryLabel ||
+    CATEGORY_LABELS[category] ||
+    CATEGORY_LABELS[GARBAGE_CATEGORIES.RESOURCE];
+
+  elements.resultDay.textContent =
+    schedule.collectionDay || (schedule.requiresApplication ? "曜日収集なし" : "未確認");
+
+  const notes = [note, schedule.note].filter(Boolean);
+  elements.resultNote.textContent = [...new Set(notes)].join("\n");
+}
+
+async function searchGarbageRule() {
+  setError("");
+
+  const cityId = elements.municipality.value;
+  const city = municipalityData.get(cityId);
+  const town = elements.town.value.trim();
+  const block = elements.block.value;
+  const searchText = elements.item.value.trim();
+
+  if (!city) {
+    setError("自治体データを読み込めませんでした。");
+    return;
+  }
+
+  if (!town || !block || !searchText) {
+    setError("自治体・町名・丁目・品目を入力してください。");
+    return;
+  }
+
+  const item = findItem(city.items, searchText);
+
+  if (!item) {
+    setError(`「${searchText}」は品目データ内に見つかりませんでした。`);
+    return;
+  }
+
+  const itemName = getItemName(item) || searchText;
+  const sourceCategory = getItemCategory(item);
+  const category = mapCategory(sourceCategory);
+
+  const schedule = getCollectionSchedule({
+    municipalityId: cityId,
+    schedules: city.schedules,
+    town,
+    block,
+    category,
+    note: getItemNote(item),
+  });
+
+  showResult({
+    city,
+    town,
+    block,
+    itemName,
+    category,
+    schedule,
+    note: getItemNote(item),
+  });
+}
+
+async function initialize() {
   try {
-    const promises = CITY_CONFIGS.map(async (city) => {
-      const items = await getDataFromFile(city.file);
-      cityMap.set(city.name, { ...city, items });
-      return city.name;
-    });
+    const cityIds = Object.keys(MUNICIPALITIES);
 
-    await Promise.all(promises);
+    await Promise.all(
+      cityIds.map(async (cityId) => {
+        const config = MUNICIPALITIES[cityId];
+        const itemUrl = ITEM_DATA_URLS[cityId];
 
-    const cities = CITY_CONFIGS.map((city) => city.name);
-    populateSelect(previousCitySelect, cities, cities[0]);
-    populateSelect(newCitySelect, cities, cities[1] || cities[0]);
+        if (!itemUrl) {
+          throw new Error(`${config.name}の品目データ URL が設定されていません。`);
+        }
 
-    previousCitySelect.value = cities[0];
-    newCitySelect.value = cities[1] || cities[0];
+        const [schedules, itemsResponse] = await Promise.all([
+          loadSchedules(cityId),
+          fetch(itemUrl),
+        ]);
 
-    renderResult();
+        if (!itemsResponse.ok) {
+          throw new Error(
+            `${config.name}の品目データを読み込めませんでした: ${itemsResponse.status}`,
+          );
+        }
+
+        const itemsJson = await itemsResponse.json();
+
+        municipalityData.set(cityId, {
+          ...config,
+          schedules,
+          items: getRecords(itemsJson, ["items", "data", "records", "garbage_items"]),
+        });
+      }),
+    );
+
+    populateTownOptions();
   } catch (error) {
     console.error(error);
-    showFallbackResult();
+    setError(
+      "自治体データの読み込みに失敗しました。ローカルサーバーから開いているか、JSON ファイルのパスを確認してください。",
+    );
   }
 }
 
-function populateSelect(selectElement, values, defaultValue) {
-  selectElement.innerHTML = values
-    .map((value) => `<option value="${value}">${value}</option>`)
-    .join("");
+elements.municipality.addEventListener("change", () => {
+  elements.town.value = "";
+  populateTownOptions();
+});
 
-  if (defaultValue) {
-    selectElement.value = defaultValue;
-  }
-}
+elements.town.addEventListener("input", updateBlockOptions);
+elements.searchButton.addEventListener("click", searchGarbageRule);
 
-function getCityData(cityName) {
-  return cityMap.get(cityName) || { items: [] };
-}
-
-function findItemRule(cityName, rawItemName) {
-  const itemName = matchAlias(rawItemName) || rawItemName || "布団";
-  const cityData = getCityData(cityName);
-
-  const exact = cityData.items.find((entry) => {
-    const entryItem = matchAlias(entry.item || "");
-    return normalizeKey(entryItem) === normalizeKey(itemName);
-  });
-
-  if (exact) {
-    return exact;
-  }
-
-  const fuzzy = cityData.items.find((entry) => {
-    const entryItem = (entry.item || "").toString();
-    return entryItem.includes(itemName) || itemName.includes(entryItem);
-  });
-
-  if (fuzzy) {
-    return fuzzy;
-  }
-
-  return {
-    item: itemName,
-    status: "要確認",
-    note: "自治体の最新の分別案内をご確認ください。",
-    advice:
-      "自治体の最新の分別ルールを確認してください。品目名とサイズ、袋の有無を入念に見直しましょう。",
-    contact: `${cityName} ごみ対策窓口`
-  };
-}
-
-function formatContact(contact) {
-  if (!contact) return "自治体の窓口にお問い合わせください。";
-  if (typeof contact === "string") return contact.replace(/\n/g, "<br>");
-  if (typeof contact === "object") {
-    const lines = [];
-    if (contact.name) lines.push(contact.name);
-    if (contact.address) lines.push(contact.address);
-    if (contact.phone) lines.push(`電話: ${contact.phone}`);
-    if (contact.hours) lines.push(`受付時間: ${contact.hours}`);
-    return lines.join("<br>");
-  }
-  return String(contact);
-}
-
-function renderResult() {
-  const previousCityName = previousCitySelect.value;
-  const newCityName = newCitySelect.value;
-  const itemValue = (itemSearchInput.value || "").trim() || "布団";
-  const matchedItem = matchAlias(itemValue);
-
-  const previousRule = findItemRule(previousCityName, matchedItem);
-  const newRule = findItemRule(newCityName, matchedItem);
-
-  document.getElementById("route-label").textContent = `${previousCityName} → ${newCityName}`;
-  document.getElementById("comparison-item").textContent = `品目: ${matchedItem}`;
-  document.getElementById("previous-city-name").textContent = previousCityName;
-  document.getElementById("new-city-name").textContent = newCityName;
-
-  document.getElementById("previous-rule").textContent = previousRule.status || "要確認";
-  document.getElementById("new-rule").textContent = newRule.status || "要確認";
-
-  const adviceText =
-    previousRule.status !== newRule.status
-      ? `${newCityName}では${newRule.status || "分別方法が異なる"}ため、${newRule.advice || "新しい自治体のルールを確認してください。"}`
-      : `${newCityName}でも${previousCityName}でも同じ扱いです。引っ越し後も基本的な方法で出せます。`;
-
-  document.getElementById("advice").textContent = adviceText;
-
-  const summaryText =
-    previousRule.status === newRule.status
-      ? `${matchedItem}は前後の自治体で同じ扱いです。差分はほとんどありません。`
-      : `${matchedItem}は${previousCityName}では「${previousRule.status || "要確認"}」、${newCityName}では「${newRule.status || "要確認"}」です。出し方や料金、袋の条件が変わる可能性があります。`;
-
-  document.getElementById("diff-summary").textContent = summaryText;
-
-  const contactText = formatContact(newRule.contact || `${newCityName} ごみ対策窓口`);
-  document.getElementById("contact").innerHTML = contactText;
-
-  resultSection.classList.remove("hidden");
-}
-
-function showFallbackResult() {
-  const previousCityName = previousCitySelect.value || "世田谷区";
-  const newCityName = newCitySelect.value || "中野区";
-  const itemValue = itemSearchInput.value || "布団";
-
-  document.getElementById("route-label").textContent = `${previousCityName} → ${newCityName}`;
-  document.getElementById("comparison-item").textContent = `品目: ${matchAlias(itemValue)}`;
-  document.getElementById("previous-city-name").textContent = previousCityName;
-  document.getElementById("new-city-name").textContent = newCityName;
-  document.getElementById("previous-rule").textContent = "要確認";
-  document.getElementById("new-rule").textContent = "要確認";
-  document.getElementById("advice").textContent =
-    "データの読み込みに失敗したため、自治体の分別案内をご確認ください。";
-  document.getElementById("diff-summary").textContent =
-    "現在のデータが正しく読み込めていないため、最新の自治体の分別ルールを確認してください。";
-  document.getElementById("contact").innerHTML = `${newCityName} ごみ対策窓口`;
-
-  resultSection.classList.remove("hidden");
-}
-
-function handleFileUpload(event) {
-  const file = event.target.files?.[0];
-  if (!file) return;
-
-  const fileName = file.name || "";
-  const lower = fileName.toLowerCase();
-
-  if (lower.includes("futon") || lower.includes("布団") || lower.includes("futon")) {
-    itemSearchInput.value = "布団";
-    return;
-  }
-
-  if (lower.includes("bed") || lower.includes("ベッド")) {
-    itemSearchInput.value = "ベッド";
-    return;
-  }
-
-  if (lower.includes("tv") || lower.includes("テレビ")) {
-    itemSearchInput.value = "テレビ";
-    return;
-  }
-
-  if (lower.includes("refrigerator") || lower.includes("冷蔵庫")) {
-    itemSearchInput.value = "冷蔵庫";
-    return;
-  }
-
-  if (lower.includes("box") || lower.includes("段ボール")) {
-    itemSearchInput.value = "ダンボール";
-  }
-}
-
-previousCitySelect.addEventListener("change", renderResult);
-newCitySelect.addEventListener("change", renderResult);
-searchBtn.addEventListener("click", renderResult);
-searchIconBtn.addEventListener("click", renderResult);
-itemSearchInput.addEventListener("keydown", (event) => {
+elements.item.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
-    renderResult();
+    searchGarbageRule();
   }
 });
-cameraInput.addEventListener("change", handleFileUpload);
 
-loadCityData();
+initialize();
