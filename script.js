@@ -206,11 +206,22 @@ function findItem(items, query) {
 }
 
 function getScheduleCategory(itemName, sourceCategory) {
-  if (normalize(itemName).includes("ペットボトル")) {
+  if (normalize(itemName) === normalize("ペットボトル")) {
     return GARBAGE_CATEGORIES.BOTTLE;
   }
 
   return mapCategory(sourceCategory);
+}
+
+function getDisplayCategory(cityId, itemName, sourceCategory) {
+  if (
+    cityId === "setagaya" &&
+    normalize(itemName) === normalize("ペットボトル")
+  ) {
+    return "ペットボトル";
+  }
+
+  return sourceCategory || "カテゴリ未登録";
 }
 
 function getCityResult(slotName, query) {
@@ -236,7 +247,7 @@ function getCityResult(slotName, query) {
       town,
       block,
       itemName: query,
-      sourceCategory: "",
+      displayCategory: "品目が見つかりません",
       collectionDay: "—",
       note: "この自治体の品目データに該当する品目がありません。",
     };
@@ -265,7 +276,11 @@ function getCityResult(slotName, query) {
     town,
     block,
     itemName,
-    sourceCategory,
+    displayCategory: getDisplayCategory(
+      slot.city.value,
+      itemName,
+      sourceCategory,
+    ),
     collectionDay: schedule.requiresApplication
       ? "曜日収集なし（個別申し込み）"
       : schedule.collectionDay || "曜日を確認できません",
@@ -289,7 +304,7 @@ function renderCityResult(slotName, result) {
     `${result.city.name} ${result.town}${result.block}丁目`;
   document.getElementById(`${prefix}-item`).textContent = result.itemName;
   document.getElementById(`${prefix}-category`).textContent =
-    result.sourceCategory || "カテゴリ未登録";
+    result.displayCategory;
   document.getElementById(`${prefix}-day`).textContent =
     result.collectionDay;
   document.getElementById(`${prefix}-note`).textContent =
