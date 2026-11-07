@@ -205,7 +205,7 @@ function findItem(items, query) {
   return matches[0] ?? null;
 }
 
-function getScheduleCategory(cityId, itemName, sourceCategory) {
+function getScheduleCategory(itemName, sourceCategory) {
   if (normalize(itemName).includes("ペットボトル")) {
     return GARBAGE_CATEGORIES.BOTTLE;
   }
@@ -245,18 +245,14 @@ function getCityResult(slotName, query) {
   const itemName = match.name;
   const item = match.item;
   const sourceCategory = getItemCategory(item);
-  const category = getScheduleCategory(
-    slot.city.value,
-    itemName,
-    sourceCategory,
-  );
+  const scheduleCategory = getScheduleCategory(itemName, sourceCategory);
 
   const schedule = getCollectionSchedule({
     municipalityId: slot.city.value,
     schedules: city.schedules,
     town,
     block,
-    category,
+    category: scheduleCategory,
     note: getItemNote(item),
   });
 

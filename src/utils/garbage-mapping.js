@@ -31,10 +31,10 @@ export const MUNICIPALITIES = {
     scheduleKeys: {
       [GARBAGE_CATEGORIES.BURNABLE]: ["burnable"],
       [GARBAGE_CATEGORIES.NON_BURNABLE]: ["glass_metal"],
+      [GARBAGE_CATEGORIES.PLASTIC]: ["plastic"],
+      [GARBAGE_CATEGORIES.BOTTLE]: ["plastic"],
       [GARBAGE_CATEGORIES.GLASS]: ["glass_metal"],
       [GARBAGE_CATEGORIES.CAN]: ["glass_metal"],
-      [GARBAGE_CATEGORIES.PLASTIC]: ["plastic"],
-      [GARBAGE_CATEGORIES.BOTTLE]: ["resource"],
       [GARBAGE_CATEGORIES.RESOURCE]: ["resource"],
     },
   },
