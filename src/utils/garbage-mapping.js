@@ -67,6 +67,14 @@ export function mapCategory(sourceCategory) {
     return GARBAGE_CATEGORIES.OVERSIZED;
   }
 
+  if (/びん.*缶.*ペットボトル|缶.*ペットボトル/.test(value)) {
+    return GARBAGE_CATEGORIES.RESOURCE;
+  }
+
+  if (/陶器.*ガラス.*金属/.test(value)) {
+    return GARBAGE_CATEGORIES.NON_BURNABLE;
+  }
+
   if (/(ペットボトル|petbottle|pet_bottle)/.test(value)) {
     return GARBAGE_CATEGORIES.BOTTLE;
   }
