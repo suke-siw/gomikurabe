@@ -55,7 +55,7 @@ export const MUNICIPALITIES = {
   },
 };
 
-export function mapCategory(sourceCategory, municipalityId = "") {
+export function mapCategory(sourceCategory) {
   const value = normalizeText(sourceCategory);
 
   if (!value) return GARBAGE_CATEGORIES.RESOURCE;
@@ -68,16 +68,8 @@ export function mapCategory(sourceCategory, municipalityId = "") {
     return GARBAGE_CATEGORIES.BURNABLE;
   }
 
-  if (/陶器.*ガラス.*金属/.test(value)) {
-    return municipalityId === "nakano"
-      ? GARBAGE_CATEGORIES.NAKANO_CERAMIC_GLASS_METAL
-      : GARBAGE_CATEGORIES.NON_BURNABLE;
-  }
-
-  if (/(不燃|燃やさない|燃えない|nonburnable|non_burnable)/.test(value)) {
-    return municipalityId === "setagaya"
-      ? GARBAGE_CATEGORIES.SETAGAYA_NON_BURNABLE
-      : GARBAGE_CATEGORIES.NON_BURNABLE;
+  if (/陶器.*ガラス.*金属|不燃|燃やさない|燃えない|nonburnable|non_burnable/.test(value)) {
+    return GARBAGE_CATEGORIES.NON_BURNABLE;
   }
 
   if (/びん.*缶.*ペットボトル|缶.*ペットボトル/.test(value)) {
