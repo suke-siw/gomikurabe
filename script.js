@@ -13,6 +13,21 @@ const ITEM_DATA_URLS = {
   setagaya: "data/setagaya_garbage_items.json",
 };
 
+const SCHEDULE_CATEGORY_ROWS = {
+  nakano: [
+    { key: "burnable", label: "燃やすごみ" },
+    { key: "plastic", label: "資源プラスチック" },
+    { key: "glass_metal", label: "陶器・ガラス・金属ごみ" },
+    { key: "resource", label: "びん・缶・ペットボトル" },
+  ],
+  setagaya: [
+    { key: "burnable", label: "可燃ごみ" },
+    { key: "non_burnable", label: "不燃ごみ" },
+    { key: "bottle", label: "ペットボトル" },
+    { key: "resource", label: "資源" },
+  ],
+};
+
 const LOCATIONS = {
   current: {
     city: document.getElementById("current-city"),
@@ -46,6 +61,7 @@ const elements = {
   searchResult: document.getElementById("search-result"),
   matchedItem: document.getElementById("matched-item"),
   photoMockResult: document.getElementById("photo-mock-result"),
+  scheduleResults: document.getElementById("schedule-results"),
   dataError: document.getElementById("data-error"),
 };
 
@@ -419,6 +435,137 @@ function renderComparisonList() {
   elements.comparisonResults.append(fragment);
 }
 
+function getBlockSchedule(locationName) {
+  const location = appState[locationName];
+
+  if (!locationIsComplete(location)) {
+    return {
+      found: false,
+      message: "地域設定が未完了です。",
+    };
+  }
+
+  const data = cityData.get(location.city);
+  const townRecord = data?.schedules.find(
+    (record) => normalize(record.town) === normalize(location.town),
+  );
+
+  const blockRecord = townRecord?.blocks?.find((record) =>
+    (record.target_blocks ?? []).some(
+      (block) => String(block) === String(location.block),
+    ),
+  );
+
+  if (!blockRecord) {
+    return {
+      found: false,
+      message: `${location.town}${location.block}丁目のスケジュールが見つかりません。`,
+    };
+  }
+
+  return {
+    found: true,
+    schedule: blockRecord.schedule ?? {},
+  };
+}
+
+function getScheduleRows(locationName) {
+  const location = appState[locationName];
+  const { found, schedule, message } = getBlockSchedule(locationName);
+
+  if (!found) {
+    return {
+      found: false,
+      message,
+      rows: [],
+    };
+  }
+
+  const rows = SCHEDULE_CATEGORY_ROWS[location.city] ?? Object.keys(schedule).map((key) => ({
+    key,
+    label: key,
+  }));
+
+  return {
+    found: true,
+    rows: rows.map(({ key, label }) => ({
+      label,
+      day: schedule[key] || "データなし",
+    })),
+  };
+}
+
+function createScheduleCard(locationName) {
+  const location = appState[locationName];
+  const card = document.createElement("article");
+  card.className = "schedule-card";
+
+  const header = document.createElement("div");
+  header.className = "schedule-card-header";
+  header.append(
+    createTextElement(
+      "span",
+      "result-tag",
+      locationName === "current" ? "今の自治体" : "前の自治体",
+    ),
+    createTextElement("h3", "schedule-location", formatLocation(location)),
+  );
+
+  const content = document.createElement("div");
+  content.className = "schedule-card-content";
+
+  const result = getScheduleRows(locationName);
+
+  if (!result.found) {
+    content.append(createTextElement("p", "empty-state", result.message));
+  } else {
+    const list = document.createElement("dl");
+    list.className = "schedule-list";
+
+    for (const row of result.rows) {
+      const rowElement = document.createElement("div");
+      rowElement.className = "schedule-row";
+      rowElement.append(
+        createTextElement("dt", "schedule-category", row.label),
+        createTextElement("dd", "schedule-day", row.day),
+      );
+      list.append(rowElement);
+    }
+
+    const oversized = document.createElement("div");
+    oversized.className = "schedule-row schedule-row-note";
+    oversized.append(
+      createTextElement("dt", "schedule-category", "粗大ごみ"),
+      createTextElement("dd", "schedule-day", "曜日収集なし・個別申し込み"),
+    );
+
+    content.append(list, oversized);
+  }
+
+  card.append(header, content);
+  return card;
+}
+
+function renderScheduleList() {
+  elements.scheduleResults.replaceChildren();
+
+  if (!hasSavedLocations()) {
+    elements.scheduleResults.append(
+      createTextElement(
+        "p",
+        "empty-state",
+        "スケジュールを確認するには、今の地域と前の地域を設定して保存してください。",
+      ),
+    );
+    return;
+  }
+
+  elements.scheduleResults.append(
+    createScheduleCard("current"),
+    createScheduleCard("previous"),
+  );
+}
+
 function findItem(items, query) {
   const key = normalize(query);
   if (!key) return null;
@@ -656,6 +803,7 @@ function saveSettings() {
 
   updateLocationSummary();
   renderComparisonList();
+  renderScheduleList();
   elements.searchResult.classList.add("hidden");
   elements.photoMockResult.classList.add("hidden");
 }
@@ -706,6 +854,7 @@ async function loadCityData() {
     }
 
     renderComparisonList();
+    renderScheduleList();
     elements.dataError.textContent = "";
   } catch (error) {
     console.error(error);
@@ -776,6 +925,10 @@ for (const button of document.querySelectorAll("[data-tab-target]")) {
       const active = panel.id === targetId;
       panel.classList.toggle("hidden", !active);
       panel.hidden = !active;
+    }
+
+    if (targetId === "panel-schedule") {
+      renderScheduleList();
     }
   });
 }

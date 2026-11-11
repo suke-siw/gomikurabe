@@ -142,6 +142,17 @@
           >
             個別検索・写真判定
           </button>
+          <button
+            id="tab-schedule"
+            class="tab-button"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-schedule"
+            data-tab-target="panel-schedule"
+          >
+            ごみ出しスケジュール
+          </button>
         </nav>
 
         <main class="main">
@@ -171,9 +182,6 @@
               </div>
 
               <p id="comparison-message" class="inline-message" aria-live="polite"></p>
-              <p class="comparison-notice">
-                ※自治体によって分類名（「不燃ごみ」「陶器・ガラス・金属ごみ」など）の呼び方が異なる場合があります。実際の出し方やルールもご確認ください。
-              </p>
             </section>
 
             <section id="comparison-results" class="comparison-list" aria-live="polite"></section>
@@ -232,18 +240,9 @@
                   </div>
                   <div class="result-body">
                     <dl class="result-details">
-                      <div>
-                        <dt>品目</dt>
-                        <dd id="current-item"></dd>
-                      </div>
-                      <div>
-                        <dt>分別カテゴリ</dt>
-                        <dd id="current-category"></dd>
-                      </div>
-                      <div>
-                        <dt>収集曜日</dt>
-                        <dd id="current-day"></dd>
-                      </div>
+                      <div><dt>品目</dt><dd id="current-item"></dd></div>
+                      <div><dt>分別カテゴリ</dt><dd id="current-category"></dd></div>
+                      <div><dt>収集曜日</dt><dd id="current-day"></dd></div>
                     </dl>
                     <p id="current-note" class="info-text"></p>
                   </div>
@@ -256,18 +255,9 @@
                   </div>
                   <div class="result-body">
                     <dl class="result-details">
-                      <div>
-                        <dt>品目</dt>
-                        <dd id="previous-item"></dd>
-                      </div>
-                      <div>
-                        <dt>分別カテゴリ</dt>
-                        <dd id="previous-category"></dd>
-                      </div>
-                      <div>
-                        <dt>収集曜日</dt>
-                        <dd id="previous-day"></dd>
-                      </div>
+                      <div><dt>品目</dt><dd id="previous-item"></dd></div>
+                      <div><dt>分別カテゴリ</dt><dd id="previous-category"></dd></div>
+                      <div><dt>収集曜日</dt><dd id="previous-day"></dd></div>
                     </dl>
                     <p id="previous-note" class="info-text"></p>
                   </div>
@@ -276,6 +266,28 @@
 
               <div id="photo-mock-result" class="photo-mock-result hidden" role="status"></div>
             </section>
+          </section>
+
+          <section
+            id="panel-schedule"
+            class="tab-panel hidden"
+            role="tabpanel"
+            aria-labelledby="tab-schedule"
+            hidden
+          >
+            <section class="panel">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">保存した町名・丁目の収集日</p>
+                  <h2 class="panel-title">ごみ出しスケジュール</h2>
+                </div>
+              </div>
+              <p class="inline-message">
+                今の自治体と前の自治体の地域設定に基づく収集曜日です。
+              </p>
+            </section>
+
+            <section id="schedule-results" class="schedule-results" aria-live="polite"></section>
           </section>
 
           <p id="data-error" class="error-message" role="alert"></p>

@@ -55,7 +55,7 @@ export const MUNICIPALITIES = {
   },
 };
 
-export function mapCategory(sourceCategory) {
+export function mapCategory(sourceCategory, municipalityId = "") {
   const value = normalizeText(sourceCategory);
 
   if (!value) return GARBAGE_CATEGORIES.RESOURCE;
@@ -68,8 +68,16 @@ export function mapCategory(sourceCategory) {
     return GARBAGE_CATEGORIES.BURNABLE;
   }
 
-  if (/陶器.*ガラス.*金属|不燃|燃やさない|燃えない|nonburnable|non_burnable/.test(value)) {
-    return GARBAGE_CATEGORIES.NON_BURNABLE;
+  if (/陶器.*ガラス.*金属/.test(value)) {
+    return municipalityId === "nakano"
+      ? GARBAGE_CATEGORIES.NAKANO_CERAMIC_GLASS_METAL
+      : GARBAGE_CATEGORIES.NON_BURNABLE;
+  }
+
+  if (/(不燃|燃やさない|燃えない|nonburnable|non_burnable)/.test(value)) {
+    return municipalityId === "setagaya"
+      ? GARBAGE_CATEGORIES.SETAGAYA_NON_BURNABLE
+      : GARBAGE_CATEGORIES.NON_BURNABLE;
   }
 
   if (/びん.*缶.*ペットボトル|缶.*ペットボトル/.test(value)) {
@@ -187,15 +195,15 @@ export function getCollectionSchedule({
     throw new Error(`未登録の自治体です: ${municipalityId}`);
   }
 
-  const commonCategory = Object.values(GARBAGE_CATEGORIES).includes(category)
+  const mappedCategory = Object.values(GARBAGE_CATEGORIES).includes(category)
     ? category
     : mapCategory(category, municipalityId);
 
-  if (commonCategory === GARBAGE_CATEGORIES.OVERSIZED) {
+  if (mappedCategory === GARBAGE_CATEGORIES.OVERSIZED) {
     return {
       found: true,
-      category: commonCategory,
-      categoryLabel: CATEGORY_LABELS[commonCategory],
+      category: mappedCategory,
+      categoryLabel: CATEGORY_LABELS[mappedCategory],
       collectionDay: null,
       requiresApplication: true,
       note:
@@ -213,8 +221,8 @@ export function getCollectionSchedule({
   if (townRecords.length === 0) {
     return {
       found: false,
-      category: commonCategory,
-      categoryLabel: CATEGORY_LABELS[commonCategory],
+      category: mappedCategory,
+      categoryLabel: CATEGORY_LABELS[mappedCategory],
       collectionDay: null,
       requiresApplication: false,
       note: `${municipality.name}の「${town}」のスケジュールが見つかりません。`,
@@ -224,8 +232,8 @@ export function getCollectionSchedule({
   if (block === undefined || block === null || String(block).trim() === "") {
     return {
       found: false,
-      category: commonCategory,
-      categoryLabel: CATEGORY_LABELS[commonCategory],
+      category: mappedCategory,
+      categoryLabel: CATEGORY_LABELS[mappedCategory],
       collectionDay: null,
       requiresApplication: false,
       note: "収集曜日の確認には丁目の指定が必要です。",
@@ -237,8 +245,8 @@ export function getCollectionSchedule({
   if (!match) {
     return {
       found: false,
-      category: commonCategory,
-      categoryLabel: CATEGORY_LABELS[commonCategory],
+      category: mappedCategory,
+      categoryLabel: CATEGORY_LABELS[mappedCategory],
       collectionDay: null,
       requiresApplication: false,
       note: `${town}${block}丁目に一致するスケジュールが見つかりません。`,
@@ -246,7 +254,7 @@ export function getCollectionSchedule({
   }
 
   const schedule = match.blockRecord.schedule ?? {};
-  const scheduleKeys = getScheduleKey(municipality, commonCategory);
+  const scheduleKeys = getScheduleKey(municipality, mappedCategory);
   const collectionDay = scheduleKeys
     .map((key) => schedule[key])
     .find((day) => typeof day === "string" && day.trim() !== "");
@@ -254,8 +262,8 @@ export function getCollectionSchedule({
   if (!collectionDay) {
     return {
       found: false,
-      category: commonCategory,
-      categoryLabel: CATEGORY_LABELS[commonCategory],
+      category: mappedCategory,
+      categoryLabel: CATEGORY_LABELS[mappedCategory],
       collectionDay: null,
       requiresApplication: false,
       note: note || "このカテゴリの収集曜日データがありません。",
@@ -266,8 +274,8 @@ export function getCollectionSchedule({
 
   return {
     found: true,
-    category: commonCategory,
-    categoryLabel: CATEGORY_LABELS[commonCategory],
+    category: mappedCategory,
+    categoryLabel: CATEGORY_LABELS[mappedCategory],
     collectionDay,
     requiresApplication: false,
     note,
