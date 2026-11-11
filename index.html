@@ -23,9 +23,90 @@
             </svg>
           </div>
         </div>
+
+        <div class="location-summary">
+          <p class="summary-label">現在の設定</p>
+          <p id="location-summary-text" class="summary-text">地域設定を行ってください</p>
+          <button id="toggle-settings" class="settings-toggle" type="button" aria-expanded="true" aria-controls="settings-panel">
+            地域を設定・変更
+          </button>
+        </div>
       </header>
 
-      <nav class="tabs" role="tablist" aria-label="画面切り替え">
+      <section id="settings-panel" class="settings-panel" aria-labelledby="settings-heading">
+        <div class="settings-heading-row">
+          <div>
+            <p class="eyebrow">アプリ全体で共有する設定</p>
+            <h2 id="settings-heading" class="panel-title">引っ越し前後の地域</h2>
+          </div>
+          <span id="settings-status" class="settings-status">未設定</span>
+        </div>
+
+        <div class="location-settings-grid">
+          <fieldset class="location-fieldset">
+            <legend>今の自治体</legend>
+            <div class="field">
+              <label class="label" for="current-city">自治体</label>
+              <div class="select-wrap">
+                <select id="current-city"></select>
+                <span class="select-chevron" aria-hidden="true">⌄</span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="current-town">町名</label>
+              <div class="select-wrap">
+                <select id="current-town" disabled>
+                  <option value="">町名を選択</option>
+                </select>
+                <span class="select-chevron" aria-hidden="true">⌄</span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="current-block">丁目</label>
+              <div class="select-wrap">
+                <select id="current-block" disabled>
+                  <option value="">丁目を選択</option>
+                </select>
+                <span class="select-chevron" aria-hidden="true">⌄</span>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="location-fieldset">
+            <legend>前の自治体</legend>
+            <div class="field">
+              <label class="label" for="previous-city">自治体</label>
+              <div class="select-wrap">
+                <select id="previous-city"></select>
+                <span class="select-chevron" aria-hidden="true">⌄</span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="previous-town">町名</label>
+              <div class="select-wrap">
+                <select id="previous-town" disabled>
+                  <option value="">町名を選択</option>
+                </select>
+                <span class="select-chevron" aria-hidden="true">⌄</span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="previous-block">丁目</label>
+              <div class="select-wrap">
+                <select id="previous-block" disabled>
+                  <option value="">丁目を選択</option>
+                </select>
+                <span class="select-chevron" aria-hidden="true">⌄</span>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <button id="save-settings" class="search-button" type="button">地域設定を保存</button>
+        <p id="settings-message" class="inline-message" aria-live="polite"></p>
+      </section>
+
+      <nav class="tabs" role="tablist" aria-label="機能切り替え">
         <button
           id="tab-compare"
           class="tab-button is-active"
@@ -60,28 +141,10 @@
           <section class="panel">
             <div class="section-heading">
               <div>
-                <p class="eyebrow">自治体間のルールをチェック</p>
+                <p class="eyebrow">保存した地域設定を使って比較</p>
                 <h2 class="panel-title">自治体比較一覧</h2>
               </div>
-              <span id="common-item-count" class="count-badge">読み込み中</span>
-            </div>
-
-            <div class="city-select-grid">
-              <div class="field">
-                <label class="label" for="compare-previous-city">引っ越し前</label>
-                <div class="select-wrap">
-                  <select id="compare-previous-city"></select>
-                  <span class="select-chevron" aria-hidden="true">⌄</span>
-                </div>
-              </div>
-
-              <div class="field">
-                <label class="label" for="compare-new-city">引っ越し後</label>
-                <div class="select-wrap">
-                  <select id="compare-new-city"></select>
-                  <span class="select-chevron" aria-hidden="true">⌄</span>
-                </div>
-              </div>
+              <span id="common-item-count" class="count-badge">0件</span>
             </div>
 
             <div class="field">
@@ -93,7 +156,6 @@
                 autocomplete="off"
               />
             </div>
-
             <p id="comparison-message" class="inline-message" aria-live="polite"></p>
           </section>
 
@@ -108,74 +170,8 @@
           hidden
         >
           <section class="panel">
-            <p class="eyebrow">引っ越し前後の地域を指定</p>
+            <p class="eyebrow">保存した今の地域・前の地域で検索</p>
             <h2 class="panel-title">個別検索・写真判定</h2>
-
-            <div class="comparison-selectors">
-              <fieldset class="city-fieldset">
-                <legend class="fieldset-title">引っ越し前</legend>
-
-                <div class="field">
-                  <label class="label" for="previous-city">自治体</label>
-                  <div class="select-wrap">
-                    <select id="previous-city"></select>
-                    <span class="select-chevron" aria-hidden="true">⌄</span>
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label class="label" for="previous-town">町名</label>
-                  <div class="select-wrap">
-                    <select id="previous-town" disabled>
-                      <option value="">町名を選択</option>
-                    </select>
-                    <span class="select-chevron" aria-hidden="true">⌄</span>
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label class="label" for="previous-block">丁目</label>
-                  <div class="select-wrap">
-                    <select id="previous-block" disabled>
-                      <option value="">丁目を選択</option>
-                    </select>
-                    <span class="select-chevron" aria-hidden="true">⌄</span>
-                  </div>
-                </div>
-              </fieldset>
-
-              <fieldset class="city-fieldset">
-                <legend class="fieldset-title">引っ越し後</legend>
-
-                <div class="field">
-                  <label class="label" for="new-city">自治体</label>
-                  <div class="select-wrap">
-                    <select id="new-city"></select>
-                    <span class="select-chevron" aria-hidden="true">⌄</span>
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label class="label" for="new-town">町名</label>
-                  <div class="select-wrap">
-                    <select id="new-town" disabled>
-                      <option value="">町名を選択</option>
-                    </select>
-                    <span class="select-chevron" aria-hidden="true">⌄</span>
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label class="label" for="new-block">丁目</label>
-                  <div class="select-wrap">
-                    <select id="new-block" disabled>
-                      <option value="">丁目を選択</option>
-                    </select>
-                    <span class="select-chevron" aria-hidden="true">⌄</span>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
 
             <div class="field item-field">
               <label class="label" for="item-search">品目</label>
@@ -199,9 +195,7 @@
 
             <div id="search-suggestions" class="search-suggestions hidden" role="listbox" aria-label="品目候補"></div>
 
-            <button type="button" id="search-button" class="search-button">
-              引っ越し前後を比較
-            </button>
+            <button id="search-button" class="search-button" type="button">引っ越し前後を比較</button>
             <p id="search-error" class="error-message" role="alert"></p>
           </section>
 
@@ -214,49 +208,31 @@
             <div class="individual-comparison">
               <article class="result-card">
                 <div class="result-top">
-                  <span class="result-tag">引っ越し前</span>
-                  <span id="previous-location" class="result-sub"></span>
+                  <span class="result-tag">今の自治体</span>
+                  <span id="current-location" class="result-sub"></span>
                 </div>
                 <div class="result-body">
                   <dl class="result-details">
-                    <div>
-                      <dt>品目</dt>
-                      <dd id="previous-item"></dd>
-                    </div>
-                    <div>
-                      <dt>分別カテゴリ</dt>
-                      <dd id="previous-category"></dd>
-                    </div>
-                    <div>
-                      <dt>収集曜日</dt>
-                      <dd id="previous-day"></dd>
-                    </div>
+                    <div><dt>品目</dt><dd id="current-item"></dd></div>
+                    <div><dt>分別カテゴリ</dt><dd id="current-category"></dd></div>
+                    <div><dt>収集曜日</dt><dd id="current-day"></dd></div>
                   </dl>
-                  <p id="previous-note" class="info-text"></p>
+                  <p id="current-note" class="info-text"></p>
                 </div>
               </article>
 
               <article class="result-card">
                 <div class="result-top">
-                  <span class="result-tag">引っ越し後</span>
-                  <span id="new-location" class="result-sub"></span>
+                  <span class="result-tag">前の自治体</span>
+                  <span id="previous-location-result" class="result-sub"></span>
                 </div>
                 <div class="result-body">
                   <dl class="result-details">
-                    <div>
-                      <dt>品目</dt>
-                      <dd id="new-item"></dd>
-                    </div>
-                    <div>
-                      <dt>分別カテゴリ</dt>
-                      <dd id="new-category"></dd>
-                    </div>
-                    <div>
-                      <dt>収集曜日</dt>
-                      <dd id="new-day"></dd>
-                    </div>
+                    <div><dt>品目</dt><dd id="previous-item"></dd></div>
+                    <div><dt>分別カテゴリ</dt><dd id="previous-category"></dd></div>
+                    <div><dt>収集曜日</dt><dd id="previous-day"></dd></div>
                   </dl>
-                  <p id="new-note" class="info-text"></p>
+                  <p id="previous-note" class="info-text"></p>
                 </div>
               </article>
             </div>
