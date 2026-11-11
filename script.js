@@ -288,10 +288,11 @@ function getScheduleCategory(itemName, sourceCategory, cityId) {
 }
 
 function getComparisonCategory(item, cityId) {
-  const itemName = getItemName(item);
-  const sourceCategory = getItemCategory(item);
-
-  return getScheduleCategory(itemName, sourceCategory, cityId);
+  return getScheduleCategory(
+    getItemName(item),
+    getItemCategory(item),
+    cityId,
+  );
 }
 
 function buildCommonItems() {
@@ -337,8 +338,6 @@ function buildCommonItems() {
       name,
       previousItem,
       currentItem,
-      previousCategory,
-      currentCategory,
     }];
   });
 }
@@ -365,11 +364,8 @@ function createComparisonCard(entry) {
     ["current", entry.currentItem],
     ["previous", entry.previousItem],
   ]) {
-    const category = getItemCategory(item);
-    const note = getItemNote(item);
     const cityCard = document.createElement("section");
     cityCard.className = "comparison-city-card";
-
     cityCard.append(
       createTextElement(
         "h4",
@@ -377,11 +373,10 @@ function createComparisonCard(entry) {
         `${locationName === "current" ? "今" : "前"}：${formatLocation(appState[locationName])}`,
       ),
       createTextElement("span", "detail-label", "分別カテゴリ"),
-      createTextElement("p", "comparison-category", category),
+      createTextElement("p", "comparison-category", getItemCategory(item)),
       createTextElement("span", "detail-label", "注意事項"),
-      createTextElement("p", "comparison-note", note),
+      createTextElement("p", "comparison-note", getItemNote(item)),
     );
-
     columns.append(cityCard);
   }
 
@@ -448,23 +443,15 @@ function collectCandidates(query) {
   const key = normalize(query);
   if (!key || !hasSavedLocations()) return [];
 
-  const names = new Map();
+  const currentData = cityData.get(appState.current.city);
+  if (!currentData) return [];
 
-  for (const cityId of [appState.current.city, appState.previous.city]) {
-    const data = cityData.get(cityId);
-    if (!data) continue;
-
-    for (const item of data.items) {
-      const name = getItemName(item);
-      const normalizedName = normalize(name);
-
-      if (normalizedName.includes(key) && !names.has(normalizedName)) {
-        names.set(normalizedName, name);
-      }
-    }
-  }
-
-  return [...names.values()]
+  return currentData.items
+    .map(getItemName)
+    .filter((name) => name && normalize(name).includes(key))
+    .filter((name, index, names) =>
+      names.findIndex((candidate) => normalize(candidate) === normalize(name)) === index,
+    )
     .sort((a, b) => {
       const aKey = normalize(a);
       const bKey = normalize(b);
@@ -498,7 +485,13 @@ function renderSuggestions() {
     button.className = "suggestion-button";
     button.setAttribute("role", "option");
     button.textContent = name;
-    button.addEventListener("click", () => searchItem(name));
+
+    button.addEventListener("click", () => {
+      elements.itemSearch.value = name;
+      elements.suggestions.classList.add("hidden");
+      searchItem(name);
+    });
+
     list.append(button);
   }
 
@@ -524,7 +517,6 @@ function getLocationItemResult(locationName, query) {
     return {
       valid: true,
       found: false,
-      cityName: MUNICIPALITIES[location.city].name,
       location,
       itemName: query,
       category: "品目が見つかりません",
@@ -563,7 +555,6 @@ function getLocationItemResult(locationName, query) {
   return {
     valid: true,
     found: true,
-    cityName: MUNICIPALITIES[location.city].name,
     location,
     itemName,
     category: displayCategory,
@@ -616,7 +607,9 @@ function searchItem(selectedName = null, photoMock = false) {
     return;
   }
 
-  if (!selectedName) {
+  if (selectedName) {
+    elements.itemSearch.value = selectedName;
+  } else {
     renderSuggestions();
   }
 

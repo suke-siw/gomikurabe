@@ -636,6 +636,16 @@ select:focus-visible {
   .comparison-city-card {
     padding: 10px;
   }
+
+  .comparison-notice {
+    margin: 8px 0 0;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #fffbeb;
+    color: #854d0e;
+    font-size: 11px;
+    line-height: 1.6;
+  }
 }
 
 @media (max-width: 400px) {
