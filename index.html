@@ -27,7 +27,13 @@
         <div class="location-summary">
           <p class="summary-label">現在の設定</p>
           <p id="location-summary-text" class="summary-text">地域設定を行ってください</p>
-          <button id="toggle-settings" class="settings-toggle" type="button" aria-expanded="true" aria-controls="settings-panel">
+          <button
+            id="toggle-settings"
+            class="settings-toggle"
+            type="button"
+            aria-expanded="true"
+            aria-controls="settings-panel"
+          >
             地域を設定・変更
           </button>
         </div>
@@ -45,6 +51,7 @@
         <div class="location-settings-grid">
           <fieldset class="location-fieldset">
             <legend>今の自治体</legend>
+
             <div class="field">
               <label class="label" for="current-city">自治体</label>
               <div class="select-wrap">
@@ -52,6 +59,7 @@
                 <span class="select-chevron" aria-hidden="true">⌄</span>
               </div>
             </div>
+
             <div class="field">
               <label class="label" for="current-town">町名</label>
               <div class="select-wrap">
@@ -61,6 +69,7 @@
                 <span class="select-chevron" aria-hidden="true">⌄</span>
               </div>
             </div>
+
             <div class="field">
               <label class="label" for="current-block">丁目</label>
               <div class="select-wrap">
@@ -74,6 +83,7 @@
 
           <fieldset class="location-fieldset">
             <legend>前の自治体</legend>
+
             <div class="field">
               <label class="label" for="previous-city">自治体</label>
               <div class="select-wrap">
@@ -81,6 +91,7 @@
                 <span class="select-chevron" aria-hidden="true">⌄</span>
               </div>
             </div>
+
             <div class="field">
               <label class="label" for="previous-town">町名</label>
               <div class="select-wrap">
@@ -90,6 +101,7 @@
                 <span class="select-chevron" aria-hidden="true">⌄</span>
               </div>
             </div>
+
             <div class="field">
               <label class="label" for="previous-block">丁目</label>
               <div class="select-wrap">
@@ -106,143 +118,166 @@
         <p id="settings-message" class="inline-message" aria-live="polite"></p>
       </section>
 
-      <nav class="tabs" role="tablist" aria-label="機能切り替え">
-        <button
-          id="tab-compare"
-          class="tab-button is-active"
-          type="button"
-          role="tab"
-          aria-selected="true"
-          aria-controls="panel-compare"
-          data-tab-target="panel-compare"
-        >
-          自治体比較一覧
-        </button>
-        <button
-          id="tab-navi"
-          class="tab-button"
-          type="button"
-          role="tab"
-          aria-selected="false"
-          aria-controls="panel-navi"
-          data-tab-target="panel-navi"
-        >
-          個別検索・写真判定
-        </button>
-      </nav>
+      <div id="app-features" hidden>
+        <nav class="tabs" role="tablist" aria-label="機能切り替え">
+          <button
+            id="tab-compare"
+            class="tab-button is-active"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            aria-controls="panel-compare"
+            data-tab-target="panel-compare"
+          >
+            自治体比較一覧
+          </button>
+          <button
+            id="tab-navi"
+            class="tab-button"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-navi"
+            data-tab-target="panel-navi"
+          >
+            個別検索・写真判定
+          </button>
+        </nav>
 
-      <main class="main">
-        <section
-          id="panel-compare"
-          class="tab-panel"
-          role="tabpanel"
-          aria-labelledby="tab-compare"
-        >
-          <section class="panel">
-            <div class="section-heading">
-              <div>
-                <p class="eyebrow">保存した地域設定を使って比較</p>
-                <h2 class="panel-title">自治体比較一覧</h2>
+        <main class="main">
+          <section
+            id="panel-compare"
+            class="tab-panel"
+            role="tabpanel"
+            aria-labelledby="tab-compare"
+          >
+            <section class="panel">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">保存した地域設定を使って比較</p>
+                  <h2 class="panel-title">自治体比較一覧</h2>
+                </div>
+                <span id="common-item-count" class="count-badge">0件</span>
               </div>
-              <span id="common-item-count" class="count-badge">0件</span>
-            </div>
 
-            <div class="field">
-              <label class="label" for="comparison-search">品目を絞り込む</label>
-              <input
-                id="comparison-search"
-                type="search"
-                placeholder="品目名を入力"
-                autocomplete="off"
-              />
-            </div>
-            <p id="comparison-message" class="inline-message" aria-live="polite"></p>
-          </section>
-
-          <section id="comparison-results" class="comparison-list" aria-live="polite"></section>
-        </section>
-
-        <section
-          id="panel-navi"
-          class="tab-panel hidden"
-          role="tabpanel"
-          aria-labelledby="tab-navi"
-          hidden
-        >
-          <section class="panel">
-            <p class="eyebrow">保存した今の地域・前の地域で検索</p>
-            <h2 class="panel-title">個別検索・写真判定</h2>
-
-            <div class="field item-field">
-              <label class="label" for="item-search">品目</label>
-              <div class="search-row">
+              <div class="field">
+                <label class="label" for="comparison-search">品目を絞り込む</label>
                 <input
-                  id="item-search"
+                  id="comparison-search"
                   type="search"
-                  placeholder="例：びん、アタッシュケース"
+                  placeholder="品目名を入力"
                   autocomplete="off"
                 />
-                <label class="camera-btn" aria-label="写真を撮影または選択">
-                  <input id="camera-input" type="file" accept="image/*" capture="environment" />
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22" aria-hidden="true">
-                    <path d="M4 8h3l1.5-2h7L17 8h3v11H4z"></path>
-                    <circle cx="12" cy="13" r="3"></circle>
-                  </svg>
-                </label>
               </div>
-              <p class="field-hint">写真判定はデモ用のモックです。画像は認識・送信されません。</p>
-            </div>
 
-            <div id="search-suggestions" class="search-suggestions hidden" role="listbox" aria-label="品目候補"></div>
+              <p id="comparison-message" class="inline-message" aria-live="polite"></p>
+            </section>
 
-            <button id="search-button" class="search-button" type="button">引っ越し前後を比較</button>
-            <p id="search-error" class="error-message" role="alert"></p>
+            <section id="comparison-results" class="comparison-list" aria-live="polite"></section>
           </section>
 
-          <section id="search-result" class="search-result hidden" aria-live="polite">
-            <div class="results-header">
-              <h2 class="results-title">検索結果</h2>
-              <p id="matched-item" class="matched-item"></p>
-            </div>
+          <section
+            id="panel-navi"
+            class="tab-panel hidden"
+            role="tabpanel"
+            aria-labelledby="tab-navi"
+            hidden
+          >
+            <section class="panel">
+              <p class="eyebrow">保存した今の地域・前の地域で検索</p>
+              <h2 class="panel-title">個別検索・写真判定</h2>
 
-            <div class="individual-comparison">
-              <article class="result-card">
-                <div class="result-top">
-                  <span class="result-tag">今の自治体</span>
-                  <span id="current-location" class="result-sub"></span>
+              <div class="field item-field">
+                <label class="label" for="item-search">品目</label>
+                <div class="search-row">
+                  <input
+                    id="item-search"
+                    type="search"
+                    placeholder="例：びん、アタッシュケース"
+                    autocomplete="off"
+                  />
+                  <label class="camera-btn" aria-label="写真を撮影または選択">
+                    <input id="camera-input" type="file" accept="image/*" capture="environment" />
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22" aria-hidden="true">
+                      <path d="M4 8h3l1.5-2h7L17 8h3v11H4z"></path>
+                      <circle cx="12" cy="13" r="3"></circle>
+                    </svg>
+                  </label>
                 </div>
-                <div class="result-body">
-                  <dl class="result-details">
-                    <div><dt>品目</dt><dd id="current-item"></dd></div>
-                    <div><dt>分別カテゴリ</dt><dd id="current-category"></dd></div>
-                    <div><dt>収集曜日</dt><dd id="current-day"></dd></div>
-                  </dl>
-                  <p id="current-note" class="info-text"></p>
-                </div>
-              </article>
+                <p class="field-hint">写真判定はデモ用のモックです。画像は認識・送信されません。</p>
+              </div>
 
-              <article class="result-card">
-                <div class="result-top">
-                  <span class="result-tag">前の自治体</span>
-                  <span id="previous-location-result" class="result-sub"></span>
-                </div>
-                <div class="result-body">
-                  <dl class="result-details">
-                    <div><dt>品目</dt><dd id="previous-item"></dd></div>
-                    <div><dt>分別カテゴリ</dt><dd id="previous-category"></dd></div>
-                    <div><dt>収集曜日</dt><dd id="previous-day"></dd></div>
-                  </dl>
-                  <p id="previous-note" class="info-text"></p>
-                </div>
-              </article>
-            </div>
+              <div id="search-suggestions" class="search-suggestions hidden" role="listbox" aria-label="品目候補"></div>
 
-            <div id="photo-mock-result" class="photo-mock-result hidden" role="status"></div>
+              <button id="search-button" class="search-button" type="button">
+                引っ越し前後を比較
+              </button>
+              <p id="search-error" class="error-message" role="alert"></p>
+            </section>
+
+            <section id="search-result" class="search-result hidden" aria-live="polite">
+              <div class="results-header">
+                <h2 class="results-title">検索結果</h2>
+                <p id="matched-item" class="matched-item"></p>
+              </div>
+
+              <div class="individual-comparison">
+                <article class="result-card">
+                  <div class="result-top">
+                    <span class="result-tag">今の自治体</span>
+                    <span id="current-location" class="result-sub"></span>
+                  </div>
+                  <div class="result-body">
+                    <dl class="result-details">
+                      <div>
+                        <dt>品目</dt>
+                        <dd id="current-item"></dd>
+                      </div>
+                      <div>
+                        <dt>分別カテゴリ</dt>
+                        <dd id="current-category"></dd>
+                      </div>
+                      <div>
+                        <dt>収集曜日</dt>
+                        <dd id="current-day"></dd>
+                      </div>
+                    </dl>
+                    <p id="current-note" class="info-text"></p>
+                  </div>
+                </article>
+
+                <article class="result-card">
+                  <div class="result-top">
+                    <span class="result-tag">前の自治体</span>
+                    <span id="previous-location-result" class="result-sub"></span>
+                  </div>
+                  <div class="result-body">
+                    <dl class="result-details">
+                      <div>
+                        <dt>品目</dt>
+                        <dd id="previous-item"></dd>
+                      </div>
+                      <div>
+                        <dt>分別カテゴリ</dt>
+                        <dd id="previous-category"></dd>
+                      </div>
+                      <div>
+                        <dt>収集曜日</dt>
+                        <dd id="previous-day"></dd>
+                      </div>
+                    </dl>
+                    <p id="previous-note" class="info-text"></p>
+                  </div>
+                </article>
+              </div>
+
+              <div id="photo-mock-result" class="photo-mock-result hidden" role="status"></div>
+            </section>
           </section>
-        </section>
 
-        <p id="data-error" class="error-message" role="alert"></p>
-      </main>
+          <p id="data-error" class="error-message" role="alert"></p>
+        </main>
+      </div>
     </div>
 
     <script type="module" src="script.js"></script>

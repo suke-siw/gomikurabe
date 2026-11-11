@@ -34,6 +34,10 @@ select {
   font: inherit;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 .app-shell {
   width: 100%;
   max-width: 760px;
@@ -122,10 +126,6 @@ select {
   background: #fff;
 }
 
-.settings-panel[hidden] {
-  display: none;
-}
-
 .settings-heading-row {
   display: flex;
   align-items: flex-start;
@@ -165,7 +165,6 @@ select {
 }
 
 .location-settings-grid,
-.city-select-grid,
 .comparison-card-columns,
 .individual-comparison {
   display: grid;
@@ -420,8 +419,8 @@ select:disabled {
   border: 1px dashed #cbd5e1;
   border-radius: 15px;
   color: var(--muted);
-  text-align: center;
   font-size: 13px;
+  text-align: center;
 }
 
 .item-field {
@@ -625,12 +624,12 @@ select:focus-visible {
     border-radius: 21px;
   }
 
-  .main {
+  .main,
+  .settings-panel {
     padding: 12px;
   }
 
-  .panel,
-  .settings-panel {
+  .panel {
     padding: 13px;
   }
 
@@ -641,7 +640,6 @@ select:focus-visible {
 
 @media (max-width: 400px) {
   .location-settings-grid,
-  .city-select-grid,
   .comparison-card-columns,
   .individual-comparison {
     grid-template-columns: 1fr;

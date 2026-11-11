@@ -27,6 +27,7 @@ const LOCATIONS = {
 };
 
 const elements = {
+  features: document.getElementById("app-features"),
   summary: document.getElementById("location-summary-text"),
   toggleSettings: document.getElementById("toggle-settings"),
   settingsPanel: document.getElementById("settings-panel"),
@@ -86,23 +87,23 @@ function getItemNote(item) {
     : item?.note ?? item?.notes ?? item?.caution ?? item?.description ?? "";
 }
 
-function setOptions(select, entries, placeholder = null) {
+function cityOptions() {
+  return Object.entries(MUNICIPALITIES).map(([id, municipality]) => [
+    id,
+    municipality.name,
+  ]);
+}
+
+function setOptions(select, options, placeholder = null) {
   select.replaceChildren();
 
   if (placeholder !== null) {
     select.add(new Option(placeholder, ""));
   }
 
-  for (const [value, label] of entries) {
+  for (const [value, label] of options) {
     select.add(new Option(label, value));
   }
-}
-
-function cityOptions() {
-  return Object.entries(MUNICIPALITIES).map(([id, municipality]) => [
-    id,
-    municipality.name,
-  ]);
 }
 
 function populateCityOptions() {
@@ -111,9 +112,21 @@ function populateCityOptions() {
   for (const location of Object.values(LOCATIONS)) {
     setOptions(location.city, options);
   }
+
+  const cityIds = Object.keys(MUNICIPALITIES);
+  const currentDefault = cityIds.includes("setagaya") ? "setagaya" : cityIds[0];
+  const previousDefault = cityIds.includes("nakano")
+    ? "nakano"
+    : cityIds.find((id) => id !== currentDefault) || currentDefault;
+
+  LOCATIONS.current.city.value = currentDefault;
+  LOCATIONS.previous.city.value = previousDefault;
+
+  populateTowns("current");
+  populateTowns("previous");
 }
 
-function populateTowns(locationName, preferredTown = "") {
+function populateTowns(locationName, preferredTown = "", preferredBlock = "") {
   const location = LOCATIONS[locationName];
   const data = cityData.get(location.city.value);
 
@@ -132,9 +145,12 @@ function populateTowns(locationName, preferredTown = "") {
 
   location.town.disabled = false;
 
-  if (preferredTown && [...location.town.options].some((option) => option.value === preferredTown)) {
+  if (
+    preferredTown &&
+    [...location.town.options].some((option) => option.value === preferredTown)
+  ) {
     location.town.value = preferredTown;
-    populateBlocks(locationName);
+    populateBlocks(locationName, preferredBlock);
   }
 }
 
@@ -166,38 +182,13 @@ function populateBlocks(locationName, preferredBlock = "") {
 
   location.block.disabled = blocks.length === 0;
 
-  if (preferredBlock && blocks.includes(String(preferredBlock))) {
+  if (blocks.includes(String(preferredBlock))) {
     location.block.value = String(preferredBlock);
   }
 }
 
-function restoreSavedLocations() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
-    if (!saved || typeof saved !== "object") return;
-
-    for (const name of ["current", "previous"]) {
-      const value = saved[name];
-      const location = LOCATIONS[name];
-
-      if (!value || !MUNICIPALITIES[value.city]) continue;
-
-      location.city.value = value.city;
-      populateTowns(name, value.town);
-      if (value.town) populateBlocks(name, value.block);
-    }
-
-    appState = {
-      current: saved.current ?? null,
-      previous: saved.previous ?? null,
-    };
-  } catch {
-    localStorage.removeItem(STORAGE_KEY);
-  }
-}
-
-function readLocationForm(name) {
-  const location = LOCATIONS[name];
+function readLocation(locationName) {
+  const location = LOCATIONS[locationName];
 
   return {
     city: location.city.value,
@@ -207,19 +198,28 @@ function readLocationForm(name) {
 }
 
 function locationIsComplete(location) {
+  if (!location || !MUNICIPALITIES[location.city] || !location.town || !location.block) {
+    return false;
+  }
+
+  const data = cityData.get(location.city);
+  const townRecord = data?.schedules.find(
+    (record) => normalize(record.town) === normalize(location.town),
+  );
+
   return Boolean(
-    location &&
-    MUNICIPALITIES[location.city] &&
-    location.town &&
-    location.block,
+    townRecord?.blocks?.some((blockRecord) =>
+      (blockRecord.target_blocks ?? []).some(
+        (block) => String(block) === String(location.block),
+      ),
+    ),
   );
 }
 
 function formatLocation(location) {
   if (!locationIsComplete(location)) return "未設定";
 
-  const municipality = MUNICIPALITIES[location.city];
-  return `${municipality.name} ${location.town}${location.block}丁目`;
+  return `${MUNICIPALITIES[location.city].name} ${location.town}${location.block}丁目`;
 }
 
 function hasSavedLocations() {
@@ -241,26 +241,35 @@ function updateLocationSummary() {
   elements.settingsStatus.classList.remove("is-saved");
 }
 
-function updateLocationSelects() {
-  const options = cityOptions();
+function restoreSavedLocations() {
+  let saved;
 
-  for (const location of Object.values(LOCATIONS)) {
-    const selectedCity = location.city.value;
-    setOptions(location.city, options);
-    if (selectedCity && MUNICIPALITIES[selectedCity]) {
-      location.city.value = selectedCity;
-    }
+  try {
+    saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+  } catch {
+    localStorage.removeItem(STORAGE_KEY);
+    return;
   }
-}
 
-function requireLocations() {
-  if (hasSavedLocations()) return true;
+  if (!saved || typeof saved !== "object") return;
 
-  elements.settingsMessage.textContent =
-    "各タブを使う前に、今の自治体と前の自治体の町名・丁目を選択して保存してください。";
-  elements.settingsPanel.hidden = false;
-  elements.toggleSettings.setAttribute("aria-expanded", "true");
-  return false;
+  for (const name of ["current", "previous"]) {
+    const value = saved[name];
+
+    if (!value || !MUNICIPALITIES[value.city]) continue;
+
+    const location = LOCATIONS[name];
+    location.city.value = value.city;
+    populateTowns(name, value.town, value.block);
+  }
+
+  const current = readLocation("current");
+  const previous = readLocation("previous");
+
+  appState = {
+    current: locationIsComplete(current) ? current : null,
+    previous: locationIsComplete(previous) ? previous : null,
+  };
 }
 
 function categoryEquivalent(category) {
@@ -276,27 +285,28 @@ function categoryEquivalent(category) {
 function buildCommonItems() {
   if (!hasSavedLocations()) return [];
 
-  const previous = cityData.get(appState.previous.city);
-  const current = cityData.get(appState.current.city);
+  const previousData = cityData.get(appState.previous.city);
+  const currentData = cityData.get(appState.current.city);
 
-  if (!previous || !current) return [];
+  if (!previousData || !currentData) return [];
 
   const currentByName = new Map();
 
-  for (const item of current.items) {
+  for (const item of currentData.items) {
     const key = normalize(getItemName(item));
     if (key && !currentByName.has(key)) currentByName.set(key, item);
   }
 
   const seen = new Set();
 
-  return previous.items.flatMap((previousItem) => {
+  return previousData.items.flatMap((previousItem) => {
     const name = getItemName(previousItem);
     const key = normalize(name);
 
     if (!key || seen.has(key) || !currentByName.has(key)) return [];
 
     seen.add(key);
+
     return [{
       name,
       previousItem,
@@ -305,8 +315,8 @@ function buildCommonItems() {
   });
 }
 
-function createTextElement(tag, className, text) {
-  const element = document.createElement(tag);
+function createTextElement(tagName, className, text) {
+  const element = document.createElement(tagName);
   if (className) element.className = className;
   element.textContent = text || "記載なし";
   return element;
@@ -320,7 +330,8 @@ function createComparisonCard(entry) {
   const currentCategory = getItemCategory(entry.currentItem);
   const previousNote = getItemNote(entry.previousItem);
   const currentNote = getItemNote(entry.currentItem);
-  const hasDifference =
+
+  const differs =
     categoryEquivalent(previousCategory) !== categoryEquivalent(currentCategory) ||
     normalize(previousNote) !== normalize(currentNote);
 
@@ -330,8 +341,8 @@ function createComparisonCard(entry) {
   heading.append(
     createTextElement(
       "span",
-      hasDifference ? "difference-badge is-different" : "difference-badge",
-      hasDifference ? "違いあり" : "同じルール",
+      differs ? "difference-badge is-different" : "difference-badge",
+      differs ? "違いあり" : "同じルール",
     ),
   );
 
@@ -348,7 +359,7 @@ function createComparisonCard(entry) {
       createTextElement(
         "h4",
         "comparison-city-name",
-        locationName === "current" ? `今：${formatLocation(appState.current)}` : `前：${formatLocation(appState.previous)}`,
+        `${locationName === "current" ? "今" : "前"}：${formatLocation(appState[locationName])}`,
       ),
       createTextElement("span", "detail-label", "分別カテゴリ"),
       createTextElement("p", "comparison-category", category),
@@ -404,14 +415,17 @@ function findItem(items, query) {
   const exact = items.find((item) => normalize(getItemName(item)) === key);
   if (exact) return exact;
 
-  const prefix = items
+  const prefixMatches = items
     .filter((item) => normalize(getItemName(item)).startsWith(key))
     .sort((a, b) => getItemName(a).length - getItemName(b).length);
-  if (prefix.length) return prefix[0];
 
-  return items
-    .filter((item) => normalize(getItemName(item)).includes(key))
-    .sort((a, b) => getItemName(a).length - getItemName(b).length)[0] ?? null;
+  if (prefixMatches.length > 0) return prefixMatches[0];
+
+  return (
+    items
+      .filter((item) => normalize(getItemName(item)).includes(key))
+      .sort((a, b) => getItemName(a).length - getItemName(b).length)[0] ?? null
+  );
 }
 
 function collectCandidates(query) {
@@ -427,6 +441,7 @@ function collectCandidates(query) {
     for (const item of data.items) {
       const name = getItemName(item);
       const normalizedName = normalize(name);
+
       if (normalizedName.includes(key) && !names.has(normalizedName)) {
         names.set(normalizedName, name);
       }
@@ -439,6 +454,7 @@ function collectCandidates(query) {
       const bKey = normalize(b);
       const aRank = aKey === key ? 0 : aKey.startsWith(key) ? 1 : 2;
       const bRank = bKey === key ? 0 : bKey.startsWith(key) ? 1 : 2;
+
       return aRank - bRank || a.length - b.length || a.localeCompare(b, "ja");
     })
     .slice(0, 50);
@@ -475,7 +491,7 @@ function renderSuggestions() {
   return candidates;
 }
 
-function getSearchCategory(cityId, itemName, sourceCategory) {
+function getScheduleCategory(itemName, sourceCategory, cityId) {
   if (normalize(itemName).includes("ペットボトル")) {
     return GARBAGE_CATEGORIES.BOTTLE;
   }
@@ -488,7 +504,10 @@ function getLocationItemResult(locationName, query) {
   const data = location && cityData.get(location.city);
 
   if (!locationIsComplete(location) || !data) {
-    return { valid: false, message: "地域設定が未完了です。" };
+    return {
+      valid: false,
+      message: "地域設定が未完了です。",
+    };
   }
 
   const item = findItem(data.items, query);
@@ -508,17 +527,18 @@ function getLocationItemResult(locationName, query) {
 
   const itemName = getItemName(item);
   const sourceCategory = getItemCategory(item);
-  const mappedCategory = getSearchCategory(
-    location.city,
+  const category = getScheduleCategory(
     itemName,
     sourceCategory,
+    location.city,
   );
+
   const schedule = getCollectionSchedule({
     municipalityId: location.city,
     schedules: data.schedules,
     town: location.town,
     block: location.block,
-    category: mappedCategory,
+    category,
     note: getItemNote(item),
   });
 
@@ -548,13 +568,12 @@ function getLocationItemResult(locationName, query) {
 
 function renderLocationResult(locationName, result) {
   const prefix = locationName === "current" ? "current" : "previous";
-  const locationId = locationName === "current"
+  const locationElementId = locationName === "current"
     ? "current-location"
     : "previous-location-result";
 
-  document.getElementById(locationId).textContent = result.valid
-    ? formatLocation(result.location)
-    : "";
+  document.getElementById(locationElementId).textContent =
+    result.valid ? formatLocation(result.location) : "";
 
   document.getElementById(`${prefix}-item`).textContent =
     result.valid ? result.itemName : "—";
@@ -564,6 +583,17 @@ function renderLocationResult(locationName, result) {
     result.valid ? result.day : "—";
   document.getElementById(`${prefix}-note`).textContent =
     result.valid ? result.note || "追加の注意事項はありません。" : result.message;
+}
+
+function requireLocations() {
+  if (hasSavedLocations()) return true;
+
+  elements.settingsMessage.textContent =
+    "今の地域と前の地域を設定して保存してください。";
+  elements.settingsPanel.hidden = false;
+  elements.toggleSettings.setAttribute("aria-expanded", "true");
+  elements.toggleSettings.textContent = "設定を閉じる";
+  return false;
 }
 
 function searchItem(selectedName = null, photoMock = false) {
@@ -586,6 +616,7 @@ function searchItem(selectedName = null, photoMock = false) {
 
   if (!selectedName) {
     const candidates = renderSuggestions();
+
     if (candidates.length > 1 && normalize(candidates[0]) !== normalize(query)) {
       elements.searchError.textContent = "候補から品目を選択してください。";
       return;
@@ -595,9 +626,13 @@ function searchItem(selectedName = null, photoMock = false) {
   const currentResult = getLocationItemResult("current", query);
   const previousResult = getLocationItemResult("previous", query);
 
-  elements.matchedItem.textContent =
-    `品目「${currentResult.found ? currentResult.itemName : previousResult.found ? previousResult.itemName : query}」の比較`;
+  const matchedName = currentResult.found
+    ? currentResult.itemName
+    : previousResult.found
+      ? previousResult.itemName
+      : query;
 
+  elements.matchedItem.textContent = `品目「${matchedName}」の比較`;
   renderLocationResult("current", currentResult);
   renderLocationResult("previous", previousResult);
   elements.searchResult.classList.remove("hidden");
@@ -605,7 +640,7 @@ function searchItem(selectedName = null, photoMock = false) {
 
   if (photoMock) {
     elements.photoMockResult.textContent =
-      `写真判定（モック）: 「${query}」と判定しました。保存済みの今・前の地域で検索しています。`;
+      `写真判定（モック）: 「${matchedName}」と判定しました。保存済みの今・前の地域で検索しています。`;
     elements.photoMockResult.classList.remove("hidden");
   }
 }
@@ -616,13 +651,18 @@ function saveSettings() {
 
   if (!locationIsComplete(current) || !locationIsComplete(previous)) {
     elements.settingsMessage.textContent =
-      "今の自治体・町名・丁目と、前の自治体・町名・丁目をそれぞれ選択してください。";
+      "今の自治体・町名・丁目と、前の自治体・町名・丁目を選択してください。";
     return;
   }
 
   appState = { current, previous };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
-  elements.settingsMessage.textContent = "地域設定を保存しました。各タブに反映しました。";
+
+  elements.settingsMessage.textContent = "地域設定を保存しました。";
+  elements.features.hidden = false;
+  elements.settingsPanel.hidden = true;
+  elements.toggleSettings.setAttribute("aria-expanded", "false");
+  elements.toggleSettings.textContent = "地域設定を変更";
 
   updateLocationSummary();
   renderComparisonList();
@@ -630,22 +670,19 @@ function saveSettings() {
   elements.photoMockResult.classList.add("hidden");
 }
 
-function readLocation(name) {
-  const controls = LOCATIONS[name];
-  return {
-    city: controls.city.value,
-    town: controls.town.value,
-    block: controls.block.value,
-  };
-}
-
 async function loadCityData() {
   try {
     await Promise.all(
       Object.entries(MUNICIPALITIES).map(async ([cityId, municipality]) => {
+        const itemUrl = ITEM_DATA_URLS[cityId];
+
+        if (!itemUrl) {
+          throw new Error(`${municipality.name}の品目データURLがありません。`);
+        }
+
         const [schedules, response] = await Promise.all([
           loadSchedules(cityId),
-          fetch(ITEM_DATA_URLS[cityId]),
+          fetch(itemUrl),
         ]);
 
         if (!response.ok) {
@@ -663,37 +700,52 @@ async function loadCityData() {
 
     populateCityOptions();
     restoreSavedLocations();
-    updateLocationSelects();
     updateLocationSummary();
-    renderComparisonList();
 
-    if (!hasSavedLocations()) {
-      elements.settingsPanel.hidden = false;
-      elements.toggleSettings.setAttribute("aria-expanded", "true");
+    const configured = hasSavedLocations();
+    elements.features.hidden = !configured;
+    elements.settingsPanel.hidden = configured;
+    elements.toggleSettings.setAttribute("aria-expanded", String(!configured));
+    elements.toggleSettings.textContent = configured
+      ? "地域設定を変更"
+      : "設定を閉じる";
+
+    if (!configured) {
       elements.settingsMessage.textContent =
-        "最初に今の地域と前の地域を設定して保存してください。";
+        "最初に今の地域と前の地域を選択して保存してください。";
     }
+
+    renderComparisonList();
+    elements.dataError.textContent = "";
   } catch (error) {
     console.error(error);
-    setDataError(
-      "自治体データを読み込めませんでした。ローカルサーバーから開いているか、JSONファイルの場所を確認してください。",
-    );
+    elements.dataError.textContent =
+      "自治体データを読み込めませんでした。ローカルサーバーから開いているか、JSONファイルの場所を確認してください。";
   }
 }
 
 for (const name of ["current", "previous"]) {
   const location = LOCATIONS[name];
 
-  location.city.addEventListener("change", () => populateTowns(name));
-  location.town.addEventListener("change", () => populateBlocks(name));
+  location.city.addEventListener("change", () => {
+    populateTowns(name);
+  });
+
+  location.town.addEventListener("change", () => {
+    populateBlocks(name);
+  });
 }
 
 elements.saveSettings.addEventListener("click", saveSettings);
 
 elements.toggleSettings.addEventListener("click", () => {
   const willOpen = elements.settingsPanel.hidden;
+
   elements.settingsPanel.hidden = !willOpen;
   elements.toggleSettings.setAttribute("aria-expanded", String(willOpen));
+  elements.toggleSettings.textContent = willOpen
+    ? "設定を閉じる"
+    : "地域設定を変更";
 });
 
 elements.comparisonSearch.addEventListener("input", renderComparisonList);
