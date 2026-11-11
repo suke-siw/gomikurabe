@@ -16,9 +16,9 @@ const ITEM_DATA_URLS = {
 const SCHEDULE_CATEGORY_ROWS = {
   nakano: [
     { key: "burnable", label: "燃やすごみ" },
-    { key: "plastic", label: "資源プラスチック" },
     { key: "glass_metal", label: "陶器・ガラス・金属ごみ" },
     { key: "resource", label: "びん・缶・ペットボトル" },
+    { key: "plastic", label: "資源プラスチック" },
   ],
   setagaya: [
     { key: "burnable", label: "可燃ごみ" },
