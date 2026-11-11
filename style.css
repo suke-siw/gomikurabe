@@ -2,7 +2,6 @@
   color-scheme: light;
   --green: #10b981;
   --green-dark: #047857;
-  --green-light: #ecfdf5;
   --text: #0f172a;
   --muted: #64748b;
   --border: #e2e8f0;
@@ -45,7 +44,7 @@ select {
 }
 
 .hero {
-  padding: 22px 22px 18px;
+  padding: 22px;
   color: #fff;
   background: linear-gradient(135deg, #10b981 0%, #22c55e 100%);
 }
@@ -98,7 +97,7 @@ select {
   border-bottom: 3px solid transparent;
   background: transparent;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 750;
   cursor: pointer;
 }
@@ -108,7 +107,6 @@ select {
   color: var(--green-dark);
 }
 
-.tab-button:focus-visible,
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {
@@ -160,7 +158,8 @@ select:focus-visible {
   font-weight: 800;
 }
 
-.city-select-grid {
+.city-select-grid,
+.comparison-selectors {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
@@ -271,7 +270,8 @@ select:disabled {
   color: #9a3412;
 }
 
-.comparison-card-columns {
+.comparison-card-columns,
+.individual-comparison {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
@@ -281,7 +281,8 @@ select:disabled {
   padding: 14px 16px 16px;
 }
 
-.comparison-city-card + .comparison-city-card {
+.comparison-city-card + .comparison-city-card,
+.individual-comparison > .result-card + .result-card {
   border-left: 1px solid #e8f1ee;
 }
 
@@ -322,9 +323,28 @@ select:disabled {
   text-align: center;
 }
 
-.tab-panel.hidden,
-.hidden {
-  display: none !important;
+.city-fieldset {
+  min-width: 0;
+  margin: 0 0 14px;
+  padding: 12px;
+  border: 1px solid #dbe7e5;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.fieldset-title {
+  padding: 0 5px;
+  color: var(--green-dark);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.city-fieldset .field:last-child {
+  margin-bottom: 0;
+}
+
+.item-field {
+  position: relative;
 }
 
 .search-row {
@@ -371,6 +391,45 @@ select:disabled {
   line-height: 1.5;
 }
 
+.search-suggestions {
+  margin: -4px 0 14px;
+  padding: 10px;
+  border: 1px solid #d5e8e2;
+  border-radius: 15px;
+  background: #fff;
+}
+
+.suggestions-heading {
+  margin: 0 0 7px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.suggestion-list {
+  display: grid;
+  max-height: 230px;
+  gap: 5px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.suggestion-button {
+  padding: 9px 10px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: var(--text);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.suggestion-button:hover {
+  border-color: #a7f3d0;
+  background: #ecfdf5;
+}
+
 .search-button {
   width: 100%;
   min-height: 48px;
@@ -410,7 +469,14 @@ select:disabled {
   font-weight: 850;
 }
 
+.matched-item {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
 .result-card {
+  min-width: 0;
   overflow: hidden;
   border: 1px solid #a7f3d0;
   border-radius: 22px;
@@ -491,7 +557,12 @@ select:disabled {
   line-height: 1.6;
 }
 
-@media (max-width: 540px) {
+.tab-panel.hidden,
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 560px) {
   body {
     padding: 12px;
   }
@@ -508,22 +579,25 @@ select:disabled {
     padding: 14px;
   }
 
-  .tab-button {
-    font-size: 12px;
-  }
-
   .comparison-city-card {
     padding: 12px;
   }
+
+  .tab-button {
+    font-size: 12px;
+  }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 400px) {
   .city-select-grid,
-  .comparison-card-columns {
+  .comparison-selectors,
+  .comparison-card-columns,
+  .individual-comparison {
     grid-template-columns: 1fr;
   }
 
-  .comparison-city-card + .comparison-city-card {
+  .comparison-city-card + .comparison-city-card,
+  .individual-comparison > .result-card + .result-card {
     border-top: 1px solid #e8f1ee;
     border-left: 0;
   }

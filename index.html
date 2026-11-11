@@ -35,7 +35,7 @@
           aria-controls="panel-compare"
           data-tab-target="panel-compare"
         >
-          自治体比較
+          自治体比較一覧
         </button>
         <button
           id="tab-navi"
@@ -46,7 +46,7 @@
           aria-controls="panel-navi"
           data-tab-target="panel-navi"
         >
-          ごみナビ・写真判定
+          個別検索・写真判定
         </button>
       </nav>
 
@@ -89,7 +89,7 @@
               <input
                 id="comparison-search"
                 type="search"
-                placeholder="品目名を入力（例：ペットボトル）"
+                placeholder="品目名を入力"
                 autocomplete="off"
               />
             </div>
@@ -108,46 +108,82 @@
           hidden
         >
           <section class="panel">
-            <p class="eyebrow">町名・丁目ごとのルールを検索</p>
-            <h2 class="panel-title">引っ越しごみナビ</h2>
+            <p class="eyebrow">引っ越し前後の地域を指定</p>
+            <h2 class="panel-title">個別検索・写真判定</h2>
 
-            <div class="field">
-              <label class="label" for="search-city">自治体</label>
-              <div class="select-wrap">
-                <select id="search-city"></select>
-                <span class="select-chevron" aria-hidden="true">⌄</span>
-              </div>
+            <div class="comparison-selectors">
+              <fieldset class="city-fieldset">
+                <legend class="fieldset-title">引っ越し前</legend>
+
+                <div class="field">
+                  <label class="label" for="previous-city">自治体</label>
+                  <div class="select-wrap">
+                    <select id="previous-city"></select>
+                    <span class="select-chevron" aria-hidden="true">⌄</span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label" for="previous-town">町名</label>
+                  <div class="select-wrap">
+                    <select id="previous-town" disabled>
+                      <option value="">町名を選択</option>
+                    </select>
+                    <span class="select-chevron" aria-hidden="true">⌄</span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label" for="previous-block">丁目</label>
+                  <div class="select-wrap">
+                    <select id="previous-block" disabled>
+                      <option value="">丁目を選択</option>
+                    </select>
+                    <span class="select-chevron" aria-hidden="true">⌄</span>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset class="city-fieldset">
+                <legend class="fieldset-title">引っ越し後</legend>
+
+                <div class="field">
+                  <label class="label" for="new-city">自治体</label>
+                  <div class="select-wrap">
+                    <select id="new-city"></select>
+                    <span class="select-chevron" aria-hidden="true">⌄</span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label" for="new-town">町名</label>
+                  <div class="select-wrap">
+                    <select id="new-town" disabled>
+                      <option value="">町名を選択</option>
+                    </select>
+                    <span class="select-chevron" aria-hidden="true">⌄</span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label" for="new-block">丁目</label>
+                  <div class="select-wrap">
+                    <select id="new-block" disabled>
+                      <option value="">丁目を選択</option>
+                    </select>
+                    <span class="select-chevron" aria-hidden="true">⌄</span>
+                  </div>
+                </div>
+              </fieldset>
             </div>
 
-            <div class="city-select-grid">
-              <div class="field">
-                <label class="label" for="search-town">町名</label>
-                <div class="select-wrap">
-                  <select id="search-town" disabled>
-                    <option value="">町名を選択</option>
-                  </select>
-                  <span class="select-chevron" aria-hidden="true">⌄</span>
-                </div>
-              </div>
-
-              <div class="field">
-                <label class="label" for="search-block">丁目</label>
-                <div class="select-wrap">
-                  <select id="search-block" disabled>
-                    <option value="">丁目を選択</option>
-                  </select>
-                  <span class="select-chevron" aria-hidden="true">⌄</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="field">
+            <div class="field item-field">
               <label class="label" for="item-search">品目</label>
               <div class="search-row">
                 <input
                   id="item-search"
                   type="search"
-                  placeholder="例：アタッシュケース、足ふきマット"
+                  placeholder="例：びん、アタッシュケース"
                   autocomplete="off"
                 />
                 <label class="camera-btn" aria-label="写真を撮影または選択">
@@ -161,8 +197,10 @@
               <p class="field-hint">写真判定はデモ用のモックです。画像は認識・送信されません。</p>
             </div>
 
+            <div id="search-suggestions" class="search-suggestions hidden" role="listbox" aria-label="品目候補"></div>
+
             <button type="button" id="search-button" class="search-button">
-              分別ルールを検索
+              引っ越し前後を比較
             </button>
             <p id="search-error" class="error-message" role="alert"></p>
           </section>
@@ -170,31 +208,58 @@
           <section id="search-result" class="search-result hidden" aria-live="polite">
             <div class="results-header">
               <h2 class="results-title">検索結果</h2>
+              <p id="matched-item" class="matched-item"></p>
             </div>
 
-            <article class="result-card">
-              <div class="result-top">
-                <span class="result-tag">分別ルール</span>
-                <span id="result-location" class="result-sub"></span>
-              </div>
-              <div class="result-body">
-                <dl class="result-details">
-                  <div>
-                    <dt>品目</dt>
-                    <dd id="result-item"></dd>
-                  </div>
-                  <div>
-                    <dt>分別カテゴリ</dt>
-                    <dd id="result-category"></dd>
-                  </div>
-                  <div>
-                    <dt>収集曜日</dt>
-                    <dd id="result-day"></dd>
-                  </div>
-                </dl>
-                <p id="result-note" class="info-text"></p>
-              </div>
-            </article>
+            <div class="individual-comparison">
+              <article class="result-card">
+                <div class="result-top">
+                  <span class="result-tag">引っ越し前</span>
+                  <span id="previous-location" class="result-sub"></span>
+                </div>
+                <div class="result-body">
+                  <dl class="result-details">
+                    <div>
+                      <dt>品目</dt>
+                      <dd id="previous-item"></dd>
+                    </div>
+                    <div>
+                      <dt>分別カテゴリ</dt>
+                      <dd id="previous-category"></dd>
+                    </div>
+                    <div>
+                      <dt>収集曜日</dt>
+                      <dd id="previous-day"></dd>
+                    </div>
+                  </dl>
+                  <p id="previous-note" class="info-text"></p>
+                </div>
+              </article>
+
+              <article class="result-card">
+                <div class="result-top">
+                  <span class="result-tag">引っ越し後</span>
+                  <span id="new-location" class="result-sub"></span>
+                </div>
+                <div class="result-body">
+                  <dl class="result-details">
+                    <div>
+                      <dt>品目</dt>
+                      <dd id="new-item"></dd>
+                    </div>
+                    <div>
+                      <dt>分別カテゴリ</dt>
+                      <dd id="new-category"></dd>
+                    </div>
+                    <div>
+                      <dt>収集曜日</dt>
+                      <dd id="new-day"></dd>
+                    </div>
+                  </dl>
+                  <p id="new-note" class="info-text"></p>
+                </div>
+              </article>
+            </div>
 
             <div id="photo-mock-result" class="photo-mock-result hidden" role="status"></div>
           </section>

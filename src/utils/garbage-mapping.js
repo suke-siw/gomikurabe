@@ -1,6 +1,8 @@
 export const GARBAGE_CATEGORIES = Object.freeze({
   BURNABLE: "burnable",
   NON_BURNABLE: "non_burnable",
+  SETAGAYA_NON_BURNABLE: "setagaya_non_burnable",
+  NAKANO_CERAMIC_GLASS_METAL: "nakano_ceramic_glass_metal",
   PLASTIC: "plastic",
   BOTTLE: "bottle",
   GLASS: "glass",
@@ -12,6 +14,8 @@ export const GARBAGE_CATEGORIES = Object.freeze({
 export const CATEGORY_LABELS = Object.freeze({
   [GARBAGE_CATEGORIES.BURNABLE]: "燃やすごみ",
   [GARBAGE_CATEGORIES.NON_BURNABLE]: "燃やさないごみ",
+  [GARBAGE_CATEGORIES.SETAGAYA_NON_BURNABLE]: "不燃ごみ",
+  [GARBAGE_CATEGORIES.NAKANO_CERAMIC_GLASS_METAL]: "陶器・ガラス・金属ごみ",
   [GARBAGE_CATEGORIES.PLASTIC]: "プラスチック",
   [GARBAGE_CATEGORIES.BOTTLE]: "ペットボトル",
   [GARBAGE_CATEGORIES.GLASS]: "びん",
@@ -20,10 +24,6 @@ export const CATEGORY_LABELS = Object.freeze({
   [GARBAGE_CATEGORIES.OVERSIZED]: "粗大ごみ",
 });
 
-/**
- * 自治体を追加するときは、この設定にデータファイルと
- * scheduleKeys の対応を追加してください。
- */
 export const MUNICIPALITIES = {
   nakano: {
     name: "中野区",
@@ -31,8 +31,9 @@ export const MUNICIPALITIES = {
     scheduleKeys: {
       [GARBAGE_CATEGORIES.BURNABLE]: ["burnable"],
       [GARBAGE_CATEGORIES.NON_BURNABLE]: ["glass_metal"],
+      [GARBAGE_CATEGORIES.NAKANO_CERAMIC_GLASS_METAL]: ["glass_metal"],
       [GARBAGE_CATEGORIES.PLASTIC]: ["plastic"],
-      [GARBAGE_CATEGORIES.BOTTLE]: ["plastic"],
+      [GARBAGE_CATEGORIES.BOTTLE]: ["resource"],
       [GARBAGE_CATEGORIES.GLASS]: ["glass_metal"],
       [GARBAGE_CATEGORIES.CAN]: ["glass_metal"],
       [GARBAGE_CATEGORIES.RESOURCE]: ["resource"],
@@ -44,6 +45,7 @@ export const MUNICIPALITIES = {
     scheduleKeys: {
       [GARBAGE_CATEGORIES.BURNABLE]: ["burnable"],
       [GARBAGE_CATEGORIES.NON_BURNABLE]: ["non_burnable"],
+      [GARBAGE_CATEGORIES.SETAGAYA_NON_BURNABLE]: ["non_burnable"],
       [GARBAGE_CATEGORIES.PLASTIC]: ["plastic"],
       [GARBAGE_CATEGORIES.BOTTLE]: ["bottle"],
       [GARBAGE_CATEGORIES.GLASS]: ["resource"],
@@ -53,12 +55,7 @@ export const MUNICIPALITIES = {
   },
 };
 
-/**
- * 自治体独自のカテゴリ名をアプリ共通カテゴリに対応付けます。
- * びん・缶・ペットボトルなど複数品目をまとめたカテゴリは
- * 資源・その他として扱い、曜日は別途自治体設定から取得します。
- */
-export function mapCategory(sourceCategory) {
+export function mapCategory(sourceCategory, municipalityId = "") {
   const value = normalizeText(sourceCategory);
 
   if (!value) return GARBAGE_CATEGORIES.RESOURCE;
@@ -67,12 +64,24 @@ export function mapCategory(sourceCategory) {
     return GARBAGE_CATEGORIES.OVERSIZED;
   }
 
-  if (/びん.*缶.*ペットボトル|缶.*ペットボトル/.test(value)) {
-    return GARBAGE_CATEGORIES.RESOURCE;
+  if (/(可燃|燃やす|燃える|burnable)/.test(value)) {
+    return GARBAGE_CATEGORIES.BURNABLE;
   }
 
   if (/陶器.*ガラス.*金属/.test(value)) {
-    return GARBAGE_CATEGORIES.NON_BURNABLE;
+    return municipalityId === "nakano"
+      ? GARBAGE_CATEGORIES.NAKANO_CERAMIC_GLASS_METAL
+      : GARBAGE_CATEGORIES.NON_BURNABLE;
+  }
+
+  if (/(不燃|燃やさない|燃えない|nonburnable|non_burnable)/.test(value)) {
+    return municipalityId === "setagaya"
+      ? GARBAGE_CATEGORIES.SETAGAYA_NON_BURNABLE
+      : GARBAGE_CATEGORIES.NON_BURNABLE;
+  }
+
+  if (/びん.*缶.*ペットボトル|缶.*ペットボトル/.test(value)) {
+    return GARBAGE_CATEGORIES.RESOURCE;
   }
 
   if (/(ペットボトル|petbottle|pet_bottle)/.test(value)) {
@@ -83,14 +92,6 @@ export function mapCategory(sourceCategory) {
     return GARBAGE_CATEGORIES.PLASTIC;
   }
 
-  if (/(燃やさない|燃えない|不燃|nonburnable|non_burnable)/.test(value)) {
-    return GARBAGE_CATEGORIES.NON_BURNABLE;
-  }
-
-  if (/(燃やす|燃える|可燃|burnable)/.test(value)) {
-    return GARBAGE_CATEGORIES.BURNABLE;
-  }
-
   if (/(びん|ビン|瓶|glass)/.test(value)) {
     return GARBAGE_CATEGORIES.GLASS;
   }
@@ -99,18 +100,13 @@ export function mapCategory(sourceCategory) {
     return GARBAGE_CATEGORIES.CAN;
   }
 
-  if (/(資源|resource|その他)/.test(value)) {
+  if (/(資源|resource|店頭回収|その他)/.test(value)) {
     return GARBAGE_CATEGORIES.RESOURCE;
   }
 
   return GARBAGE_CATEGORIES.RESOURCE;
 }
 
-/**
- * 自治体の収集スケジュール JSON を読み込みます。
- * JSON は提示された「town → blocks → target_blocks / schedule」
- * の配列形式を想定しています。
- */
 export async function loadSchedules(municipalityId) {
   const municipality = MUNICIPALITIES[municipalityId];
 
@@ -156,7 +152,6 @@ function getScheduleKey(municipality, category) {
   if (Array.isArray(keys)) return keys;
   if (typeof keys === "string") return [keys];
 
-  // 新しい自治体で個別設定がない場合は、共通カテゴリ名を使います。
   return [category];
 }
 
@@ -164,42 +159,28 @@ function findTownRecords(schedules, townName) {
   const targetTown = normalizeText(townName);
 
   return schedules.filter(
-    (townRecord) => normalizeText(townRecord.town) === targetTown,
+    (record) => normalizeText(record.town) === targetTown,
   );
 }
 
 function findBlockRecord(townRecords, blockNumber) {
   const targetBlock = normalizeBlock(blockNumber);
 
-  const matches = townRecords.flatMap((townRecord) =>
-    (townRecord.blocks ?? [])
-      .filter((blockRecord) =>
-        (blockRecord.target_blocks ?? []).some(
-          (block) => normalizeBlock(block) === targetBlock,
-        ),
-      )
-      .map((blockRecord) => ({
-        townRecord,
-        blockRecord,
-      })),
-  );
+  for (const townRecord of townRecords) {
+    for (const blockRecord of townRecord.blocks ?? []) {
+      const matchesBlock = (blockRecord.target_blocks ?? []).some(
+        (block) => normalizeBlock(block) === targetBlock,
+      );
 
-  return matches[0] ?? null;
+      if (matchesBlock) {
+        return { townRecord, blockRecord };
+      }
+    }
+  }
+
+  return null;
 }
 
-/**
- * 自治体・町名・丁目・カテゴリから収集曜日を取得します。
- *
- * 粗大ごみは曜日を検索せず、個別申し込みが必要な結果を返します。
- *
- * @param {object} params
- * @param {string} params.municipalityId MUNICIPALITIES のキー
- * @param {Array} params.schedules loadSchedules() で読み込んだ配列
- * @param {string} params.town 町名（例: "新井"）
- * @param {string|number} params.block 丁目（例: "1" または "1丁目"）
- * @param {string} params.category 共通カテゴリ ID または自治体カテゴリ名
- * @param {string} [params.note] 品目データにある注意事項
- */
 export function getCollectionSchedule({
   municipalityId,
   schedules,
@@ -216,7 +197,7 @@ export function getCollectionSchedule({
 
   const commonCategory = Object.values(GARBAGE_CATEGORIES).includes(category)
     ? category
-    : mapCategory(category);
+    : mapCategory(category, municipalityId);
 
   if (commonCategory === GARBAGE_CATEGORIES.OVERSIZED) {
     return {
@@ -255,7 +236,7 @@ export function getCollectionSchedule({
       categoryLabel: CATEGORY_LABELS[commonCategory],
       collectionDay: null,
       requiresApplication: false,
-      note: "正しい収集曜日を調べるには丁目の指定が必要です。",
+      note: "収集曜日の確認には丁目の指定が必要です。",
     };
   }
 
