@@ -642,6 +642,17 @@ select:disabled {
   overflow-wrap: break-word;
 }
 
+.designated-bag-info {
+  margin: 0;
+  padding: 9px 10px;
+  border-radius: 12px;
+  background: #ecfdf5;
+  color: #065f46;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
 .schedule-card-content {
   padding: 12px;
 }
@@ -696,6 +707,49 @@ select:disabled {
   color: #92400e;
   white-space: normal;
   word-break: keep-all;
+}
+
+.oversized-guide {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px solid #fed7aa;
+  border-radius: 14px;
+  background: #fffbeb;
+}
+
+.oversized-guide-note {
+  margin: 0;
+  color: #78350f;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.oversized-application-link {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 11px;
+  background: var(--green);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+}
+
+.oversized-application-link:hover {
+  background: #059669;
+}
+
+.oversized-details-link {
+  justify-self: start;
+  color: var(--green-dark);
+  font-size: 11px;
+  line-height: 1.5;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .tab-panel.hidden,
@@ -761,8 +815,17 @@ select:focus-visible {
     font-size: 11px;
   }
 
-  .comparison-category {
+  .comparison-category,
+  .designated-bag-info {
     font-size: 11px;
+  }
+
+  .oversized-guide {
+    padding: 10px;
+  }
+
+  .oversized-application-link {
+    font-size: 12px;
   }
 }
 

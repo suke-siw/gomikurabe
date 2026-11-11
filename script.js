@@ -13,6 +13,21 @@ const ITEM_DATA_URLS = {
   setagaya: "data/setagaya_garbage_items.json",
 };
 
+const CITY_INFO = {
+  nakano: {
+    designatedBag: "指定ごみ袋：なし（市販の透明・半透明袋を使用）",
+    oversizedApplicationUrl: "https://www2.sodai-web.jp/nakano/index.html",
+    oversizedApplicationLabel: "中野区 粗大ごみWeb申込",
+    oversizedDetailsUrl: "https://www.city.tokyo-nakano.lg.jp/kurashi/gomi/sodaigomi/index.html",
+  },
+  setagaya: {
+    designatedBag: "指定ごみ袋：なし（市販の透明・半透明袋を使用）",
+    oversizedApplicationUrl: "https://www.sodai-setagaya.jp/eco/view/setagaya/top.html",
+    oversizedApplicationLabel: "世田谷区 粗大ごみWeb申込",
+    oversizedDetailsUrl: "https://www.city.setagaya.lg.jp/02241/online_tetsuzuki/380.html#p1",
+  },
+};
+
 const SCHEDULE_CATEGORY_ROWS = {
   nakano: [
     { key: "burnable", label: "燃やすごみ" },
@@ -365,6 +380,44 @@ function createTextElement(tagName, className, text) {
   return element;
 }
 
+function createExternalLink(url, label, className) {
+  const link = document.createElement("a");
+  link.href = url;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.className = className;
+  link.textContent = label;
+  return link;
+}
+
+function appendOversizedGuide(container, cityId) {
+  const info = CITY_INFO[cityId];
+  if (!info) return;
+
+  const guide = document.createElement("div");
+  guide.className = "oversized-guide";
+
+  guide.append(
+    createTextElement(
+      "p",
+      "oversized-guide-note",
+      "粗大ごみは事前申し込みが必要です。品目・手数料・収集日を申込先でご確認ください。",
+    ),
+    createExternalLink(
+      info.oversizedApplicationUrl,
+      info.oversizedApplicationLabel,
+      "oversized-application-link",
+    ),
+    createExternalLink(
+      info.oversizedDetailsUrl,
+      "区公式の粗大ごみ案内",
+      "oversized-details-link",
+    ),
+  );
+
+  container.append(guide);
+}
+
 function createComparisonCard(entry) {
   const card = document.createElement("article");
   card.className = "comparison-card";
@@ -481,10 +534,8 @@ function getScheduleRows(locationName) {
     };
   }
 
-  const rows = SCHEDULE_CATEGORY_ROWS[location.city] ?? Object.keys(schedule).map((key) => ({
-    key,
-    label: key,
-  }));
+  const rows = SCHEDULE_CATEGORY_ROWS[location.city] ??
+    Object.keys(schedule).map((key) => ({ key, label: key }));
 
   return {
     found: true,
@@ -497,6 +548,7 @@ function getScheduleRows(locationName) {
 
 function createScheduleCard(locationName) {
   const location = appState[locationName];
+  const cityInfo = CITY_INFO[location.city];
   const card = document.createElement("article");
   card.className = "schedule-card";
 
@@ -509,6 +561,11 @@ function createScheduleCard(locationName) {
       locationName === "current" ? "今の自治体" : "前の自治体",
     ),
     createTextElement("h3", "schedule-location", formatLocation(location)),
+    createTextElement(
+      "p",
+      "designated-bag-info",
+      cityInfo?.designatedBag ?? "指定ごみ袋の情報は自治体の案内をご確認ください。",
+    ),
   );
 
   const content = document.createElement("div");
@@ -540,6 +597,7 @@ function createScheduleCard(locationName) {
     );
 
     content.append(list, oversized);
+    appendOversizedGuide(content, location.city);
   }
 
   card.append(header, content);
@@ -665,10 +723,12 @@ function getLocationItemResult(locationName, query) {
       valid: true,
       found: false,
       location,
+      cityId: location.city,
       itemName: query,
       category: "品目が見つかりません",
       day: "—",
       note: "品目データに一致する品目はありません。入力した検索語で検索しました。",
+      requiresApplication: false,
     };
   }
 
@@ -703,12 +763,14 @@ function getLocationItemResult(locationName, query) {
     valid: true,
     found: true,
     location,
+    cityId: location.city,
     itemName,
     category: displayCategory,
     day: schedule.requiresApplication
       ? "曜日収集なし（個別申し込み）"
       : schedule.collectionDay || "曜日を確認できません",
     note: notes.join("\n"),
+    requiresApplication: schedule.requiresApplication,
   };
 }
 
@@ -729,6 +791,16 @@ function renderLocationResult(locationName, result) {
     result.valid ? result.day : "—";
   document.getElementById(`${prefix}-note`).textContent =
     result.valid ? result.note || "追加の注意事項はありません。" : result.message;
+
+  const noteElement = document.getElementById(`${prefix}-note`);
+  const resultBody = noteElement.parentElement;
+  const previousGuide = resultBody.querySelector(".oversized-guide");
+
+  previousGuide?.remove();
+
+  if (result.valid && result.requiresApplication) {
+    appendOversizedGuide(resultBody, result.cityId);
+  }
 }
 
 function searchItem(selectedName = null, photoMock = false) {
