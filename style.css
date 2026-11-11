@@ -703,10 +703,6 @@ select:disabled {
   display: none !important;
 }
 
-[hidden] {
-  display: none !important;
-}
-
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {
@@ -742,8 +738,14 @@ select:focus-visible {
     font-size: 10px;
   }
 
+  .individual-comparison,
   .schedule-results {
     grid-template-columns: 1fr;
+  }
+
+  .individual-comparison > .result-card + .result-card {
+    border-top: 1px solid #e8f1ee;
+    border-left: 0;
   }
 
   .schedule-card-content {
@@ -766,13 +768,11 @@ select:focus-visible {
 
 @media (max-width: 400px) {
   .location-settings-grid,
-  .comparison-card-columns,
-  .individual-comparison {
+  .comparison-card-columns {
     grid-template-columns: 1fr;
   }
 
-  .comparison-city-card + .comparison-city-card,
-  .individual-comparison > .result-card + .result-card {
+  .comparison-city-card + .comparison-city-card {
     border-top: 1px solid #e8f1ee;
     border-left: 0;
   }
@@ -783,5 +783,10 @@ select:focus-visible {
 
   .result-details dd {
     font-size: 12px;
+  }
+
+  .schedule-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px;
   }
 }
