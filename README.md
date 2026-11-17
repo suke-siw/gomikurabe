@@ -71,7 +71,6 @@ gomikurabe/
 {
   "city_code": "131121",
   "city_name": "世田谷区",
-  "updated_at": "2026-10-26",
   "items": [
     { "id": "setagaya_0001", "name": "アイスピック", "category": "不燃ごみ", "note": "新聞紙等に包んで「キケン」と表示してください" }
   ]
