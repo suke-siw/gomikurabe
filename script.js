@@ -543,7 +543,7 @@ function getScheduleRows(locationName) {
     found: true,
     rows: rows.map(({ key, label }) => ({
       label,
-      day: schedule[key] || "データなし",
+      day: schedule[key] || "-",
     })),
   };
 }
@@ -626,23 +626,19 @@ function renderScheduleList() {
   );
 }
 
+/**
+ * 品目名の厳密な完全一致検索です。
+ * 部分一致や前方一致は行わないため、「テレビ」で「テレビ台」はヒットしません。
+ */
 function findItem(items, query) {
-  const key = normalize(query);
-  if (!key) return null;
-
-  const exact = items.find((item) => normalize(getItemName(item)) === key);
-  if (exact) return exact;
-
-  const prefixMatches = items
-    .filter((item) => normalize(getItemName(item)).startsWith(key))
-    .sort((a, b) => getItemName(a).length - getItemName(b).length);
-
-  if (prefixMatches.length > 0) return prefixMatches[0];
+  const normalizedQuery = normalize(query);
+  if (!normalizedQuery) return null;
 
   return (
-    items
-      .filter((item) => normalize(getItemName(item)).includes(key))
-      .sort((a, b) => getItemName(a).length - getItemName(b).length)[0] ?? null
+    items.find(
+      (item) =>
+        normalize(getItemName(item)) === normalizedQuery,
+    ) ?? null
   );
 }
 
@@ -655,7 +651,7 @@ function collectCandidates(query) {
 
   return currentData.items
     .map(getItemName)
-    .filter((name) => name && normalize(name).includes(key))
+    .filter((name) => name && normalize(name).startsWith(key))
     .filter((name, index, names) =>
       names.findIndex((candidate) => normalize(candidate) === normalize(name)) === index,
     )
@@ -729,7 +725,7 @@ function getLocationItemResult(locationName, query) {
       itemName: query,
       category: "品目が見つかりません",
       day: "—",
-      note: "品目データに一致する品目はありません。入力した検索語で検索しました。",
+      note: "完全一致する品目がありません。品目名を確認して再検索してください。",
       requiresApplication: false,
     };
   }
@@ -962,6 +958,7 @@ elements.toggleSettings.addEventListener("click", () => {
 elements.comparisonSearch.addEventListener("input", renderComparisonList);
 
 elements.itemSearch.addEventListener("input", renderSuggestions);
+
 elements.itemSearch.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
