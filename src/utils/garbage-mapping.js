@@ -332,3 +332,92 @@ export function getCollectionSchedule({
     matchedBlocks: match.blockRecord.target_blocks,
   };
 }
+
+const WEEKDAY_INDEX = Object.freeze({
+  日: 0,
+  月: 1,
+  火: 2,
+  水: 3,
+  木: 4,
+  金: 5,
+  土: 6,
+});
+
+/**
+ * 収集曜日の文字列を、判定用のルールに変換します。
+ * 対応する書式:
+ *   "月曜日・木曜日"   → 毎週 月・木
+ *   "第2・第4金曜日"   → 毎月 2回目・4回目の金曜日
+ * 解釈できない書式の場合は空配列を返します（推測で日付を出さないため）。
+ */
+export function parseCollectionDays(dayText) {
+  const text = normalizeText(dayText);
+  if (!text) return [];
+
+  const monthly = text.match(/^((?:第\d・?)+)([日月火水木金土])曜日$/);
+
+  if (monthly) {
+    const weeks = [...monthly[1].matchAll(/第(\d)/g)].map((m) => Number(m[1]));
+    return [{ weekday: WEEKDAY_INDEX[monthly[2]], weeks }];
+  }
+
+  const parts = text.split("・");
+  const rules = [];
+
+  for (const part of parts) {
+    const weekly = part.match(/^([日月火水木金土])曜日$/);
+    if (!weekly) return [];
+    rules.push({ weekday: WEEKDAY_INDEX[weekly[1]], weeks: null });
+  }
+
+  return rules;
+}
+
+function matchesRule(date, rule) {
+  if (date.getDay() !== rule.weekday) return false;
+  if (!rule.weeks) return true;
+
+  // その月の何回目の曜日か（1日〜7日が1回目）
+  const nth = Math.floor((date.getDate() - 1) / 7) + 1;
+  return rule.weeks.includes(nth);
+}
+
+/**
+ * 年末年始（12/29〜1/7）は年ごとに収集日が変わるため、日付を確定せず
+ * 区の案内を確認するよう表示します（年始第1週のずれも考慮して1/7までとする）。
+ */
+export function isYearEndPeriod(date) {
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return (month === 12 && day >= 29) || (month === 1 && day <= 7);
+}
+
+/**
+ * 次回の収集日を返します。当日が収集日の場合は当日を返します。
+ * 祝日も通常どおり収集する前提です（世田谷区・中野区とも区の案内で確認済み）。
+ * 返り値: { date: Date, isYearEnd: boolean } / 判定できない場合は null
+ */
+export function getNextCollectionDate(dayText, fromDate = new Date()) {
+  const rules = parseCollectionDays(dayText);
+  if (rules.length === 0) return null;
+
+  const start = new Date(
+    fromDate.getFullYear(),
+    fromDate.getMonth(),
+    fromDate.getDate(),
+  );
+
+  for (let offset = 0; offset < 70; offset += 1) {
+    const date = new Date(
+      start.getFullYear(),
+      start.getMonth(),
+      start.getDate() + offset,
+    );
+
+    if (rules.some((rule) => matchesRule(date, rule))) {
+      return { date, isYearEnd: isYearEndPeriod(date) };
+    }
+  }
+
+  return null;
+}

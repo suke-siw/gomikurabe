@@ -1,0 +1,14 @@
+# APIキーなどの秘密情報（絶対にコミットしない）
+.env
+.env.*
+!.env.example
+
+# 依存パッケージ（npm install で再作成できる）
+node_modules/
+
+# OS・エディタが作るファイル
+.DS_Store
+.vscode/
+
+# ログ
+npm-debug.log*
