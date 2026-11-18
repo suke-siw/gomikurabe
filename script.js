@@ -30,12 +30,16 @@ const CITY_INFO = {
   },
 };
 
+/*
+ * 中野区の schedule JSON では、resource が資源プラスチック、
+ * plastic がびん・缶・ペットボトルに対応します。
+ */
 const SCHEDULE_CATEGORY_ROWS = {
   nakano: [
     { key: "burnable", label: "燃やすごみ" },
     { key: "glass_metal", label: "陶器・ガラス・金属ごみ" },
-    { key: "resource", label: "びん・缶・ペットボトル" },
-    { key: "plastic", label: "資源プラスチック" },
+    { key: "resource", label: "資源プラスチック" },
+    { key: "plastic", label: "びん・缶・ペットボトル" },
   ],
   setagaya: [
     { key: "burnable", label: "可燃ごみ" },
@@ -327,9 +331,8 @@ function restoreSavedLocations() {
 
 /**
  * 収集曜日の判定に使う分別区分を返します。
- * 品目名に「ペットボトル」を含んでも、キャップ・ラベル（資源プラスチック）や
- * 油の付着したもの（可燃ごみ）は元データの区分を優先し、
- * 資源系に分類されるペットボトル本体だけをペットボトル扱いにします。
+ * 品目名に「ペットボトル」を含んでも、カテゴリが資源プラスチックなどの場合は
+ * 元データのカテゴリを優先し、定期収集区分の曜日を取得します。
  */
 function getScheduleCategory(itemName, sourceCategory, cityId) {
   const mappedCategory = mapCategory(sourceCategory, cityId);
@@ -353,14 +356,26 @@ function getComparisonCategory(item, cityId) {
   );
 }
 
+/*
+ * 曜日を非表示にする判定は category のみを使います。
+ * 定期収集区分がカテゴリ名に含まれる場合は、非定期回収語句が併記されていても
+ * 曜日を非表示にしません。note は判定に使用しません。
+ */
 function isNonRegularCollection(item) {
   const category = normalize(getItemCategory(item));
-  const note = normalize(getItemNote(item));
-  const combined = `${category}${note}`;
+  if (!category) return false;
 
-  return /(集団回収|拠点回収|販売店回収|販売店の回収|回収ボックス|店頭回収)/.test(
-    combined,
-  );
+  const regularCategoryPattern =
+    /(資源|可燃|燃やす|燃える|不燃|燃やさない|燃えない|プラスチック|プラ|陶器.*ガラス.*金属|びん.*缶.*ペットボトル|缶.*ペットボトル|ペットボトル)/;
+
+  if (regularCategoryPattern.test(category)) {
+    return false;
+  }
+
+  const nonRegularCategoryPattern =
+    /(集団回収|拠点回収|販売店.*回収|回収ボックス|店頭回収)/;
+
+  return nonRegularCategoryPattern.test(category);
 }
 
 function buildCommonItems() {
