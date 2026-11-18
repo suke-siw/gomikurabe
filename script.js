@@ -31,15 +31,15 @@ const CITY_INFO = {
 };
 
 /*
- * 中野区の schedule JSON では、resource がびん・缶・ペットボトル、
- * plastic が資源プラスチックに対応します。
+ * 中野区の schedule JSON では、resource が資源プラスチック、
+ * plastic がびん・缶・ペットボトルに対応します。
  */
 const SCHEDULE_CATEGORY_ROWS = {
   nakano: [
     { key: "burnable", label: "燃やすごみ" },
     { key: "glass_metal", label: "陶器・ガラス・金属ごみ" },
-    { key: "resource", label: "びん・缶・ペットボトル" },
-    { key: "plastic", label: "資源プラスチック" },
+    { key: "resource", label: "資源プラスチック" },
+    { key: "plastic", label: "びん・缶・ペットボトル" },
   ],
   setagaya: [
     { key: "burnable", label: "可燃ごみ" },
@@ -261,7 +261,6 @@ function locationIsComplete(location) {
 
   const blocks = getTownBlocks(townRecord);
 
-  // 丁目データがない町名は、町名の選択だけで設定完了とする。
   if (blocks.length === 0) {
     return !location.block;
   }
@@ -530,7 +529,6 @@ function getBlockSchedule(locationName) {
 
   const blocks = getTownBlocks(townRecord);
 
-  // 丁目がない町名では、町名レコードにあるスケジュールを使用する。
   if (blocks.length === 0) {
     const scheduleRecord = (townRecord.blocks ?? []).find(
       (record) => record?.schedule && typeof record.schedule === "object",
