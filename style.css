@@ -109,8 +109,9 @@ select {
 }
 
 .settings-toggle {
+  min-height: 44px;
   margin-top: 9px;
-  padding: 7px 11px;
+  padding: 7px 14px;
   border: 1px solid rgba(255, 255, 255, 0.65);
   border-radius: 999px;
   background: #fff;
@@ -118,6 +119,55 @@ select {
   font-size: 11px;
   font-weight: 800;
   cursor: pointer;
+}
+
+.settings-toggle:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.data-error {
+  margin: 0;
+  padding: 12px 18px;
+  background: #fef2f2;
+  font-size: 13px;
+}
+
+.data-error:empty {
+  display: none;
+}
+
+.area-notice {
+  margin: 0 0 10px;
+  padding: 10px 12px;
+  border: 1px solid #fcd34d;
+  border-radius: 12px;
+  background: #fffbeb;
+  color: #92400e;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.schedule-notes {
+  margin: 0 0 10px;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.similar-items {
+  margin-top: 10px;
+  padding: 9px;
+  border: 1px solid #d5e8e2;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.similar-items .suggestion-button {
+  min-height: 44px;
 }
 
 .settings-panel {

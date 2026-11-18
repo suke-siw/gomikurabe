@@ -31,21 +31,51 @@ const CITY_INFO = {
 };
 
 /*
- * 中野区の schedule JSON では、resource が資源プラスチック、
- * plastic がびん・缶・ペットボトルに対応します。
+ * 中野区の schedule JSON では、resource がびん・缶・ペットボトル、
+ * plastic が資源プラスチックに対応します（区公式の収集日一覧と照合済み）。
  */
 const SCHEDULE_CATEGORY_ROWS = {
   nakano: [
     { key: "burnable", label: "燃やすごみ" },
     { key: "glass_metal", label: "陶器・ガラス・金属ごみ" },
-    { key: "resource", label: "資源プラスチック" },
-    { key: "plastic", label: "びん・缶・ペットボトル" },
+    { key: "resource", label: "びん・缶・ペットボトル" },
+    { key: "plastic", label: "資源プラスチック" },
   ],
   setagaya: [
     { key: "burnable", label: "可燃ごみ" },
     { key: "non_burnable", label: "不燃ごみ" },
     { key: "bottle", label: "ペットボトル" },
     { key: "resource", label: "資源" },
+  ],
+};
+
+/*
+ * 丁目より細かい単位（番地など）で収集日が異なる地域の注意書きです。
+ * 番地単位のデータがないため、該当する丁目では注意を表示します。
+ * 出典：中野区「資源とごみの分け方・出し方」2026年版 p.1 区内収集日一覧
+ */
+const AREA_NOTICES = [
+  {
+    city: "nakano",
+    town: "中野",
+    blocks: ["2", "3", "5"],
+    message:
+      "中野2・3・5丁目の一部（毎日収集地域）は収集日が異なります。表示している曜日は毎日収集地域以外のものです。該当するかどうかは中野区の清掃事務所にご確認ください。",
+  },
+];
+
+/*
+ * 自治体ごとの収集日に関する共通の案内です（公式資料で確認できた内容のみ）。
+ */
+const CITY_SCHEDULE_NOTES = {
+  nakano: [
+    "祝日も通常どおり収集します。",
+    "「第5」にあたる曜日の収集はありません。",
+    "年末年始の収集日は区のホームページ等でご確認ください。",
+  ],
+  setagaya: [
+    "「第5」（5回目）にあたる曜日の収集はありません。",
+    "年末年始の収集日は区のホームページ等でご確認ください。",
   ],
 };
 
@@ -304,7 +334,11 @@ function restoreSavedLocations() {
   try {
     saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
   } catch {
-    localStorage.removeItem(STORAGE_KEY);
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // ストレージが使えない環境では何もしない
+    }
     return;
   }
 
@@ -348,34 +382,58 @@ function getScheduleCategory(itemName, sourceCategory, cityId) {
   return mappedCategory;
 }
 
+/*
+ * 区の定期収集（集積所での曜日収集）がない品目の種類を返します。
+ * 判定は category のみを使い、note は使用しません。
+ * 定期収集区分がカテゴリ名に含まれる場合（例：「拠点回収または不燃ごみ」）は
+ * 区でも収集するため null を返します。
+ */
+const NON_REGULAR_TYPES = Object.freeze({
+  COLLECTIVE: "collective",
+  DROP_OFF: "drop_off",
+  STORE: "store",
+});
+
+const NON_REGULAR_LABELS = Object.freeze({
+  [NON_REGULAR_TYPES.COLLECTIVE]: "曜日収集なし（集団回収）",
+  [NON_REGULAR_TYPES.DROP_OFF]: "曜日収集なし（拠点回収）",
+  [NON_REGULAR_TYPES.STORE]: "曜日収集なし（販売店・店頭回収）",
+});
+
+function getNonRegularType(item) {
+  const category = normalize(getItemCategory(item));
+  if (!category) return null;
+
+  const regularCategoryPattern =
+    /(資源|可燃|燃やす|燃える|不燃|燃やさない|燃えない|プラスチック|プラ|陶器.*ガラス.*金属|びん.*缶.*ペットボトル|缶.*ペットボトル|ペットボトル)/;
+
+  if (regularCategoryPattern.test(category)) return null;
+  if (/集団回収/.test(category)) return NON_REGULAR_TYPES.COLLECTIVE;
+  if (/拠点回収/.test(category)) return NON_REGULAR_TYPES.DROP_OFF;
+  if (/(販売店.*回収|回収ボックス|店頭回収)/.test(category)) {
+    return NON_REGULAR_TYPES.STORE;
+  }
+
+  return null;
+}
+
+function isNonRegularCollection(item) {
+  return getNonRegularType(item) !== null;
+}
+
+/*
+ * 比較一覧用の区分です。集団回収・拠点回収などは、区の資源回収とは
+ * 出し方が異なるため独立した区分として比較します。
+ */
 function getComparisonCategory(item, cityId) {
+  const nonRegularType = getNonRegularType(item);
+  if (nonRegularType) return `non_regular:${nonRegularType}`;
+
   return getScheduleCategory(
     getItemName(item),
     getItemCategory(item),
     cityId,
   );
-}
-
-/*
- * 曜日を非表示にする判定は category のみを使います。
- * 定期収集区分がカテゴリ名に含まれる場合は、非定期回収語句が併記されていても
- * 曜日を非表示にしません。note は判定に使用しません。
- */
-function isNonRegularCollection(item) {
-  const category = normalize(getItemCategory(item));
-  if (!category) return false;
-
-  const regularCategoryPattern =
-    /(資源|可燃|燃やす|燃える|不燃|燃やさない|燃えない|プラスチック|プラ|陶器.*ガラス.*金属|びん.*缶.*ペットボトル|缶.*ペットボトル|ペットボトル)/;
-
-  if (regularCategoryPattern.test(category)) {
-    return false;
-  }
-
-  const nonRegularCategoryPattern =
-    /(集団回収|拠点回収|販売店.*回収|回収ボックス|店頭回収)/;
-
-  return nonRegularCategoryPattern.test(category);
 }
 
 function buildCommonItems() {
@@ -625,6 +683,43 @@ function getScheduleRows(locationName) {
   };
 }
 
+function getAreaNotice(location) {
+  if (!location) return "";
+
+  const notice = AREA_NOTICES.find(
+    (entry) =>
+      entry.city === location.city &&
+      normalize(entry.town) === normalize(location.town) &&
+      entry.blocks.includes(String(location.block)),
+  );
+
+  return notice?.message ?? "";
+}
+
+function createScheduleNotes(location) {
+  const fragment = document.createDocumentFragment();
+  const areaNotice = getAreaNotice(location);
+
+  if (areaNotice) {
+    fragment.append(createTextElement("p", "area-notice", `⚠ ${areaNotice}`));
+  }
+
+  const notes = CITY_SCHEDULE_NOTES[location.city] ?? [];
+
+  if (notes.length > 0) {
+    const list = document.createElement("ul");
+    list.className = "schedule-notes";
+
+    for (const note of notes) {
+      list.append(createTextElement("li", "", note));
+    }
+
+    fragment.append(list);
+  }
+
+  return fragment;
+}
+
 function createScheduleCard(locationName) {
   const location = appState[locationName];
   const cityInfo = CITY_INFO[location.city];
@@ -675,7 +770,7 @@ function createScheduleCard(locationName) {
       createTextElement("dd", "schedule-day", "曜日収集なし・個別申し込み"),
     );
 
-    content.append(list, oversized);
+    content.append(createScheduleNotes(location), list, oversized);
     appendOversizedGuide(content, location.city);
   }
 
@@ -714,28 +809,83 @@ function findItem(items, query) {
   );
 }
 
+/** 括弧書き（「(飲食用)」など）を除いた品目名です。自治体間の表記揺れの吸収に使います。 */
+function getBaseName(name) {
+  return normalize(name).replace(/\(.*?\)/g, "");
+}
+
+function sortByRank(entries) {
+  const seen = new Set();
+
+  return entries
+    .sort(
+      (a, b) =>
+        a.rank - b.rank ||
+        a.name.length - b.name.length ||
+        a.name.localeCompare(b.name, "ja"),
+    )
+    .filter(({ name }) => {
+      const key = normalize(name);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .map(({ name }) => name);
+}
+
+/**
+ * 完全一致しなかったときの「似た品目」を返します。
+ * 括弧を除いた名前が同じもの → 前方一致 → 部分一致 → 入力が品目名を含む、の順です。
+ */
+function findSimilarItems(items, query, limit = 6) {
+  const key = normalize(query);
+  const base = getBaseName(query);
+  if (!key) return [];
+
+  const entries = [];
+
+  for (const item of items) {
+    const name = getItemName(item);
+    const nameKey = normalize(name);
+    if (!nameKey) continue;
+
+    const nameBase = getBaseName(name);
+    let rank = null;
+
+    if (base && nameBase === base) rank = 0;
+    else if (nameKey.startsWith(key)) rank = 1;
+    else if (nameKey.includes(key)) rank = 2;
+    // 「ペットボトルのキャップ」→「キャップ」のように、末尾の語（主語）と一致するものを優先
+    else if (nameBase.length >= 2 && key.endsWith(nameBase)) rank = 3;
+    else if (nameBase.length >= 2 && key.includes(nameBase)) rank = 4;
+
+    if (rank !== null) entries.push({ name, rank });
+  }
+
+  return sortByRank(entries).slice(0, limit);
+}
+
+/** 入力中の候補です。今・前の両方の自治体から部分一致で集めます。 */
 function collectCandidates(query) {
   const key = normalize(query);
   if (!key || !hasSavedLocations()) return [];
 
-  const currentData = cityData.get(appState.current.city);
-  if (!currentData) return [];
+  const entries = [];
 
-  return currentData.items
-    .map(getItemName)
-    .filter((name) => name && normalize(name).startsWith(key))
-    .filter((name, index, names) =>
-      names.findIndex((candidate) => normalize(candidate) === normalize(name)) === index,
-    )
-    .sort((a, b) => {
-      const aKey = normalize(a);
-      const bKey = normalize(b);
-      const aRank = aKey === key ? 0 : 1;
-      const bRank = bKey === key ? 0 : 1;
+  for (const locationName of ["current", "previous"]) {
+    const data = cityData.get(appState[locationName].city);
 
-      return aRank - bRank || a.length - b.length || a.localeCompare(b, "ja");
-    })
-    .slice(0, 50);
+    for (const item of data?.items ?? []) {
+      const name = getItemName(item);
+      const nameKey = normalize(name);
+      if (!nameKey.includes(key)) continue;
+
+      const rank = nameKey === key ? 0 : nameKey.startsWith(key) ? 1 : 2;
+      entries.push({ name, rank });
+    }
+  }
+
+  return sortByRank(entries).slice(0, 50);
 }
 
 function renderSuggestions() {
@@ -789,16 +939,21 @@ function getLocationItemResult(locationName, query) {
   const item = findItem(data.items, query);
 
   if (!item) {
+    const similarItems = findSimilarItems(data.items, query);
+
     return {
       valid: true,
       found: false,
       location,
       cityId: location.city,
       itemName: "—",
-      category: "—",
+      category: "品目が見つかりません",
       day: "—",
-      note: "完全一致する品目がありません。品目名を確認して再検索してください。",
+      note: similarItems.length > 0
+        ? `「${query}」と同じ名前の品目はありません。この自治体では下の名前で登録されている可能性があります。`
+        : `「${query}」に一致する品目はありません。品目名を短くするか、別の言い方で検索してください。`,
       requiresApplication: false,
+      similarItems,
     };
   }
 
@@ -825,15 +980,34 @@ function getLocationItemResult(locationName, query) {
       ? "ペットボトル"
       : sourceCategory || "カテゴリ未登録";
 
-  const notes = [getItemNote(item), schedule.note]
+  const nonRegularType = getNonRegularType(item);
+  const isNotCollected =
+    schedule.category === GARBAGE_CATEGORIES.NOT_COLLECTED;
+  const hasRegularDay =
+    !nonRegularType && !schedule.requiresApplication && !isNotCollected &&
+    Boolean(schedule.collectionDay);
+
+  const notes = [
+    getItemNote(item),
+    nonRegularType
+      ? "区の集積所での曜日収集はありません。回収の日時・場所は区の案内でご確認ください。"
+      : schedule.note,
+    hasRegularDay ? getAreaNotice(location) : "",
+  ]
     .filter(Boolean)
     .filter((note, index, list) => list.indexOf(note) === index);
 
-  const collectionDay = isNonRegularCollection(item)
-    ? "—"
-    : schedule.requiresApplication
-      ? "曜日収集なし（個別申し込み）"
-      : schedule.collectionDay || "—";
+  let collectionDay;
+
+  if (nonRegularType) {
+    collectionDay = NON_REGULAR_LABELS[nonRegularType];
+  } else if (schedule.requiresApplication) {
+    collectionDay = "曜日収集なし（個別申し込み）";
+  } else if (isNotCollected) {
+    collectionDay = "区では収集しません";
+  } else {
+    collectionDay = schedule.collectionDay || "—";
+  }
 
   return {
     valid: true,
@@ -869,10 +1043,36 @@ function renderLocationResult(locationName, result) {
   const noteElement = document.getElementById(`${prefix}-note`);
   const resultBody = noteElement.parentElement;
   resultBody.querySelector(".oversized-guide")?.remove();
+  resultBody.querySelector(".similar-items")?.remove();
 
   if (result.valid && result.found && result.requiresApplication) {
     appendOversizedGuide(resultBody, result.cityId);
   }
+
+  if (result.valid && !result.found && result.similarItems?.length > 0) {
+    resultBody.append(createSimilarItems(result.similarItems));
+  }
+}
+
+function createSimilarItems(names) {
+  const container = document.createElement("div");
+  container.className = "similar-items";
+  container.append(createTextElement("p", "suggestions-heading", "似た品目（押すと検索します）"));
+
+  const list = document.createElement("div");
+  list.className = "suggestion-list";
+
+  for (const name of names) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "suggestion-button";
+    button.textContent = name;
+    button.addEventListener("click", () => searchItem(name));
+    list.append(button);
+  }
+
+  container.append(list);
+  return container;
 }
 
 function searchItem(selectedName = null, photoMock = false) {
@@ -937,11 +1137,22 @@ function saveSettings() {
   }
 
   appState = { current, previous };
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
 
-  elements.settingsMessage.textContent = "地域設定を保存しました。";
+  let persisted = true;
+
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+  } catch (error) {
+    console.warn(error);
+    persisted = false;
+  }
+
+  elements.settingsMessage.textContent = persisted
+    ? "地域設定を保存しました。"
+    : "地域設定を反映しました（この端末では保存できないため、次回は再設定が必要です）。";
   elements.features.hidden = false;
   elements.settingsPanel.hidden = true;
+  elements.toggleSettings.disabled = false;
   elements.toggleSettings.setAttribute("aria-expanded", "false");
   elements.toggleSettings.textContent = "地域設定を変更";
 
@@ -989,10 +1200,12 @@ async function loadCityData() {
     const configured = hasSavedLocations();
     elements.features.hidden = !configured;
     elements.settingsPanel.hidden = configured;
+    // 未設定のまま設定パネルを閉じると何も表示されなくなるため、保存までは無効にする
+    elements.toggleSettings.disabled = !configured;
     elements.toggleSettings.setAttribute("aria-expanded", String(!configured));
     elements.toggleSettings.textContent = configured
       ? "地域設定を変更"
-      : "設定を閉じる";
+      : "地域を設定中";
 
     if (!configured) {
       elements.settingsMessage.textContent =
@@ -1026,6 +1239,12 @@ elements.saveSettings.addEventListener("click", saveSettings);
 elements.toggleSettings.addEventListener("click", () => {
   const willOpen = elements.settingsPanel.hidden;
 
+  if (!willOpen && !hasSavedLocations()) {
+    elements.settingsMessage.textContent =
+      "地域設定を保存すると、比較・検索・スケジュールを使えます。";
+    return;
+  }
+
   elements.settingsPanel.hidden = !willOpen;
   elements.toggleSettings.setAttribute("aria-expanded", String(willOpen));
   elements.toggleSettings.textContent = willOpen
@@ -1051,7 +1270,15 @@ elements.itemSearch.addEventListener("keydown", (event) => {
 elements.searchButton.addEventListener("click", () => searchItem());
 
 elements.cameraInput.addEventListener("change", (event) => {
-  if (!event.target.files?.[0]) return;
+  const file = event.target.files?.[0];
+  if (!file) return;
+
+  if (!file.type.startsWith("image/")) {
+    elements.searchError.textContent =
+      "画像ファイル（写真）を選択してください。";
+    event.target.value = "";
+    return;
+  }
 
   elements.itemSearch.value = "ペットボトル";
   searchItem("ペットボトル", true);

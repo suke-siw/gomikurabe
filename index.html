@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#10b981" />
-    <title>引っ越しごみナビ</title>
+    <title>ごみくらべ</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -13,7 +13,7 @@
         <div class="hero-inner">
           <div>
             <p class="hero-sub">引っ越しサポート</p>
-            <h1 class="hero-title">引っ越しごみナビ</h1>
+            <h1 class="hero-title">ごみくらべ</h1>
           </div>
           <div class="icon-badge" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="24" height="24">
@@ -38,6 +38,8 @@
           </button>
         </div>
       </header>
+
+      <p id="data-error" class="error-message data-error" role="alert"></p>
 
       <section id="settings-panel" class="settings-panel" aria-labelledby="settings-heading">
         <div class="settings-heading-row">
@@ -289,8 +291,6 @@
 
             <section id="schedule-results" class="schedule-results" aria-live="polite"></section>
           </section>
-
-          <p id="data-error" class="error-message" role="alert"></p>
         </main>
       </div>
     </div>
