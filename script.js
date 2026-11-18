@@ -18,13 +18,15 @@ const CITY_INFO = {
     designatedBag: "指定ごみ袋：なし（市販の透明・半透明袋を使用）",
     oversizedApplicationUrl: "https://www2.sodai-web.jp/nakano/index.html",
     oversizedApplicationLabel: "中野区 粗大ごみWeb申込",
-    oversizedDetailsUrl: "https://www.city.tokyo-nakano.lg.jp/kurashi/gomi/sodaigomi/index.html",
+    oversizedDetailsUrl:
+      "https://www.city.tokyo-nakano.lg.jp/kurashi/gomi/sodaigomi/index.html",
   },
   setagaya: {
     designatedBag: "指定ごみ袋：なし（市販の透明・半透明袋を使用）",
     oversizedApplicationUrl: "https://www.sodai-setagaya.jp/eco/view/setagaya/top.html",
     oversizedApplicationLabel: "世田谷区 粗大ごみWeb申込",
-    oversizedDetailsUrl: "https://www.city.setagaya.lg.jp/02241/online_tetsuzuki/380.html#p1",
+    oversizedDetailsUrl:
+      "https://www.city.setagaya.lg.jp/02241/online_tetsuzuki/380.html#p1",
   },
 };
 
@@ -768,7 +770,7 @@ function getLocationItemResult(locationName, query) {
     category: displayCategory,
     day: schedule.requiresApplication
       ? "曜日収集なし（個別申し込み）"
-      : schedule.collectionDay || "曜日を確認できません",
+      : schedule.collectionDay || "—",
     note: notes.join("\n"),
     requiresApplication: schedule.requiresApplication,
   };
@@ -794,9 +796,7 @@ function renderLocationResult(locationName, result) {
 
   const noteElement = document.getElementById(`${prefix}-note`);
   const resultBody = noteElement.parentElement;
-  const previousGuide = resultBody.querySelector(".oversized-guide");
-
-  previousGuide?.remove();
+  resultBody.querySelector(".oversized-guide")?.remove();
 
   if (result.valid && result.requiresApplication) {
     appendOversizedGuide(resultBody, result.cityId);

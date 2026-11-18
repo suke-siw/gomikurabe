@@ -371,7 +371,7 @@ select:disabled {
   font-weight: 850;
   line-height: 1.45;
   word-break: keep-all;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-clamp: 2;
@@ -405,12 +405,15 @@ select:disabled {
 }
 
 .comparison-category {
+  min-width: 0;
+  max-width: 100%;
   margin: 0;
   font-size: 12px;
   font-weight: 750;
   line-height: 1.5;
-  white-space: nowrap;
-  word-break: keep-all;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: anywhere;
 }
 
 .comparison-note {
@@ -429,6 +432,7 @@ select:disabled {
   color: var(--muted);
   font-size: 13px;
   text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .item-field {
@@ -503,6 +507,7 @@ select:disabled {
 }
 
 .suggestion-button {
+  min-width: 0;
   padding: 8px 10px;
   border: 1px solid transparent;
   border-radius: 10px;
@@ -512,8 +517,8 @@ select:disabled {
   line-height: 1.45;
   text-align: left;
   cursor: pointer;
-  word-break: keep-all;
-  overflow-wrap: break-word;
+  word-break: normal;
+  overflow-wrap: anywhere;
 }
 
 .suggestion-button:hover {
@@ -527,6 +532,7 @@ select:disabled {
   color: #b91c1c;
   font-size: 11px;
   line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .search-result {
@@ -547,6 +553,7 @@ select:disabled {
   margin: 5px 0 0;
   color: var(--muted);
   font-size: 11px;
+  overflow-wrap: anywhere;
 }
 
 .result-tag {
@@ -570,16 +577,19 @@ select:disabled {
 }
 
 .result-body {
+  min-width: 0;
   padding: 12px;
 }
 
 .result-details {
   display: grid;
   gap: 8px;
+  min-width: 0;
   margin: 0;
 }
 
 .result-details div {
+  min-width: 0;
   padding: 9px 10px;
   border-radius: 12px;
   background: #f8fafc;
@@ -592,12 +602,13 @@ select:disabled {
 }
 
 .result-details dd {
+  min-width: 0;
   margin: 4px 0 0;
   font-size: 13px;
   font-weight: 800;
   line-height: 1.5;
-  word-break: keep-all;
-  overflow-wrap: break-word;
+  word-break: normal;
+  overflow-wrap: anywhere;
 }
 
 .info-text {
@@ -627,6 +638,7 @@ select:disabled {
 }
 
 .schedule-card-header {
+  min-width: 0;
   align-items: flex-start;
   flex-direction: column;
   gap: 7px;
@@ -639,11 +651,12 @@ select:disabled {
   font-size: 14px;
   font-weight: 800;
   line-height: 1.5;
-  word-break: keep-all;
-  overflow-wrap: break-word;
+  word-break: normal;
+  overflow-wrap: anywhere;
 }
 
 .designated-bag-info {
+  max-width: 100%;
   margin: 0;
   padding: 9px 10px;
   border-radius: 12px;
@@ -652,15 +665,18 @@ select:disabled {
   font-size: 12px;
   font-weight: 700;
   line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .schedule-card-content {
+  min-width: 0;
   padding: 12px;
 }
 
 .schedule-list {
   display: grid;
   gap: 8px;
+  min-width: 0;
   margin: 0;
 }
 
@@ -669,6 +685,7 @@ select:disabled {
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 8px;
+  min-width: 0;
   padding: 10px;
   border-radius: 12px;
   background: #f8fafc;
@@ -681,18 +698,22 @@ select:disabled {
   font-size: 12px;
   font-weight: 700;
   line-height: 1.4;
-  white-space: nowrap;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: anywhere;
 }
 
 .schedule-day {
-  flex: 0 0 auto;
+  min-width: 0;
   margin: 0;
   color: var(--green-dark);
   font-size: 12px;
   font-weight: 800;
   line-height: 1.4;
   text-align: right;
-  white-space: nowrap;
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 .schedule-row-note {
@@ -700,19 +721,14 @@ select:disabled {
   background: #fffbeb;
 }
 
-.schedule-row-note .schedule-category {
-  white-space: normal;
-}
-
 .schedule-row-note .schedule-day {
   color: #92400e;
-  white-space: normal;
-  word-break: keep-all;
 }
 
 .oversized-guide {
   display: grid;
   gap: 8px;
+  min-width: 0;
   margin-top: 10px;
   padding: 12px;
   border: 1px solid #fed7aa;
@@ -725,10 +741,12 @@ select:disabled {
   color: #78350f;
   font-size: 12px;
   line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
 .oversized-application-link {
   display: block;
+  min-width: 0;
   padding: 10px 12px;
   border-radius: 11px;
   background: var(--green);
@@ -738,6 +756,7 @@ select:disabled {
   line-height: 1.4;
   text-align: center;
   text-decoration: none;
+  overflow-wrap: anywhere;
 }
 
 .oversized-application-link:hover {
@@ -746,11 +765,13 @@ select:disabled {
 
 .oversized-details-link {
   justify-self: start;
+  max-width: 100%;
   color: var(--green-dark);
   font-size: 11px;
   line-height: 1.5;
   text-decoration: underline;
   text-underline-offset: 2px;
+  overflow-wrap: anywhere;
 }
 
 .tab-panel.hidden,

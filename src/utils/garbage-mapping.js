@@ -9,6 +9,7 @@ export const GARBAGE_CATEGORIES = Object.freeze({
   CAN: "can",
   RESOURCE: "resource",
   OVERSIZED: "oversized",
+  NOT_COLLECTED: "not_collected",
 });
 
 export const CATEGORY_LABELS = Object.freeze({
@@ -22,6 +23,7 @@ export const CATEGORY_LABELS = Object.freeze({
   [GARBAGE_CATEGORIES.CAN]: "缶",
   [GARBAGE_CATEGORIES.RESOURCE]: "資源・その他",
   [GARBAGE_CATEGORIES.OVERSIZED]: "粗大ごみ",
+  [GARBAGE_CATEGORIES.NOT_COLLECTED]: "区では収集できないもの",
 });
 
 export const MUNICIPALITIES = {
@@ -62,6 +64,14 @@ export function mapCategory(sourceCategory, municipalityId = "") {
 
   if (/(粗大|大型|oversized|bulky)/.test(value)) {
     return GARBAGE_CATEGORIES.OVERSIZED;
+  }
+
+  if (
+    /(区では収集できない|区では収集しない|収集不可|家電リサイクル法対象品目|パソコン)/.test(
+      value,
+    )
+  ) {
+    return GARBAGE_CATEGORIES.NOT_COLLECTED;
   }
 
   if (/(可燃|燃やす|燃える|burnable)/.test(value)) {
@@ -209,6 +219,19 @@ export function getCollectionSchedule({
       note:
         note ||
         "粗大ごみは通常の収集曜日では回収されません。自治体への個別申し込みと、手数料の確認が必要です。",
+    };
+  }
+
+  if (mappedCategory === GARBAGE_CATEGORIES.NOT_COLLECTED) {
+    return {
+      found: true,
+      category: mappedCategory,
+      categoryLabel: CATEGORY_LABELS[mappedCategory],
+      collectionDay: null,
+      requiresApplication: false,
+      note:
+        note ||
+        "この品目は自治体では収集できません。販売店や専門業者などにご相談ください。",
     };
   }
 
