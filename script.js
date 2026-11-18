@@ -30,16 +30,12 @@ const CITY_INFO = {
   },
 };
 
-/*
- * 中野区の schedule JSON では、resource が資源プラスチック、
- * plastic がびん・缶・ペットボトルに対応します。
- */
 const SCHEDULE_CATEGORY_ROWS = {
   nakano: [
     { key: "burnable", label: "燃やすごみ" },
     { key: "glass_metal", label: "陶器・ガラス・金属ごみ" },
-    { key: "resource", label: "資源プラスチック" },
-    { key: "plastic", label: "びん・缶・ペットボトル" },
+    { key: "resource", label: "びん・缶・ペットボトル" },
+    { key: "plastic", label: "資源プラスチック" },
   ],
   setagaya: [
     { key: "burnable", label: "可燃ごみ" },
@@ -329,6 +325,12 @@ function restoreSavedLocations() {
   };
 }
 
+/**
+ * 収集曜日の判定に使う分別区分を返します。
+ * 品目名に「ペットボトル」を含んでも、キャップ・ラベル（資源プラスチック）や
+ * 油の付着したもの（可燃ごみ）は元データの区分を優先し、
+ * 資源系に分類されるペットボトル本体だけをペットボトル扱いにします。
+ */
 function getScheduleCategory(itemName, sourceCategory, cityId) {
   const mappedCategory = mapCategory(sourceCategory, cityId);
 

@@ -34,10 +34,9 @@ export const MUNICIPALITIES = {
       [GARBAGE_CATEGORIES.BURNABLE]: ["burnable"],
       [GARBAGE_CATEGORIES.NON_BURNABLE]: ["glass_metal"],
       [GARBAGE_CATEGORIES.NAKANO_CERAMIC_GLASS_METAL]: ["glass_metal"],
-      // 中野区の schedule JSON では、resource が資源プラスチック。
-      [GARBAGE_CATEGORIES.PLASTIC]: ["resource"],
-      // 中野区の schedule JSON では、plastic がびん・缶・ペットボトル。
-      [GARBAGE_CATEGORIES.BOTTLE]: ["plastic"],
+      // 中野区の schedule JSON: plastic = 資源プラスチック、resource = びん・缶・ペットボトル
+      [GARBAGE_CATEGORIES.PLASTIC]: ["plastic"],
+      [GARBAGE_CATEGORIES.BOTTLE]: ["resource"],
       [GARBAGE_CATEGORIES.GLASS]: ["glass_metal"],
       [GARBAGE_CATEGORIES.CAN]: ["glass_metal"],
       [GARBAGE_CATEGORIES.RESOURCE]: ["resource"],
