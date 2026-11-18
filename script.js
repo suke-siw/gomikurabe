@@ -330,11 +330,17 @@ function restoreSavedLocations() {
 }
 
 function getScheduleCategory(itemName, sourceCategory, cityId) {
-  if (normalize(itemName).includes("ペットボトル")) {
+  const mappedCategory = mapCategory(sourceCategory, cityId);
+
+  if (
+    normalize(itemName).includes("ペットボトル") &&
+    (mappedCategory === GARBAGE_CATEGORIES.RESOURCE ||
+      mappedCategory === GARBAGE_CATEGORIES.BOTTLE)
+  ) {
     return GARBAGE_CATEGORIES.BOTTLE;
   }
 
-  return mapCategory(sourceCategory, cityId);
+  return mappedCategory;
 }
 
 function getComparisonCategory(item, cityId) {
@@ -342,6 +348,16 @@ function getComparisonCategory(item, cityId) {
     getItemName(item),
     getItemCategory(item),
     cityId,
+  );
+}
+
+function isNonRegularCollection(item) {
+  const category = normalize(getItemCategory(item));
+  const note = normalize(getItemNote(item));
+  const combined = `${category}${note}`;
+
+  return /(集団回収|拠点回収|販売店回収|販売店の回収|回収ボックス|店頭回収)/.test(
+    combined,
   );
 }
 
@@ -796,6 +812,12 @@ function getLocationItemResult(locationName, query) {
     .filter(Boolean)
     .filter((note, index, list) => list.indexOf(note) === index);
 
+  const collectionDay = isNonRegularCollection(item)
+    ? "—"
+    : schedule.requiresApplication
+      ? "曜日収集なし（個別申し込み）"
+      : schedule.collectionDay || "—";
+
   return {
     valid: true,
     found: true,
@@ -803,9 +825,7 @@ function getLocationItemResult(locationName, query) {
     cityId: location.city,
     itemName,
     category: displayCategory,
-    day: schedule.requiresApplication
-      ? "曜日収集なし（個別申し込み）"
-      : schedule.collectionDay || "—",
+    day: collectionDay,
     note: notes.join("\n") || "追加の注意事項はありません。",
     requiresApplication: schedule.requiresApplication,
   };
