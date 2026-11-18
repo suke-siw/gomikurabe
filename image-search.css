@@ -1,10 +1,50 @@
 .ai-photo-status {
+  display: flex;
   min-height: 1.5em;
+  align-items: center;
+  gap: 9px;
   margin: 10px 0;
   color: var(--muted, #64748b);
   font-size: 12px;
   line-height: 1.5;
   overflow-wrap: anywhere;
+}
+
+.ai-photo-status.is-loading {
+  min-height: 42px;
+  padding: 9px 11px;
+  border: 1px solid #a7f3d0;
+  border-radius: 12px;
+  background: #ecfdf5;
+  color: var(--green-dark, #047857);
+  font-weight: 750;
+}
+
+.ai-photo-status-text {
+  min-width: 0;
+}
+
+.ai-photo-spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  border: 2px solid #a7f3d0;
+  border-top-color: var(--green-dark, #047857);
+  border-radius: 50%;
+  animation: ai-photo-spin 0.8s linear infinite;
+}
+
+@keyframes ai-photo-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-photo-spinner {
+    animation-duration: 2s;
+  }
 }
 
 .ai-photo-results {

@@ -7,11 +7,62 @@ const itemSearch = document.getElementById("item-search");
 const searchButton = document.getElementById("search-button");
 
 let selectingCandidate = false;
+let loadingTimer = null;
+let loadingMessageTimer = null;
+
+const LOADING_MESSAGES = [
+  "AIが写真の品目を解析中...（数秒かかります）",
+  "自治体の分別ルールを照合しています...",
+];
+
+function clearLoadingTimers() {
+  if (loadingTimer !== null) {
+    clearTimeout(loadingTimer);
+    loadingTimer = null;
+  }
+
+  if (loadingMessageTimer !== null) {
+    clearInterval(loadingMessageTimer);
+    loadingMessageTimer = null;
+  }
+}
 
 function setStatus(message) {
+  statusElement?.classList.remove("is-loading");
+  statusElement?.removeAttribute("aria-busy");
+
   if (statusElement) {
     statusElement.textContent = message;
   }
+}
+
+function setLoadingStatus(message) {
+  if (!statusElement) return;
+
+  statusElement.replaceChildren();
+
+  const spinner = document.createElement("span");
+  spinner.className = "ai-photo-spinner";
+  spinner.setAttribute("aria-hidden", "true");
+
+  const text = document.createElement("span");
+  text.className = "ai-photo-status-text";
+  text.textContent = message;
+
+  statusElement.append(spinner, text);
+  statusElement.classList.add("is-loading");
+  statusElement.setAttribute("aria-busy", "true");
+}
+
+function startLoadingMessages() {
+  let messageIndex = 0;
+
+  setLoadingStatus(LOADING_MESSAGES[messageIndex]);
+
+  loadingMessageTimer = setInterval(() => {
+    messageIndex = (messageIndex + 1) % LOADING_MESSAGES.length;
+    setLoadingStatus(LOADING_MESSAGES[messageIndex]);
+  }, 3500);
 }
 
 function createElement(tagName, className, text) {
@@ -157,7 +208,6 @@ function createResultCard(result, index) {
   });
 
   card.append(selectButton);
-
   card.addEventListener("click", () => {
     selectCandidate(result.name, card);
   });
@@ -191,13 +241,15 @@ function renderResults(results) {
 }
 
 async function identifyPhoto(file) {
+  clearLoadingTimers();
+
   if (!file.type.startsWith("image/")) {
     setStatus("画像ファイルを選択してください。");
     return;
   }
 
   resultsElement.replaceChildren();
-  setStatus("画像を縮小して判定しています...");
+  setLoadingStatus("画像を最適化・縮小しています...");
 
   if (searchResult) {
     searchResult.classList.remove("hidden");
@@ -209,6 +261,9 @@ async function identifyPhoto(file) {
 
   try {
     const { imageBase64, mediaType } = await resizeImageToBase64(file);
+
+    startLoadingMessages();
+
     const fileKey = `${file.name}_${file.size}`;
 
     const response = await fetch("/api/identify", {
@@ -235,8 +290,10 @@ async function identifyPhoto(file) {
       throw new Error(payload.error || "写真判定に失敗しました。");
     }
 
+    clearLoadingTimers();
     renderResults(payload.results);
   } catch (error) {
+    clearLoadingTimers();
     setStatus(error.message || "写真判定に失敗しました。");
   }
 }
@@ -268,6 +325,7 @@ if (itemSearch) {
   itemSearch.addEventListener("input", () => {
     if (selectingCandidate || resultsElement.childElementCount === 0) return;
 
+    clearLoadingTimers();
     resultsElement.replaceChildren();
     setStatus("");
 
