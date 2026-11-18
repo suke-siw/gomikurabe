@@ -720,7 +720,7 @@ function getLocationItemResult(locationName, query) {
       itemName: "—",
       category: "—",
       day: "—",
-      note: "—",
+      note: "完全一致する品目がありません。品目名を確認して再検索してください。",
       requiresApplication: false,
     };
   }
