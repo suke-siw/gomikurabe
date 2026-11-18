@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#10b981" />
-    <title>引っ越しごみナビ</title>
+    <title>ごみくらべ</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="image-search.css" />
   </head>
@@ -14,7 +14,7 @@
         <div class="hero-inner">
           <div>
             <p class="hero-sub">引っ越しサポート</p>
-            <h1 class="hero-title">引っ越しごみナビ</h1>
+            <h1 class="hero-title">ごみくらべ</h1>
           </div>
           <div class="icon-badge" aria-hidden="true">
             <svg
@@ -46,6 +46,8 @@
           </button>
         </div>
       </header>
+
+      <p id="data-error" class="error-message data-error" role="alert"></p>
 
       <section
         id="settings-panel"
@@ -143,7 +145,8 @@
             aria-controls="panel-compare"
             data-tab-target="panel-compare"
           >
-            自治体比較一覧
+            <span class="tab-label-long">自治体比較一覧</span>
+            <span class="tab-label-short">比較一覧</span>
           </button>
           <button
             id="tab-navi"
@@ -154,7 +157,8 @@
             aria-controls="panel-navi"
             data-tab-target="panel-navi"
           >
-            個別検索・写真判定
+            <span class="tab-label-long">個別検索・写真判定</span>
+            <span class="tab-label-short">品目検索</span>
           </button>
           <button
             id="tab-schedule"
@@ -165,7 +169,8 @@
             aria-controls="panel-schedule"
             data-tab-target="panel-schedule"
           >
-            ごみ出しスケジュール
+            <span class="tab-label-long">ごみ出しスケジュール</span>
+            <span class="tab-label-short">収集日</span>
           </button>
         </nav>
 
@@ -195,18 +200,21 @@
                 />
               </div>
 
-              <p
-                id="comparison-message"
-                class="inline-message"
-                aria-live="polite"
-              ></p>
+              <div class="field">
+                <label class="label" for="comparison-filter">今の自治体の分別区分で絞り込む</label>
+                <div class="select-wrap">
+                  <select id="comparison-filter">
+                    <option value="">すべての区分</option>
+                  </select>
+                  <span class="select-chevron" aria-hidden="true">⌄</span>
+                </div>
+              </div>
+
+              <p id="comparison-message" class="inline-message" aria-live="polite"></p>
             </section>
 
-            <section
-              id="comparison-results"
-              class="comparison-list"
-              aria-live="polite"
-            ></section>
+            <section id="comparison-results" class="comparison-list" aria-live="polite"></section>
+            <button id="comparison-more" class="more-button" type="button" hidden>もっと見る</button>
           </section>
 
           <section
@@ -226,7 +234,7 @@
                   <input
                     id="item-search"
                     type="search"
-                    placeholder="例：びん、アタッシュケース"
+                    placeholder="例：アイロン、ペットボトル"
                     autocomplete="off"
                   />
                   <label class="camera-btn" aria-label="写真を撮影または選択">
@@ -411,9 +419,23 @@
             ></section>
           </section>
 
-          <p id="data-error" class="error-message" role="alert"></p>
         </main>
       </div>
+
+      <footer class="app-footer">
+        <p class="footer-title">データの出典</p>
+        <ul>
+          <li>
+            世田谷区「ごみ分別一覧」「資源・ごみ収集日（一覧）」
+            （<a href="https://www.city.setagaya.lg.jp/02241/416.html" target="_blank" rel="noopener noreferrer">区公式ページ</a>）
+          </li>
+          <li>
+            中野区「ごみ分別一覧」「資源とごみの収集曜日一覧」
+            （<a href="https://www.city.tokyo-nakano.lg.jp/kurashi/gomi/dashikata/leaflet.files/nakano_gomi_Pamphlet_2026.pdf" target="_blank" rel="noopener noreferrer">資源とごみの分け方・出し方 2026</a>）
+          </li>
+        </ul>
+        <p>収集日データの公式照合日：2026年11月18日。収集日は変更されることがあります。最新の情報は各区の案内でご確認ください。</p>
+      </footer>
     </div>
 
     <script type="module" src="script.js"></script>

@@ -2,6 +2,7 @@ import {
   GARBAGE_CATEGORIES,
   MUNICIPALITIES,
   getCollectionSchedule,
+  getNextCollectionDate,
   loadSchedules,
   mapCategory,
 } from "./src/utils/garbage-mapping.js";
@@ -69,15 +70,55 @@ const AREA_NOTICES = [
  */
 const CITY_SCHEDULE_NOTES = {
   nakano: [
+    "収集日の朝8時までに出してください。",
     "祝日も通常どおり収集します。",
     "「第5」にあたる曜日の収集はありません。",
     "年末年始の収集日は区のホームページ等でご確認ください。",
   ],
   setagaya: [
+    "収集日の朝8時までに出してください（可燃ごみは、三軒茶屋駅・下北沢駅周辺の一部地域では朝7時まで）。",
+    "祝日も通常どおり収集します。",
     "「第5」（5回目）にあたる曜日の収集はありません。",
     "年末年始の収集日は区のホームページ等でご確認ください。",
   ],
 };
+
+/*
+ * 公式データの区分は「資源」だが、集積所の資源回収には出せない品目です。
+ * （店頭・拠点回収、または月2回の指定場所での回収。集積所に出す場合は可燃ごみ）
+ * 出典：世田谷区「ごみ分別一覧」各品目の注意事項
+ */
+const CURBSIDE_OVERRIDES = {
+  setagaya: {
+    "食品トレイ(白色発泡トレイ)": "burnable",
+    "食品トレイ(色・柄付き発泡トレイ)": "burnable",
+    "発泡トレー": "burnable",
+    "食品用透明プラスチック容器": "burnable",
+    "食用油": "burnable",
+  },
+};
+
+const CURBSIDE_OVERRIDE_NOTE =
+  "資源の日に集積所へ出すことはできません。店頭・拠点の回収ボックスや指定の回収日を利用するか、集積所へ出す場合は可燃ごみの日に出してください。";
+
+/*
+ * 集団回収・拠点回収の品目について、回収日の調べ方の案内です。
+ */
+const NON_REGULAR_GUIDES = {
+  nakano: {
+    collective:
+      "古紙・古着は地域の集団回収に出してください。実施日は中野区の冊子「資源とごみの分け方・出し方」の集団回収実施日一覧（11・12ページ）や「中野区ごみ分別アプリ」で確認できます。",
+    drop_off:
+      "区の施設などに設置された回収ボックス（拠点回収）に出してください。回収場所は中野区の冊子「資源とごみの分け方・出し方」（15ページ〜）で確認できます。",
+  },
+  setagaya: {
+    drop_off:
+      "区の施設などで行う拠点回収に出してください。回収場所・日時は世田谷区ホームページの「拠点回収」のページで確認できます。",
+  },
+};
+
+const DEFAULT_NON_REGULAR_GUIDE =
+  "区の集積所での曜日収集はありません。回収の日時・場所は区の案内でご確認ください。";
 
 const LOCATIONS = {
   current: {
@@ -104,6 +145,8 @@ const elements = {
   comparisonMessage: document.getElementById("comparison-message"),
   comparisonResults: document.getElementById("comparison-results"),
   commonItemCount: document.getElementById("common-item-count"),
+  comparisonFilter: document.getElementById("comparison-filter"),
+  comparisonMore: document.getElementById("comparison-more"),
   itemSearch: document.getElementById("item-search"),
   suggestions: document.getElementById("search-suggestions"),
   searchButton: document.getElementById("search-button"),
@@ -117,6 +160,10 @@ const elements = {
 };
 
 const cityData = new Map();
+
+/** 比較一覧を一度に表示する件数です（スマートフォンでのスクロール量を抑えるため）。 */
+const COMPARISON_PAGE_SIZE = 30;
+let comparisonLimit = COMPARISON_PAGE_SIZE;
 
 let appState = {
   current: null,
@@ -425,9 +472,46 @@ function isNonRegularCollection(item) {
  * 比較一覧用の区分です。集団回収・拠点回収などは、区の資源回収とは
  * 出し方が異なるため独立した区分として比較します。
  */
+function getCurbsideOverride(item, cityId) {
+  const overrides = CURBSIDE_OVERRIDES[cityId] ?? {};
+  const name = normalize(getItemName(item));
+
+  for (const [overrideName, category] of Object.entries(overrides)) {
+    if (normalize(overrideName) === name) return category;
+  }
+
+  return null;
+}
+
+function getNonRegularGuide(cityId, nonRegularType) {
+  return NON_REGULAR_GUIDES[cityId]?.[nonRegularType] ?? DEFAULT_NON_REGULAR_GUIDE;
+}
+
+const WEEKDAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
+
+/** 収集曜日の文字列から「次回 11/20(金)」のような表示を作ります。判定できない場合は空文字。 */
+function formatNextCollection(dayText, fromDate = new Date()) {
+  const next = getNextCollectionDate(dayText, fromDate);
+  if (!next) return "";
+
+  if (next.isYearEnd) return "次回：年末年始のため区の案内を確認";
+
+  const { date } = next;
+  const today = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
+  const diffDays = Math.round((date - today) / 86400000);
+  const label = `${date.getMonth() + 1}/${date.getDate()}(${WEEKDAY_LABELS[date.getDay()]})`;
+
+  if (diffDays === 0) return `次回：今日 ${label}`;
+  if (diffDays === 1) return `次回：明日 ${label}`;
+  return `次回：${label}`;
+}
+
 function getComparisonCategory(item, cityId) {
   const nonRegularType = getNonRegularType(item);
   if (nonRegularType) return `non_regular:${nonRegularType}`;
+
+  const override = getCurbsideOverride(item, cityId);
+  if (override) return `curbside:${override}`;
 
   return getScheduleCategory(
     getItemName(item),
@@ -563,15 +647,42 @@ function createComparisonCard(entry) {
   return card;
 }
 
+/** 今の自治体の分別区分ごとの件数で、絞り込みの選択肢を作り直します（選択は維持）。 */
+function populateComparisonFilter(differingItems) {
+  const select = elements.comparisonFilter;
+  const selected = select.value;
+  const counts = new Map();
+
+  for (const entry of differingItems) {
+    const category = getItemCategory(entry.currentItem) || "カテゴリ未登録";
+    counts.set(category, (counts.get(category) ?? 0) + 1);
+  }
+
+  const options = [...counts.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "ja"))
+    .map(([category, count]) => [category, `${category}（${count}件）`]);
+
+  setOptions(select, options, `すべての区分（${differingItems.length}件）`);
+  select.value = counts.has(selected) ? selected : "";
+}
+
 function renderComparisonList() {
   const query = normalize(elements.comparisonSearch.value);
   const differingItems = buildCommonItems();
-  const matches = query
-    ? differingItems.filter((entry) => normalize(entry.name).includes(query))
-    : differingItems;
+
+  populateComparisonFilter(differingItems);
+
+  const categoryFilter = elements.comparisonFilter.value;
+  const matches = differingItems.filter(
+    (entry) =>
+      (!query || normalize(entry.name).includes(query)) &&
+      (!categoryFilter ||
+        (getItemCategory(entry.currentItem) || "カテゴリ未登録") === categoryFilter),
+  );
 
   elements.commonItemCount.textContent = `${matches.length}件`;
   elements.comparisonResults.replaceChildren();
+  elements.comparisonMore.hidden = true;
 
   if (!hasSavedLocations()) {
     elements.comparisonMessage.textContent =
@@ -579,23 +690,36 @@ function renderComparisonList() {
     return;
   }
 
+  const shown = matches.slice(0, comparisonLimit);
+
   elements.comparisonMessage.textContent =
-    `分別カテゴリが異なる共通品目 ${differingItems.length}件のうち、${matches.length}件を表示しています。`;
+    `分別カテゴリが異なる共通品目 ${differingItems.length}件のうち、条件に合う${matches.length}件中${shown.length}件を表示しています。`;
 
   if (matches.length === 0) {
     elements.comparisonResults.append(
-      createTextElement("p", "empty-state", "分別カテゴリが異なる共通品目はありません。"),
+      createTextElement("p", "empty-state", "条件に合う、分別カテゴリが異なる共通品目はありません。"),
     );
     return;
   }
 
   const fragment = document.createDocumentFragment();
 
-  for (const entry of matches) {
+  for (const entry of shown) {
     fragment.append(createComparisonCard(entry));
   }
 
   elements.comparisonResults.append(fragment);
+
+  if (matches.length > shown.length) {
+    elements.comparisonMore.hidden = false;
+    elements.comparisonMore.textContent =
+      `もっと見る（残り${matches.length - shown.length}件）`;
+  }
+}
+
+function resetComparisonList() {
+  comparisonLimit = COMPARISON_PAGE_SIZE;
+  renderComparisonList();
 }
 
 function getBlockSchedule(locationName) {
@@ -679,6 +803,7 @@ function getScheduleRows(locationName) {
     rows: rows.map(({ key, label }) => ({
       label,
       day: schedule[key] || "-",
+      next: schedule[key] ? formatNextCollection(schedule[key]) : "",
     })),
   };
 }
@@ -756,9 +881,15 @@ function createScheduleCard(locationName) {
     for (const row of result.rows) {
       const rowElement = document.createElement("div");
       rowElement.className = "schedule-row";
+      const dayElement = createTextElement("dd", "schedule-day", row.day);
+
+      if (row.next) {
+        dayElement.append(createTextElement("span", "schedule-next", row.next));
+      }
+
       rowElement.append(
         createTextElement("dt", "schedule-category", row.label),
-        createTextElement("dd", "schedule-day", row.day),
+        dayElement,
       );
       list.append(rowElement);
     }
@@ -959,7 +1090,8 @@ function getLocationItemResult(locationName, query) {
 
   const itemName = getItemName(item);
   const sourceCategory = getItemCategory(item);
-  const scheduleCategory = getScheduleCategory(
+  const curbsideOverride = getCurbsideOverride(item, location.city);
+  const scheduleCategory = curbsideOverride ?? getScheduleCategory(
     itemName,
     sourceCategory,
     location.city,
@@ -988,9 +1120,10 @@ function getLocationItemResult(locationName, query) {
     Boolean(schedule.collectionDay);
 
   const notes = [
+    curbsideOverride ? CURBSIDE_OVERRIDE_NOTE : "",
     getItemNote(item),
     nonRegularType
-      ? "区の集積所での曜日収集はありません。回収の日時・場所は区の案内でご確認ください。"
+      ? getNonRegularGuide(location.city, nonRegularType)
       : schedule.note,
     hasRegularDay ? getAreaNotice(location) : "",
   ]
@@ -1005,8 +1138,12 @@ function getLocationItemResult(locationName, query) {
     collectionDay = "曜日収集なし（個別申し込み）";
   } else if (isNotCollected) {
     collectionDay = "区では収集しません";
+  } else if (schedule.collectionDay) {
+    const prefix = curbsideOverride ? "集積所では可燃ごみ：" : "";
+    const next = formatNextCollection(schedule.collectionDay);
+    collectionDay = `${prefix}${schedule.collectionDay}${next ? `\n${next}` : ""}`;
   } else {
-    collectionDay = schedule.collectionDay || "—";
+    collectionDay = "—";
   }
 
   return {
@@ -1157,7 +1294,8 @@ function saveSettings() {
   elements.toggleSettings.textContent = "地域設定を変更";
 
   updateLocationSummary();
-  renderComparisonList();
+  elements.comparisonFilter.value = "";
+  resetComparisonList();
   renderScheduleList();
   elements.searchResult.classList.add("hidden");
   elements.photoMockResult.classList.add("hidden");
@@ -1252,7 +1390,12 @@ elements.toggleSettings.addEventListener("click", () => {
     : "地域設定を変更";
 });
 
-elements.comparisonSearch.addEventListener("input", renderComparisonList);
+elements.comparisonSearch.addEventListener("input", resetComparisonList);
+elements.comparisonFilter.addEventListener("change", resetComparisonList);
+elements.comparisonMore.addEventListener("click", () => {
+  comparisonLimit += COMPARISON_PAGE_SIZE;
+  renderComparisonList();
+});
 
 elements.itemSearch.addEventListener("input", renderSuggestions);
 
