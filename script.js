@@ -626,18 +626,13 @@ function renderScheduleList() {
   );
 }
 
-/**
- * 品目名の厳密な完全一致検索です。
- * 部分一致や前方一致は行わないため、「テレビ」で「テレビ台」はヒットしません。
- */
 function findItem(items, query) {
   const normalizedQuery = normalize(query);
   if (!normalizedQuery) return null;
 
   return (
     items.find(
-      (item) =>
-        normalize(getItemName(item)) === normalizedQuery,
+      (item) => normalize(getItemName(item)) === normalizedQuery,
     ) ?? null
   );
 }
@@ -658,8 +653,8 @@ function collectCandidates(query) {
     .sort((a, b) => {
       const aKey = normalize(a);
       const bKey = normalize(b);
-      const aRank = aKey === key ? 0 : aKey.startsWith(key) ? 1 : 2;
-      const bRank = bKey === key ? 0 : bKey.startsWith(key) ? 1 : 2;
+      const aRank = aKey === key ? 0 : 1;
+      const bRank = bKey === key ? 0 : 1;
 
       return aRank - bRank || a.length - b.length || a.localeCompare(b, "ja");
     })
@@ -722,10 +717,10 @@ function getLocationItemResult(locationName, query) {
       found: false,
       location,
       cityId: location.city,
-      itemName: query,
-      category: "品目が見つかりません",
+      itemName: "—",
+      category: "—",
       day: "—",
-      note: "完全一致する品目がありません。品目名を確認して再検索してください。",
+      note: "—",
       requiresApplication: false,
     };
   }
@@ -767,7 +762,7 @@ function getLocationItemResult(locationName, query) {
     day: schedule.requiresApplication
       ? "曜日収集なし（個別申し込み）"
       : schedule.collectionDay || "—",
-    note: notes.join("\n"),
+    note: notes.join("\n") || "追加の注意事項はありません。",
     requiresApplication: schedule.requiresApplication,
   };
 }
@@ -784,17 +779,17 @@ function renderLocationResult(locationName, result) {
   document.getElementById(`${prefix}-item`).textContent =
     result.valid ? result.itemName : "—";
   document.getElementById(`${prefix}-category`).textContent =
-    result.valid ? result.category : result.message;
+    result.valid ? result.category : "—";
   document.getElementById(`${prefix}-day`).textContent =
     result.valid ? result.day : "—";
   document.getElementById(`${prefix}-note`).textContent =
-    result.valid ? result.note || "追加の注意事項はありません。" : result.message;
+    result.valid ? result.note : "—";
 
   const noteElement = document.getElementById(`${prefix}-note`);
   const resultBody = noteElement.parentElement;
   resultBody.querySelector(".oversized-guide")?.remove();
 
-  if (result.valid && result.requiresApplication) {
+  if (result.valid && result.found && result.requiresApplication) {
     appendOversizedGuide(resultBody, result.cityId);
   }
 }
@@ -892,7 +887,9 @@ async function loadCityData() {
         ]);
 
         if (!response.ok) {
-          throw new Error(`${municipality.name}の品目データを読み込めませんでした。`);
+          throw new Error(
+            `${municipality.name}の品目データを読み込めませんでした。`,
+          );
         }
 
         const payload = await response.json();
