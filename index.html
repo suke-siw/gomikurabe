@@ -213,8 +213,14 @@
               <p id="comparison-message" class="inline-message" aria-live="polite"></p>
             </section>
 
-            <section id="comparison-results" class="comparison-list" aria-live="polite"></section>
-            <button id="comparison-more" class="more-button" type="button" hidden>もっと見る</button>
+            <section
+              id="comparison-results"
+              class="comparison-list"
+              aria-live="polite"
+            ></section>
+            <button id="comparison-more" class="more-button" type="button" hidden>
+              もっと見る
+            </button>
           </section>
 
           <section
@@ -286,6 +292,20 @@
                 <p id="matched-item" class="matched-item"></p>
               </div>
 
+              <p
+                id="ai-photo-status"
+                class="ai-photo-status"
+                role="status"
+                aria-live="polite"
+              ></p>
+
+              <section
+                id="ai-photo-results"
+                class="ai-photo-results"
+                aria-label="写真判定の候補"
+                aria-live="polite"
+              ></section>
+
               <div class="individual-comparison">
                 <article class="result-card">
                   <div class="result-top">
@@ -345,52 +365,6 @@
                 role="status"
               ></div>
             </section>
-
-            <section
-              class="ai-photo-panel"
-              aria-labelledby="ai-photo-heading"
-            >
-              <p class="eyebrow">Gemini AIで候補を判定</p>
-              <h2 id="ai-photo-heading" class="panel-title">
-                写真からごみ判定
-              </h2>
-              <p class="ai-photo-description">
-                写真を撮影または選択すると、中野区の品目候補と世田谷区での分別方法を表示します。
-              </p>
-
-              <label class="ai-photo-button" for="ai-camera-input">
-                写真を撮る・選ぶ
-              </label>
-              <input
-                id="ai-camera-input"
-                type="file"
-                accept="image/*"
-                capture="environment"
-              />
-
-              <p
-                id="ai-photo-status"
-                class="ai-photo-status"
-                role="status"
-                aria-live="polite"
-              ></p>
-
-              <section
-                id="ai-photo-results"
-                class="ai-photo-results"
-                aria-label="写真判定の候補"
-                aria-live="polite"
-              ></section>
-
-              <footer class="ai-photo-footer">
-                <p>
-                  データ出典：世田谷区・中野区 自治体標準オープンデータセット（CC BY）
-                </p>
-                <p>
-                  AIの判定は間違えることがあります。最終的には各区の公式情報をご確認ください
-                </p>
-              </footer>
-            </section>
           </section>
 
           <section
@@ -418,7 +392,6 @@
               aria-live="polite"
             ></section>
           </section>
-
         </main>
       </div>
 
@@ -431,10 +404,15 @@
           </li>
           <li>
             中野区「ごみ分別一覧」「資源とごみの収集曜日一覧」
-            （<a href="https://www.city.tokyo-nakano.lg.jp/kurashi/gomi/dashikata/leaflet.files/nakano_gomi_Pamphlet_2026.pdf" target="_blank" rel="noopener noreferrer">資源とごみの分け方・出し方 2026</a>）
+            （<a href="https://www.city.tokyo-nakano.lg.jp/kurashi/gomi/dashikata/leaflet.files/nakano_gomi_Pamphlet_2026.pdf" target="_blank" rel="noopener noreferrer">区公式資料</a>）
           </li>
         </ul>
-        <p>収集日データの公式照合日：2026年11月18日。収集日は変更されることがあります。最新の情報は各区の案内でご確認ください。</p>
+        <p>
+          収集日データの公式照合日：2026年11月18日。収集日は変更されることがあります。最新の情報は各区の案内でご確認ください。
+        </p>
+        <p>
+          AIの判定は間違えることがあります。最終的には各区の公式情報をご確認ください。
+        </p>
       </footer>
     </div>
 

@@ -1,11 +1,17 @@
-const fileInput = document.getElementById("ai-camera-input");
+const fileInput = document.getElementById("camera-input");
 const statusElement = document.getElementById("ai-photo-status");
 const resultsElement = document.getElementById("ai-photo-results");
+const searchResult = document.getElementById("search-result");
+const standardResults = searchResult?.querySelector(".individual-comparison");
 const itemSearch = document.getElementById("item-search");
 const searchButton = document.getElementById("search-button");
 
+let selectingCandidate = false;
+
 function setStatus(message) {
-  statusElement.textContent = message;
+  if (statusElement) {
+    statusElement.textContent = message;
+  }
 }
 
 function createElement(tagName, className, text) {
@@ -67,7 +73,7 @@ async function resizeImageToBase64(file) {
 
 function createMunicipalitySection(title, records) {
   const section = createElement("section", "ai-photo-municipality");
-  section.append(createElement("h3", "ai-photo-municipality-title", title));
+  section.append(createElement("h4", "ai-photo-municipality-title", title));
 
   if (!Array.isArray(records) || records.length === 0) {
     section.append(createElement("p", "ai-photo-no-match", "該当なし"));
@@ -75,9 +81,9 @@ function createMunicipalitySection(title, records) {
   }
 
   for (const record of records) {
-    const detail = createElement("div", "ai-photo-record");
+    const details = createElement("div", "ai-photo-record");
 
-    detail.append(
+    details.append(
       createElement(
         "p",
         "ai-photo-category",
@@ -90,26 +96,29 @@ function createMunicipalitySection(title, records) {
       ),
     );
 
-    section.append(detail);
+    section.append(details);
   }
 
   return section;
 }
 
 function selectCandidate(name, card) {
-  document
-    .querySelectorAll(".ai-photo-result-card.is-selected")
-    .forEach((selectedCard) => selectedCard.classList.remove("is-selected"));
+  if (!name || !itemSearch || !searchButton) return;
 
-  card.classList.add("is-selected");
+  selectingCandidate = true;
 
-  if (itemSearch && searchButton) {
-    itemSearch.value = name;
-    searchButton.click();
-    itemSearch.focus();
+  resultsElement.replaceChildren();
+  setStatus(`「${name}」を選択しました。通常の検索結果を表示しています。`);
+
+  if (standardResults) {
+    standardResults.hidden = false;
   }
 
-  setStatus(`「${name}」を選択しました。`);
+  itemSearch.value = name;
+  searchButton.click();
+  itemSearch.focus();
+
+  selectingCandidate = false;
 }
 
 function createResultCard(result, index) {
@@ -139,18 +148,18 @@ function createResultCard(result, index) {
   const selectButton = createElement(
     "button",
     "ai-photo-select-button",
-    "この候補を選択",
+    "この品目を選択して通常検索",
   );
   selectButton.type = "button";
-  selectButton.addEventListener("click", () => {
+  selectButton.addEventListener("click", (event) => {
+    event.stopPropagation();
     selectCandidate(result.name, card);
   });
 
   card.append(selectButton);
-  card.addEventListener("click", (event) => {
-    if (event.target !== selectButton) {
-      selectCandidate(result.name, card);
-    }
+
+  card.addEventListener("click", () => {
+    selectCandidate(result.name, card);
   });
 
   return card;
@@ -160,7 +169,7 @@ function renderResults(results) {
   resultsElement.replaceChildren();
 
   if (!Array.isArray(results) || results.length === 0) {
-    setStatus("候補が見つかりませんでした。名前で検索してください");
+    setStatus("候補が見つかりませんでした。名前で検索してください。");
     return;
   }
 
@@ -170,12 +179,33 @@ function renderResults(results) {
     resultsElement.append(createResultCard(result, index));
   });
 
-  setStatus(`判定候補を${candidates.length}件表示しています。`);
+  if (standardResults) {
+    standardResults.hidden = true;
+  }
+
+  if (searchResult) {
+    searchResult.classList.remove("hidden");
+  }
+
+  setStatus(`判定候補を${candidates.length}件表示しています。候補を選択できます。`);
 }
 
 async function identifyPhoto(file) {
+  if (!file.type.startsWith("image/")) {
+    setStatus("画像ファイルを選択してください。");
+    return;
+  }
+
   resultsElement.replaceChildren();
   setStatus("画像を縮小して判定しています...");
+
+  if (searchResult) {
+    searchResult.classList.remove("hidden");
+  }
+
+  if (standardResults) {
+    standardResults.hidden = true;
+  }
 
   try {
     const { imageBase64, mediaType } = await resizeImageToBase64(file);
@@ -212,11 +242,37 @@ async function identifyPhoto(file) {
 }
 
 if (fileInput && statusElement && resultsElement) {
-  fileInput.addEventListener("change", () => {
-    const file = fileInput.files?.[0];
-    if (!file) return;
+  /*
+   * 既存 script.js のカメラ入力モック処理より先に実行し、
+   * 同じ画像選択イベントがモック判定にも流れるのを防ぎます。
+   */
+  fileInput.addEventListener(
+    "change",
+    (event) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
 
-    identifyPhoto(file);
-    fileInput.value = "";
+      event.stopImmediatePropagation();
+      identifyPhoto(file);
+      event.target.value = "";
+    },
+    true,
+  );
+}
+
+/*
+ * 候補を選んでいないときに手入力検索を開始したら、
+ * AI候補を閉じて既存の検索結果表示に戻します。
+ */
+if (itemSearch) {
+  itemSearch.addEventListener("input", () => {
+    if (selectingCandidate || resultsElement.childElementCount === 0) return;
+
+    resultsElement.replaceChildren();
+    setStatus("");
+
+    if (standardResults) {
+      standardResults.hidden = false;
+    }
   });
 }

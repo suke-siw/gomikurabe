@@ -1,55 +1,7 @@
-.ai-photo-panel {
-  margin-top: 16px;
-  padding: 16px;
-  border: 1px solid #d1fae5;
-  border-radius: 21px;
-  background: #f8fafc;
-}
-
-.ai-photo-description {
-  margin: 8px 0 12px;
-  color: #64748b;
-  font-size: 12px;
-  line-height: 1.6;
-}
-
-.ai-photo-button,
-.ai-photo-select-button {
-  display: block;
-  width: 100%;
-  min-height: 46px;
-  padding: 11px 14px;
-  border: 0;
-  border-radius: 13px;
-  background: #10b981;
-  color: #fff;
-  font: inherit;
-  font-size: 13px;
-  font-weight: 800;
-  line-height: 1.45;
-  text-align: center;
-  cursor: pointer;
-}
-
-.ai-photo-button:hover,
-.ai-photo-select-button:hover {
-  background: #059669;
-}
-
-#ai-camera-input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  clip-path: inset(50%);
-}
-
 .ai-photo-status {
   min-height: 1.5em;
   margin: 10px 0;
-  color: #64748b;
+  color: var(--muted, #64748b);
   font-size: 12px;
   line-height: 1.5;
   overflow-wrap: anywhere;
@@ -58,14 +10,15 @@
 .ai-photo-results {
   display: grid;
   gap: 12px;
+  margin-top: 12px;
 }
 
 .ai-photo-result-card {
   min-width: 0;
   overflow: hidden;
   border: 1px solid #a7f3d0;
-  border-radius: 18px;
-  background: linear-gradient(135deg, #ecfdf5, #fff);
+  border-radius: 20px;
+  background: linear-gradient(135deg, #ecfdf5 0%, #fff 55%, #f0fdf4 100%);
   cursor: pointer;
 }
 
@@ -79,14 +32,15 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 10px;
-  padding: 12px;
+  padding: 12px 14px;
   border-bottom: 1px solid #d1fae5;
+  background: linear-gradient(135deg, #f0fdf4, #fff);
 }
 
 .ai-photo-item-name {
   min-width: 0;
   margin: 0;
-  color: #0f172a;
+  color: var(--text, #0f172a);
   font-size: 15px;
   font-weight: 850;
   line-height: 1.45;
@@ -106,16 +60,16 @@
 
 .ai-photo-municipality {
   min-width: 0;
-  padding: 12px;
+  padding: 12px 14px;
 }
 
 .ai-photo-municipality + .ai-photo-municipality {
-  border-top: 1px solid #d1fae5;
+  border-top: 1px solid #e8f1ee;
 }
 
 .ai-photo-municipality-title {
   margin: 0 0 8px;
-  color: #047857;
+  color: var(--green-dark, #047857);
   font-size: 12px;
   font-weight: 850;
 }
@@ -143,48 +97,36 @@
 
 .ai-photo-category {
   margin-bottom: 5px;
-  color: #0f172a;
+  color: var(--text, #0f172a);
   font-weight: 800;
 }
 
 .ai-photo-note,
 .ai-photo-no-match {
-  color: #64748b;
+  color: var(--muted, #64748b);
 }
 
 .ai-photo-select-button {
+  display: block;
   width: calc(100% - 24px);
-  min-height: 40px;
+  min-height: 42px;
   margin: 0 12px 12px;
   padding: 9px 12px;
-  background: #047857;
+  border: 0;
+  border-radius: 12px;
+  background: var(--green-dark, #047857);
+  color: #fff;
+  font: inherit;
   font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
 }
 
 .ai-photo-select-button:hover {
   background: #065f46;
 }
 
-.ai-photo-footer {
-  display: grid;
-  gap: 5px;
-  margin-top: 14px;
-  padding-top: 11px;
-  border-top: 1px solid #e2e8f0;
-  color: #64748b;
-  font-size: 11px;
-  line-height: 1.6;
-}
-
-.ai-photo-footer p {
-  margin: 0;
-}
-
 @media (max-width: 560px) {
-  .ai-photo-panel {
-    padding: 12px;
-  }
-
   .ai-photo-result-heading {
     flex-direction: column;
   }
