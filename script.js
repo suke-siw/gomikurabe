@@ -30,6 +30,10 @@ const CITY_INFO = {
   },
 };
 
+/*
+ * 中野区の schedule JSON では、resource がびん・缶・ペットボトル、
+ * plastic が資源プラスチックに対応します。
+ */
 const SCHEDULE_CATEGORY_ROWS = {
   nakano: [
     { key: "burnable", label: "燃やすごみ" },
@@ -139,6 +143,26 @@ function setOptions(select, options, placeholder = null) {
   }
 }
 
+function getTownRecord(location) {
+  const data = cityData.get(location?.city);
+  if (!data || !location?.town) return null;
+
+  return data.schedules.find(
+    (record) => normalize(record.town) === normalize(location.town),
+  ) ?? null;
+}
+
+function getTownBlocks(townRecord) {
+  return [
+    ...new Set(
+      (townRecord?.blocks ?? [])
+        .flatMap((record) => record.target_blocks ?? [])
+        .map(String)
+        .filter((block) => block.trim() !== ""),
+    ),
+  ].sort((a, b) => Number(a) - Number(b));
+}
+
 function populateCityOptions() {
   const options = cityOptions();
 
@@ -189,31 +213,28 @@ function populateTowns(locationName, preferredTown = "", preferredBlock = "") {
 
 function populateBlocks(locationName, preferredBlock = "") {
   const location = LOCATIONS[locationName];
-  const data = cityData.get(location.city.value);
-  const townKey = normalize(location.town.value);
+  const townRecord = getTownRecord({
+    city: location.city.value,
+    town: location.town.value,
+  });
+  const blocks = getTownBlocks(townRecord);
 
-  location.block.replaceChildren(new Option("丁目を選択", ""));
-  location.block.disabled = true;
+  location.block.replaceChildren();
 
-  if (!data || !townKey) return;
+  if (blocks.length === 0) {
+    location.block.add(new Option("（丁目なし）", ""));
+    location.block.value = "";
+    location.block.disabled = true;
+    return;
+  }
 
-  const townRecord = data.schedules.find(
-    (record) => normalize(record.town) === townKey,
-  );
-
-  const blocks = [
-    ...new Set(
-      (townRecord?.blocks ?? []).flatMap((record) =>
-        (record.target_blocks ?? []).map(String),
-      ),
-    ),
-  ].sort((a, b) => Number(a) - Number(b));
+  location.block.add(new Option("丁目を選択", ""));
 
   for (const block of blocks) {
     location.block.add(new Option(`${block}丁目`, block));
   }
 
-  location.block.disabled = blocks.length === 0;
+  location.block.disabled = false;
 
   if (blocks.includes(String(preferredBlock))) {
     location.block.value = String(preferredBlock);
@@ -231,33 +252,30 @@ function readLocation(locationName) {
 }
 
 function locationIsComplete(location) {
-  if (
-    !location ||
-    !MUNICIPALITIES[location.city] ||
-    !location.town ||
-    !location.block
-  ) {
+  if (!location || !MUNICIPALITIES[location.city] || !location.town) {
     return false;
   }
 
-  const data = cityData.get(location.city);
-  const townRecord = data?.schedules.find(
-    (record) => normalize(record.town) === normalize(location.town),
-  );
+  const townRecord = getTownRecord(location);
+  if (!townRecord) return false;
 
-  return Boolean(
-    townRecord?.blocks?.some((blockRecord) =>
-      (blockRecord.target_blocks ?? []).some(
-        (block) => String(block) === String(location.block),
-      ),
-    ),
-  );
+  const blocks = getTownBlocks(townRecord);
+
+  // 丁目データがない町名は、町名の選択だけで設定完了とする。
+  if (blocks.length === 0) {
+    return !location.block;
+  }
+
+  return blocks.includes(String(location.block));
 }
 
 function formatLocation(location) {
   if (!locationIsComplete(location)) return "未設定";
 
-  return `${MUNICIPALITIES[location.city].name} ${location.town}${location.block}丁目`;
+  const municipalityName = MUNICIPALITIES[location.city].name;
+  const blockSuffix = location.block ? `${location.block}丁目` : "（丁目なし）";
+
+  return `${municipalityName} ${location.town}${blockSuffix}`;
 }
 
 function hasSavedLocations() {
@@ -501,11 +519,39 @@ function getBlockSchedule(locationName) {
   }
 
   const data = cityData.get(location.city);
-  const townRecord = data?.schedules.find(
-    (record) => normalize(record.town) === normalize(location.town),
-  );
+  const townRecord = getTownRecord(location);
 
-  const blockRecord = townRecord?.blocks?.find((record) =>
+  if (!data || !townRecord) {
+    return {
+      found: false,
+      message: `${location.town}のスケジュールが見つかりません。`,
+    };
+  }
+
+  const blocks = getTownBlocks(townRecord);
+
+  // 丁目がない町名では、町名レコードにあるスケジュールを使用する。
+  if (blocks.length === 0) {
+    const scheduleRecord = (townRecord.blocks ?? []).find(
+      (record) => record?.schedule && typeof record.schedule === "object",
+    );
+
+    const schedule = scheduleRecord?.schedule ?? townRecord.schedule;
+
+    if (schedule && typeof schedule === "object") {
+      return {
+        found: true,
+        schedule,
+      };
+    }
+
+    return {
+      found: false,
+      message: `${location.town}のスケジュールデータが見つかりません。`,
+    };
+  }
+
+  const blockRecord = townRecord.blocks?.find((record) =>
     (record.target_blocks ?? []).some(
       (block) => String(block) === String(location.block),
     ),
@@ -737,7 +783,7 @@ function getLocationItemResult(locationName, query) {
     municipalityId: location.city,
     schedules: data.schedules,
     town: location.town,
-    block: location.block,
+    block: location.block || undefined,
     category: scheduleCategory,
     note: getItemNote(item),
   });
@@ -851,7 +897,7 @@ function saveSettings() {
 
   if (!locationIsComplete(current) || !locationIsComplete(previous)) {
     elements.settingsMessage.textContent =
-      "今の自治体・町名・丁目と、前の自治体・町名・丁目を選択してください。";
+      "今の自治体・町名と、前の自治体・町名を選択してください。丁目がある町名では丁目も選択してください。";
     return;
   }
 
@@ -915,7 +961,7 @@ async function loadCityData() {
 
     if (!configured) {
       elements.settingsMessage.textContent =
-        "最初に今の地域と前の地域を選択して保存してください。";
+        "最初に今の地域と前の地域を選択してください。丁目がある場合は丁目も選択してください。";
     }
 
     renderComparisonList();

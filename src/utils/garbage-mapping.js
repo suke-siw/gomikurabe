@@ -252,28 +252,53 @@ export function getCollectionSchedule({
     };
   }
 
+  const hasBlockData = townRecords.some((townRecord) =>
+    (townRecord.blocks ?? []).some((blockRecord) =>
+      (blockRecord.target_blocks ?? []).some(
+        (targetBlock) => String(targetBlock).trim() !== "",
+      ),
+    ),
+  );
+
+  let match;
+
   if (block === undefined || block === null || String(block).trim() === "") {
-    return {
-      found: false,
-      category: mappedCategory,
-      categoryLabel: CATEGORY_LABELS[mappedCategory],
-      collectionDay: null,
-      requiresApplication: false,
-      note: "収集曜日の確認には丁目の指定が必要です。",
-    };
-  }
+    if (hasBlockData) {
+      return {
+        found: false,
+        category: mappedCategory,
+        categoryLabel: CATEGORY_LABELS[mappedCategory],
+        collectionDay: null,
+        requiresApplication: false,
+        note: "収集曜日の確認には丁目の指定が必要です。",
+      };
+    }
 
-  const match = findBlockRecord(townRecords, block);
+    const townRecord = townRecords.find(
+      (record) => Array.isArray(record.blocks) && record.blocks.length > 0,
+    ) ?? townRecords[0];
 
-  if (!match) {
-    return {
-      found: false,
-      category: mappedCategory,
-      categoryLabel: CATEGORY_LABELS[mappedCategory],
-      collectionDay: null,
-      requiresApplication: false,
-      note: `${town}${block}丁目に一致するスケジュールが見つかりません。`,
+    const blockRecord = townRecord.blocks?.find(
+      (record) => record?.schedule && typeof record.schedule === "object",
+    ) ?? {
+      schedule: townRecord.schedule ?? {},
+      target_blocks: [],
     };
+
+    match = { townRecord, blockRecord };
+  } else {
+    match = findBlockRecord(townRecords, block);
+
+    if (!match) {
+      return {
+        found: false,
+        category: mappedCategory,
+        categoryLabel: CATEGORY_LABELS[mappedCategory],
+        collectionDay: null,
+        requiresApplication: false,
+        note: `${town}${block}丁目に一致するスケジュールが見つかりません。`,
+      };
+    }
   }
 
   const schedule = match.blockRecord.schedule ?? {};
