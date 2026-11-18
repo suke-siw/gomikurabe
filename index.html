@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#10b981" />
-    <title>ごみくらべ</title>
+    <title>引っ越しごみナビ</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="image-search.css" />
   </head>
   <body>
     <div class="app-shell">
@@ -13,10 +14,17 @@
         <div class="hero-inner">
           <div>
             <p class="hero-sub">引っ越しサポート</p>
-            <h1 class="hero-title">ごみくらべ</h1>
+            <h1 class="hero-title">引っ越しごみナビ</h1>
           </div>
           <div class="icon-badge" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="24" height="24">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              width="24"
+              height="24"
+            >
               <path d="M6 9.5V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2.5"></path>
               <path d="M5 9.5h14l-1.12 8.73A2 2 0 0 1 15.9 20h-7.8a2 2 0 0 1-1.98-1.77L5 9.5Z"></path>
               <path d="M9 12h6"></path>
@@ -39,9 +47,11 @@
         </div>
       </header>
 
-      <p id="data-error" class="error-message data-error" role="alert"></p>
-
-      <section id="settings-panel" class="settings-panel" aria-labelledby="settings-heading">
+      <section
+        id="settings-panel"
+        class="settings-panel"
+        aria-labelledby="settings-heading"
+      >
         <div class="settings-heading-row">
           <div>
             <p class="eyebrow">アプリ全体で共有する設定</p>
@@ -116,7 +126,9 @@
           </fieldset>
         </div>
 
-        <button id="save-settings" class="search-button" type="button">地域設定を保存</button>
+        <button id="save-settings" class="search-button" type="button">
+          地域設定を保存
+        </button>
         <p id="settings-message" class="inline-message" aria-live="polite"></p>
       </section>
 
@@ -183,10 +195,18 @@
                 />
               </div>
 
-              <p id="comparison-message" class="inline-message" aria-live="polite"></p>
+              <p
+                id="comparison-message"
+                class="inline-message"
+                aria-live="polite"
+              ></p>
             </section>
 
-            <section id="comparison-results" class="comparison-list" aria-live="polite"></section>
+            <section
+              id="comparison-results"
+              class="comparison-list"
+              aria-live="polite"
+            ></section>
           </section>
 
           <section
@@ -206,21 +226,41 @@
                   <input
                     id="item-search"
                     type="search"
-                    placeholder="例：アイロン、ペットボトル"
+                    placeholder="例：びん、アタッシュケース"
                     autocomplete="off"
                   />
                   <label class="camera-btn" aria-label="写真を撮影または選択">
-                    <input id="camera-input" type="file" accept="image/*" capture="environment" />
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22" aria-hidden="true">
+                    <input
+                      id="camera-input"
+                      type="file"
+                      accept="image/*"
+                      capture="environment"
+                    />
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      width="22"
+                      height="22"
+                      aria-hidden="true"
+                    >
                       <path d="M4 8h3l1.5-2h7L17 8h3v11H4z"></path>
                       <circle cx="12" cy="13" r="3"></circle>
                     </svg>
                   </label>
                 </div>
-                <p class="field-hint">写真判定はデモ用のモックです。画像は認識・送信されません。</p>
+                <p class="field-hint">
+                  写真判定はデモ用のモックです。画像は認識・送信されません。
+                </p>
               </div>
 
-              <div id="search-suggestions" class="search-suggestions hidden" role="listbox" aria-label="品目候補"></div>
+              <div
+                id="search-suggestions"
+                class="search-suggestions hidden"
+                role="listbox"
+                aria-label="品目候補"
+              ></div>
 
               <button id="search-button" class="search-button" type="button">
                 引っ越し前後を比較
@@ -228,7 +268,11 @@
               <p id="search-error" class="error-message" role="alert"></p>
             </section>
 
-            <section id="search-result" class="search-result hidden" aria-live="polite">
+            <section
+              id="search-result"
+              class="search-result hidden"
+              aria-live="polite"
+            >
               <div class="results-header">
                 <h2 class="results-title">検索結果</h2>
                 <p id="matched-item" class="matched-item"></p>
@@ -242,9 +286,18 @@
                   </div>
                   <div class="result-body">
                     <dl class="result-details">
-                      <div><dt>品目</dt><dd id="current-item"></dd></div>
-                      <div><dt>分別カテゴリ</dt><dd id="current-category"></dd></div>
-                      <div><dt>収集曜日</dt><dd id="current-day"></dd></div>
+                      <div>
+                        <dt>品目</dt>
+                        <dd id="current-item"></dd>
+                      </div>
+                      <div>
+                        <dt>分別カテゴリ</dt>
+                        <dd id="current-category"></dd>
+                      </div>
+                      <div>
+                        <dt>収集曜日</dt>
+                        <dd id="current-day"></dd>
+                      </div>
                     </dl>
                     <p id="current-note" class="info-text"></p>
                   </div>
@@ -253,20 +306,82 @@
                 <article class="result-card">
                   <div class="result-top">
                     <span class="result-tag">前の自治体</span>
-                    <span id="previous-location-result" class="result-sub"></span>
+                    <span
+                      id="previous-location-result"
+                      class="result-sub"
+                    ></span>
                   </div>
                   <div class="result-body">
                     <dl class="result-details">
-                      <div><dt>品目</dt><dd id="previous-item"></dd></div>
-                      <div><dt>分別カテゴリ</dt><dd id="previous-category"></dd></div>
-                      <div><dt>収集曜日</dt><dd id="previous-day"></dd></div>
+                      <div>
+                        <dt>品目</dt>
+                        <dd id="previous-item"></dd>
+                      </div>
+                      <div>
+                        <dt>分別カテゴリ</dt>
+                        <dd id="previous-category"></dd>
+                      </div>
+                      <div>
+                        <dt>収集曜日</dt>
+                        <dd id="previous-day"></dd>
+                      </div>
                     </dl>
                     <p id="previous-note" class="info-text"></p>
                   </div>
                 </article>
               </div>
 
-              <div id="photo-mock-result" class="photo-mock-result hidden" role="status"></div>
+              <div
+                id="photo-mock-result"
+                class="photo-mock-result hidden"
+                role="status"
+              ></div>
+            </section>
+
+            <section
+              class="ai-photo-panel"
+              aria-labelledby="ai-photo-heading"
+            >
+              <p class="eyebrow">Gemini AIで候補を判定</p>
+              <h2 id="ai-photo-heading" class="panel-title">
+                写真からごみ判定
+              </h2>
+              <p class="ai-photo-description">
+                写真を撮影または選択すると、中野区の品目候補と世田谷区での分別方法を表示します。
+              </p>
+
+              <label class="ai-photo-button" for="ai-camera-input">
+                写真を撮る・選ぶ
+              </label>
+              <input
+                id="ai-camera-input"
+                type="file"
+                accept="image/*"
+                capture="environment"
+              />
+
+              <p
+                id="ai-photo-status"
+                class="ai-photo-status"
+                role="status"
+                aria-live="polite"
+              ></p>
+
+              <section
+                id="ai-photo-results"
+                class="ai-photo-results"
+                aria-label="写真判定の候補"
+                aria-live="polite"
+              ></section>
+
+              <footer class="ai-photo-footer">
+                <p>
+                  データ出典：世田谷区・中野区 自治体標準オープンデータセット（CC BY）
+                </p>
+                <p>
+                  AIの判定は間違えることがあります。最終的には各区の公式情報をご確認ください
+                </p>
+              </footer>
             </section>
           </section>
 
@@ -289,12 +404,19 @@
               </p>
             </section>
 
-            <section id="schedule-results" class="schedule-results" aria-live="polite"></section>
+            <section
+              id="schedule-results"
+              class="schedule-results"
+              aria-live="polite"
+            ></section>
           </section>
+
+          <p id="data-error" class="error-message" role="alert"></p>
         </main>
       </div>
     </div>
 
     <script type="module" src="script.js"></script>
+    <script type="module" src="image-search.js"></script>
   </body>
 </html>
