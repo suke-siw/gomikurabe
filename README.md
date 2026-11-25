@@ -119,13 +119,30 @@ gomikurabe/
     cd gomikurabe
     ```
 
-2. ローカルサーバーで起動する（`index.html` を直接ダブルクリックで開くと、JSONの読み込みができません）
+2. 必要なパッケージを入れ、設定ファイルを作る
 
     ```sh
-    python3 -m http.server 8000
+    npm install
+    cp .env.example .env   # .env の GEMINI_API_KEY に自分のAPIキーを書く
     ```
 
-3. ブラウザで <http://localhost:8000> を開く
+3. サーバーを起動する（写真判定にはこのサーバーが必要です）
+
+    ```sh
+    node server.js
+    ```
+
+4. ブラウザで <http://localhost:3000> を開く
+
+> `python3 -m http.server` で開いた場合や `index.html` を直接開いた場合は、写真判定が動きません（品目検索・収集日は `python3 -m http.server` でも動きます）。
+
+### 写真判定（Gemini）の設定
+
+| 項目 | 内容 |
+| --- | --- |
+| `GEMINI_MODEL` | 使うモデル（初期値 `gemini-3.8-flash`）。`gemini-2.5-flash` は新しいAPIキーでは使えません |
+| `GEMINI_FALLBACK_MODELS` | 設定したモデルが混雑・上限・使用不可のときに順に試すモデル（カンマ区切り、初期値 `gemini-3.7-flash,gemini-3.5-flash,gemini-3.5-flash-lite`） |
+| 待ち時間 | 1モデル20秒・全体40秒（サーバー）、50秒（ブラウザ）で打ち切り、「少し待ってから再度お試しください」と表示 |
 
 ## ⚠️ 注意（チーム全員へ）
 

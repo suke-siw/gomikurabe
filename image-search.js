@@ -240,6 +240,8 @@ function renderResults(results) {
   setStatus(`判定候補を${candidates.length}件表示しています。候補を選択できます。`);
 }
 
+const REQUEST_TIMEOUT_MS = 50_000;
+
 async function identifyPhoto(file) {
   clearLoadingTimers();
 
@@ -266,24 +268,46 @@ async function identifyPhoto(file) {
 
     const fileKey = `${file.name}_${file.size}`;
 
-    const response = await fetch("/api/identify", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        imageBase64,
-        mediaType,
-        fileKey,
-      }),
-    });
+    // AIの応答がないまま画面が止まらないよう、一定時間で打ち切る（サーバー側は40秒で打ち切る）
+    const controller = new AbortController();
+    const requestTimer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+    let response;
+
+    try {
+      response = await fetch("/api/identify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          imageBase64,
+          mediaType,
+          fileKey,
+        }),
+        signal: controller.signal,
+      });
+    } catch (error) {
+      if (error?.name === "AbortError") {
+        throw new Error(
+          "AIの応答に時間がかかっています。少し待ってからもう一度お試しいただくか、品目名で検索してください。",
+        );
+      }
+
+      throw new Error("サーバーに接続できませんでした。通信環境を確認してください。");
+    } finally {
+      clearTimeout(requestTimer);
+    }
 
     let payload;
 
     try {
       payload = await response.json();
     } catch {
-      throw new Error("サーバーから正しい応答を受け取れませんでした。");
+      // python3 -m http.server などで開いた場合は /api/identify が存在しない
+      throw new Error(
+        "写真判定のサーバーに接続できませんでした。「node server.js」でサーバーを起動しているか確認してください。",
+      );
     }
 
     if (!response.ok) {
