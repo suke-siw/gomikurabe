@@ -10,7 +10,32 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 
 const PORT = Number(process.env.PORT || 3000);
-const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+const RECOMMENDED_MODEL = "gemini-3.5-flash";
+const MODEL = process.env.GEMINI_MODEL || RECOMMENDED_MODEL;
+
+/*
+ * 設定したモデルが使えない（404）・混雑（503）・上限（429）などで失敗したときに
+ * 順番に試す予備のモデルです。.env の GEMINI_FALLBACK_MODELS（カンマ区切り）で変更できます。
+ * ※ gemini-2.5-flash は新規のAPIキーでは使えません。上位の 3.8 / 3.7 は混雑しやすいため、
+ *   初期値は安定して応答した gemini-3.5-flash とし、混雑時は上位モデル → 軽量版の順に試します。
+ */
+const FALLBACK_MODELS = (
+  process.env.GEMINI_FALLBACK_MODELS ||
+  "gemini-3.8-flash,gemini-3.7-flash,gemini-3.5-flash-lite"
+)
+  .split(",")
+  .map((name) => name.trim())
+  .filter(Boolean);
+// .env に古いモデル名が残っていても推奨モデルを必ず試すよう、2番目に入れる
+const MODEL_CHAIN = [...new Set([MODEL, RECOMMENDED_MODEL, ...FALLBACK_MODELS])];
+
+// 1モデルあたりの待ち時間と、1回の判定全体の待ち時間（ブラウザ側は50秒で打ち切る）
+const PER_MODEL_TIMEOUT_MS = 20_000;
+const TOTAL_TIMEOUT_MS = 40_000;
+// 次のモデルに切り替えるHTTPステータス
+const FALLBACK_STATUS_CODES = new Set([404, 429, 500, 502, 503, 504]);
+// 「使えない」と分かったモデルは、サーバーを再起動するまで試さない
+const unavailableModels = new Set();
 const DEMO_ONLY = process.env.DEMO_ONLY === "1";
 const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
 
@@ -260,6 +285,79 @@ function getStatusCode(error) {
   );
 }
 
+function createGeminiError(kind, cause) {
+  const error = new Error(`Gemini の呼び出しに失敗しました: ${kind}`);
+  error.kind = kind;
+  error.cause = cause;
+  return error;
+}
+
+/**
+ * MODEL_CHAIN のモデルを順番に試し、最初に成功した応答を返します。
+ * ライブラリの自動再送（初期設定では最大5回・待ち時間最大60秒）は無効にし、
+ * 1モデルあたり PER_MODEL_TIMEOUT_MS、全体で TOTAL_TIMEOUT_MS で打ち切ります。
+ * すべて失敗した場合は kind が "quota" / "busy" / "timeout" のエラーを投げます。
+ */
+async function generateWithFallback(contents) {
+  const deadline = Date.now() + TOTAL_TIMEOUT_MS;
+  const failures = [];
+
+  for (const model of MODEL_CHAIN) {
+    if (unavailableModels.has(model)) continue;
+
+    const remaining = deadline - Date.now();
+    if (remaining < 2_000) break;
+
+    const timeoutMs = Math.min(PER_MODEL_TIMEOUT_MS, remaining);
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+
+    try {
+      const response = await ai.models.generateContent({
+        model,
+        contents,
+        config: {
+          abortSignal: controller.signal,
+          httpOptions: {
+            timeout: timeoutMs,
+            retryOptions: { attempts: 1 },
+          },
+        },
+      });
+
+      return { response, model };
+    } catch (error) {
+      const status = getStatusCode(error);
+      const timedOut =
+        controller.signal.aborted ||
+        error?.name === "AbortError" ||
+        error?.name === "TimeoutError";
+
+      failures.push(timedOut ? "timeout" : status);
+      console.warn(
+        `モデル ${model} で失敗しました（${timedOut ? "時間切れ" : status || error?.name}）。次のモデルを試します。`,
+      );
+
+      if (status === 404) unavailableModels.add(model);
+      if (timedOut || FALLBACK_STATUS_CODES.has(status)) continue;
+
+      throw error;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  if (failures.includes(429) && !failures.some((f) => f === 503 || f === "timeout")) {
+    throw createGeminiError("quota");
+  }
+
+  if (failures.length > 0 && failures.every((f) => f === "timeout")) {
+    throw createGeminiError("timeout");
+  }
+
+  throw createGeminiError("busy");
+}
+
 app.post("/api/identify", async (req, res) => {
   try {
     const { imageBase64, mediaType, fileKey } = req.body ?? {};
@@ -350,32 +448,44 @@ app.post("/api/identify", async (req, res) => {
     ].join("\n");
 
     let geminiResponse;
+    let usedModel;
 
     try {
-      geminiResponse = await ai.models.generateContent({
-        model: MODEL,
-        contents: [{
-          role: "user",
-          parts: [
-            {
-              inlineData: {
-                data: imageBase64,
-                mimeType: mediaType,
-              },
+      ({ response: geminiResponse, model: usedModel } = await generateWithFallback([{
+        role: "user",
+        parts: [
+          {
+            inlineData: {
+              data: imageBase64,
+              mimeType: mediaType,
             },
-            { text: prompt },
-          ],
-        }],
-      });
+          },
+          { text: prompt },
+        ],
+      }]));
     } catch (error) {
-      if (getStatusCode(error) === 429) {
+      if (error.kind === "quota") {
         return res.status(429).json({
           error: "無料枠の上限に達しました。少し待ってからお試しください",
         });
       }
 
+      if (error.kind === "busy") {
+        return res.status(503).json({
+          error: "AIが混み合っています。少し待ってからもう一度お試しいただくか、品目名で検索してください。",
+        });
+      }
+
+      if (error.kind === "timeout") {
+        return res.status(504).json({
+          error: "AIの応答に時間がかかっています。少し待ってからもう一度お試しいただくか、品目名で検索してください。",
+        });
+      }
+
       throw error;
     }
+
+    console.log(`写真判定: ${usedModel} で判定しました。`);
 
     const allowedNames = new Set(candidateNames);
     const selectedNames = parseCandidateNames(
@@ -390,6 +500,7 @@ app.post("/api/identify", async (req, res) => {
     return res.json({
       results,
       cached: false,
+      model: usedModel,
     });
   } catch (error) {
     console.error("写真判定エラー:", error);
