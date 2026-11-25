@@ -39,6 +39,7 @@
 - 東京都世田谷区
 - 東京都中野区
 - 埼玉県入間郡毛呂山町（A・B・C地区単位。町名ごとの地区一覧は公式資料にないため、カレンダーの地図の境目で地区を選ぶ）
+- 埼玉県白岡市（町名単位。新白岡は1〜6丁目と7〜9丁目、高岩・小久喜・白岡は宇都宮線の東側・西側で分かれる。収集は蓮田白岡衛生組合）
 
 ## 使用技術
 
@@ -68,6 +69,8 @@ gomikurabe/
 │   ├── nakano_garbage_schedules.json   … 中野区の町名・丁目ごとの収集曜日
 │   ├── moroyama_garbage_items.json     … 毛呂山町の品目と分別区分（組合の分別表 878品目）
 │   ├── moroyama_garbage_schedules.json … 毛呂山町の地区（A・B・C）ごとの収集曜日
+│   ├── shiraoka_garbage_items.json     … 白岡市の品目と分別区分（895品目）
+│   ├── shiraoka_garbage_schedules.json … 白岡市の町名・丁目（区域）ごとの収集曜日
 │   ├── setagaya_garbage_items.json     … 世田谷区の品目と分別区分
 │   └── setagaya_garbage_schedules.json … 世田谷区の町名・丁目ごとの収集曜日
 └── README.md
@@ -110,6 +113,7 @@ gomikurabe/
 | 世田谷区 | `burnable` / `non_burnable` / `resource` / `bottle` | 可燃ごみ / 不燃ごみ / 資源 / ペットボトル |
 | 中野区 | `burnable` / `glass_metal` / `resource` / `plastic` | 燃やすごみ / 陶器・ガラス・金属ごみ / **びん・缶・ペットボトル** / **資源プラスチック** |
 | 毛呂山町 | `burnable` / `non_burnable` / `hazardous` / `plastic` / `bottle_can` / `pet` / `paper_cloth` | 燃やせるごみ / 燃やせないごみ / 有害ごみ / その他容器包装プラスチック / びん・かん類 / ペットボトル / 紙・布類 |
+| 白岡市 | `burnable` / `non_burnable` / `glass` / `hazardous` / `pet_bottle` / `beverage_can` / `paper_cloth` | 燃えるごみ / 燃やせないごみ / ガラス類 / 有害ごみ / ペットボトル / 飲食料用缶 / 古紙・布類 |
 
 収集日データを更新するときは、自治体の公式の収集日一覧と照合してください（中野区は `resource` と `plastic` を取り違えやすいので注意）。
 
@@ -129,8 +133,10 @@ gomikurabe/
     | `designatedBag` | 指定袋の案内 |
     | `oversizedApplicationUrl` / `oversizedApplicationLabel` | 粗大ごみのWeb申込ページとボタンの文言 |
     | `oversizedApplicationTel` / `oversizedApplicationTelLabel` | 粗大ごみの申込電話番号とボタンの文言（電話申込の自治体。Webと両方でも可） |
-    | `oversizedDetailsUrl` | 自治体公式の粗大ごみ案内ページ |
+    | `oversizedDetailsUrl` / `oversizedDetailsLabel` | 粗大ごみ案内ページと、リンクの文言（省略時は「〇〇公式の粗大ごみ案内」） |
     | `scheduleNotes` | 朝何時までに出すか・祝日の扱いなど（公式で確認できた内容だけ） |
+    | `yearEndUntilJanuary` | 1月に収集日がずれる自治体は、1月の何日まで次回収集日を出さないか（省略時は1/7まで） |
+    | `nonRegularGuides` | 集団回収（`collective`）・拠点回収（`drop_off`）・施設への持ち込み（`self_carry`）の品目に出す案内文 |
     | `sources` / `verifiedOn` | データの出典（資料名とURL）と、収集日データを公式と照合した日。画面下の「データの出典」に自動で表示される |
     | `areaNotices` など | 必要な場合だけ（丁目より細かい例外、集団回収の案内、表示名の上書きなど） |
 
@@ -141,6 +147,8 @@ gomikurabe/
 
 - 次回収集日は「祝日も通常どおり収集する」前提で計算します。祝日に収集しない自治体を追加する場合は、`scheduleNotes` にその旨を書いてください
 - 町名ではなく地区（例：毛呂山町のA・B・C地区）で収集日が決まる自治体は、`town` に地区名を入れ、`target_blocks` を空にします（丁目の選択は不要になります）
+- 丁目以外の区域で分かれる場合（例：白岡市の「宇都宮線東側」）は、`target_blocks` にその区域名を入れます。同じ町名を複数の行に分けて書いてもかまいません（画面では1つにまとまります）
+- 収集曜日は「月曜日・木曜日」「月・木」「第1・第3金曜日」「第1・3金曜日」「第1金曜日」のどの書き方でも読めます
 - 分別区分の名前は「燃える／可燃」「不燃／燃えない」「資源」「プラ」「粗大」「有害」「〇〇では収集できない」などの一般的な言葉なら自動で判定されます。独特な名前の場合は、追加後に全品目の判定結果を確認してください
 
 写真判定では、Gemini に「今の街」の品目一覧から品目を選ばせ、「前の街」の同じ品目を自動で照合して並べて表示します。

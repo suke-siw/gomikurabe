@@ -10,10 +10,13 @@
  *
  * 粗大ごみの申込先は、Web申込なら oversizedApplicationUrl / oversizedApplicationLabel、
  * 電話なら oversizedApplicationTel / oversizedApplicationTelLabel に書く（両方でも可）。
- * oversizedDetailsUrl には自治体公式の粗大ごみ案内ページを書く。
+ * oversizedDetailsUrl には自治体公式の粗大ごみ案内ページを書く（リンクの文言を変えたいときは oversizedDetailsLabel）。
  *
  * sources にはデータの出典（資料名と公式ページのURL）を、verifiedOn には収集日データを
  * 公式の資料と照合した日（例："2026-11-25"）を書く。画面下の「データの出典」に表示される。
+ *
+ * yearEndUntilJanuary（任意）：1月に収集日がずれる自治体は、1月の何日まで次回収集日を出さないかを書く
+ * （書かなければ 1/7 まで）。
  *
  * scheduleKeys の左側は分別区分のID（src/utils/garbage-mapping.js の GARBAGE_CATEGORIES）、
  * 右側はその街の収集日データ（schedules.json の schedule）の項目名です。
@@ -248,6 +251,84 @@ export const MUNICIPALITY_CONFIG = {
     areaNotices: [],
 
     nonRegularGuides: {},
+
+    curbsideOverrides: {},
+
+    displayCategoryOverrides: {},
+  },
+
+  /*
+   * 出典：白岡市「ごみの出し方」、蓮田白岡衛生組合「収集日程表（白岡市）」「ごみの種類・出し方」
+   *       「粗大ごみ収集」「直接持ち込み」（白岡市のごみは蓮田白岡衛生組合が収集・処理している）
+   * 新白岡は 1〜6丁目 と 7〜9丁目、高岩・小久喜・白岡は「宇都宮線東側／西側」で収集日が分かれる。
+   */
+  shiraoka: {
+    name: "白岡市",
+
+    sources: [
+      {
+        title: "白岡市「ごみの出し方」",
+        url: "https://www.city.shiraoka.lg.jp/soshiki/seikatsukeizaibu/kankyoka/2_1/803.html",
+      },
+      {
+        title: "蓮田白岡衛生組合「収集日程表（白岡市）」",
+        url: "https://hs-eiseikumiai.org/shimin/schedule/shiraoka/",
+      },
+      {
+        title: "蓮田白岡衛生組合「ごみの種類・出し方」「粗大ごみ収集」",
+        url: "https://hs-eiseikumiai.org/shimin/sodaigomi/",
+      },
+    ],
+    verifiedOn: "2026-11-25",
+
+    itemsUrl: "data/shiraoka_garbage_items.json",
+    schedulesUrl: "data/shiraoka_garbage_schedules.json",
+
+    scheduleKeys: {
+      burnable: ["burnable"],
+      non_burnable: ["non_burnable"],
+      hazardous: ["hazardous"],
+      glass: ["glass"],
+      can: ["beverage_can"],
+      bottle: ["pet_bottle"],
+      resource: ["paper_cloth"],
+    },
+
+    scheduleRows: [
+      { key: "burnable", label: "燃えるごみ" },
+      { key: "non_burnable", label: "燃やせないごみ" },
+      { key: "glass", label: "ガラス類" },
+      { key: "hazardous", label: "有害ごみ" },
+      { key: "pet_bottle", label: "ペットボトル" },
+      { key: "beverage_can", label: "飲食料用缶" },
+      { key: "paper_cloth", label: "古紙・布類" },
+    ],
+
+    designatedBag:
+      "指定ごみ袋：あり（燃えるごみは有料指定袋・緑色、燃やせないごみは有料指定袋・透明。ガラス類・有害ごみ・飲食料用缶は透明か半透明の袋、ペットボトルは専用ネット、古紙・布類はひもでしばる）",
+
+    // 粗大ごみ受付センター（蓮田の 048-766-5353 でも同じ受付センターにつながる）
+    oversizedApplicationTel: "0480-92-7300",
+    oversizedApplicationTelLabel: "電話 0480-92-7300（平日）",
+    oversizedDetailsUrl: "https://hs-eiseikumiai.org/shimin/sodaigomi/",
+    oversizedDetailsLabel: "蓮田白岡衛生組合の粗大ごみ案内",
+
+    scheduleNotes: [
+      "収集日の朝8時までに出してください。",
+      "祝日・振替休日も通常どおり収集します（元日を除く）。",
+      "年末年始と1月は収集日が変わることがあります。蓮田白岡衛生組合の収集日程表でご確認ください。",
+      "粗大ごみは集積所に出せません。粗大ごみ受付センター（平日8:30〜17:00）に電話で申し込むか、環境センターへ直接持ち込んでください。",
+    ],
+
+    // 1月は木曜・金曜の収集日が1週繰り下がる年があるため、1月中は次回収集日を出さない
+    yearEndUntilJanuary: 31,
+
+    areaNotices: [],
+
+    nonRegularGuides: {
+      self_carry:
+        "集積所には出せません。環境センター（蓮田白岡衛生組合）へ直接持ち込んでください。受付は平日8:30〜11:30・13:00〜16:30、土曜8:30〜12:00（祝日を除く）。10kgにつき220円（税抜）です。",
+    },
 
     curbsideOverrides: {},
 

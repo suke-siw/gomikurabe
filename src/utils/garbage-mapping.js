@@ -46,7 +46,7 @@ export function mapCategory(sourceCategory, municipalityId = "") {
   // ただし「不燃ごみもしくは区では回収できないもの」のように、収集する区分と並べて
   // 書かれている場合は、収集する区分を優先する（下の判定に進む）。
   const notCollected =
-    /([区市町村]では(収集|回収)(でき|し)(ない|ません)|収集不可|家電リサイクル法対象品目|パソコン)/.test(
+    /([区市町村]では(収集|回収)(でき|し)(ない|ません)|収集不可|引き?取り?不可|家電リサイクル法対象品目|パソコン)/.test(
       value,
     );
   const listedWithRegular =
@@ -62,7 +62,7 @@ export function mapCategory(sourceCategory, municipalityId = "") {
     return GARBAGE_CATEGORIES.HAZARDOUS;
   }
 
-  if (/(可燃|燃やす|燃える|burnable)/.test(value)) {
+  if (/(可燃|燃やす|燃やせる|燃える|burnable)/.test(value)) {
     return GARBAGE_CATEGORIES.BURNABLE;
   }
 
@@ -72,7 +72,7 @@ export function mapCategory(sourceCategory, municipalityId = "") {
       : GARBAGE_CATEGORIES.NON_BURNABLE;
   }
 
-  if (/(不燃|燃やさない|燃えない|nonburnable|non_burnable)/.test(value)) {
+  if (/(不燃|燃やさない|燃やせない|燃えない|nonburnable|non_burnable)/.test(value)) {
     return municipalityId === "setagaya"
       ? GARBAGE_CATEGORIES.SETAGAYA_NON_BURNABLE
       : GARBAGE_CATEGORIES.NON_BURNABLE;
@@ -90,7 +90,8 @@ export function mapCategory(sourceCategory, municipalityId = "") {
     return GARBAGE_CATEGORIES.PLASTIC;
   }
 
-  if (/(びん|ビン|瓶|glass)/.test(value)) {
+  // 「ガラス類」なども含む（「陶器・ガラス・金属ごみ」は上で判定済み）
+  if (/(びん|ビン|瓶|ガラス|glass)/.test(value)) {
     return GARBAGE_CATEGORIES.GLASS;
   }
 
@@ -284,7 +285,7 @@ export function getCollectionSchedule({
         categoryLabel: CATEGORY_LABELS[mappedCategory],
         collectionDay: null,
         requiresApplication: false,
-        note: `${town}${block}丁目に一致するスケジュールが見つかりません。`,
+        note: `${town}${/^\d+$/.test(String(block)) ? `${block}丁目` : `（${block}）`}に一致するスケジュールが見つかりません。`,
       };
     }
   }
@@ -341,18 +342,20 @@ export function parseCollectionDays(dayText) {
   const text = normalizeText(dayText);
   if (!text) return [];
 
-  const monthly = text.match(/^((?:第\d・?)+)([日月火水木金土])曜日$/);
+  // 「第1・第3金曜日」のほか、「第1・3金曜日」「第1金曜日」「第2・4水曜」のような書き方も読む
+  const monthly = text.match(/^第(\d(?:[・,、]第?\d)*)([日月火水木金土])(?:曜日?)?$/);
 
   if (monthly) {
-    const weeks = [...monthly[1].matchAll(/第(\d)/g)].map((m) => Number(m[1]));
+    const weeks = monthly[1].match(/\d/g).map(Number);
     return [{ weekday: WEEKDAY_INDEX[monthly[2]], weeks }];
   }
 
-  const parts = text.split("・");
+  // 「月曜日・木曜日」のほか、「月・木」「月曜・木曜」のような書き方も読む
+  const parts = text.split(/[・,、]/);
   const rules = [];
 
   for (const part of parts) {
-    const weekly = part.match(/^([日月火水木金土])曜日$/);
+    const weekly = part.match(/^([日月火水木金土])(?:曜日?)?$/);
     if (!weekly) return [];
     rules.push({ weekday: WEEKDAY_INDEX[weekly[1]], weeks: null });
   }

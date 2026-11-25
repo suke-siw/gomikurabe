@@ -121,13 +121,29 @@ function setOptions(select, options, placeholder = null) {
   }
 }
 
+/**
+ * 町名の収集日データ。同じ町名が複数の行に分かれているデータ
+ * （例：白岡市の新白岡 1〜6丁目 と 7〜9丁目）は、1つにまとめて返す。
+ */
 function getTownRecord(location) {
   const data = cityData.get(location?.city);
   if (!data || !location?.town) return null;
 
-  return data.schedules.find(
+  const records = data.schedules.filter(
     (record) => normalize(record.town) === normalize(location.town),
-  ) ?? null;
+  );
+  if (records.length === 0) return null;
+  if (records.length === 1) return records[0];
+
+  return {
+    town: records[0].town,
+    blocks: records.flatMap((record) => record.blocks ?? []),
+  };
+}
+
+/** 丁目の表示名。数字なら「3丁目」、それ以外（例：宇都宮線東側）はそのまま。 */
+function formatBlockLabel(block) {
+  return /^\d+$/.test(String(block)) ? `${block}丁目` : String(block);
 }
 
 function getTownBlocks(townRecord) {
@@ -138,7 +154,14 @@ function getTownBlocks(townRecord) {
         .map(String)
         .filter((block) => block.trim() !== ""),
     ),
-  ].sort((a, b) => Number(a) - Number(b));
+  ].sort((a, b) => {
+    // 数字の丁目は番号順、それ以外（例：宇都宮線東側）は数字の後ろに元の順で並べる
+    const aNumber = /^\d+$/.test(a);
+    const bNumber = /^\d+$/.test(b);
+    if (aNumber && bNumber) return Number(a) - Number(b);
+    if (aNumber !== bNumber) return aNumber ? -1 : 1;
+    return 0;
+  });
 }
 
 function populateCityOptions() {
@@ -175,8 +198,12 @@ function populateTowns(locationName, preferredTown = "", preferredBlock = "") {
 
   if (!data) return;
 
+  // 同じ町名が複数の行にある場合も、選択肢には1つだけ出す
+  const towns = new Set();
+
   for (const record of data.schedules) {
-    if (record?.town) {
+    if (record?.town && !towns.has(record.town)) {
+      towns.add(record.town);
       location.town.add(new Option(record.town, record.town));
     }
   }
@@ -209,10 +236,11 @@ function populateBlocks(locationName, preferredBlock = "") {
     return;
   }
 
-  location.block.add(new Option("丁目を選択", ""));
+  const allNumbered = blocks.every((block) => /^\d+$/.test(block));
+  location.block.add(new Option(allNumbered ? "丁目を選択" : "丁目・区域を選択", ""));
 
   for (const block of blocks) {
-    location.block.add(new Option(`${block}丁目`, block));
+    location.block.add(new Option(formatBlockLabel(block), block));
   }
 
   location.block.disabled = false;
@@ -253,8 +281,14 @@ function formatLocation(location) {
   if (!locationIsComplete(location)) return "未設定";
 
   const municipalityName = MUNICIPALITIES[location.city].name;
-  // 丁目がない町名・地区（例：毛呂山町のA地区）は丁目を付けずに表示する
-  const blockSuffix = location.block ? `${location.block}丁目` : "";
+  // 丁目がない町名・地区（例：毛呂山町のA地区）は丁目を付けずに表示し、
+  // 丁目以外の区域（例：白岡市 高岩の宇都宮線東側）は括弧で添える
+  let blockSuffix = "";
+  if (location.block) {
+    blockSuffix = /^\d+$/.test(location.block)
+      ? `${location.block}丁目`
+      : `（${location.block}）`;
+  }
 
   return `${municipalityName} ${location.town}${blockSuffix}`;
 }
@@ -344,12 +378,14 @@ const NON_REGULAR_TYPES = Object.freeze({
   COLLECTIVE: "collective",
   DROP_OFF: "drop_off",
   STORE: "store",
+  SELF_CARRY: "self_carry",
 });
 
 const NON_REGULAR_LABELS = Object.freeze({
   [NON_REGULAR_TYPES.COLLECTIVE]: "曜日収集なし（集団回収）",
   [NON_REGULAR_TYPES.DROP_OFF]: "曜日収集なし（拠点回収）",
   [NON_REGULAR_TYPES.STORE]: "曜日収集なし（販売店・店頭回収）",
+  [NON_REGULAR_TYPES.SELF_CARRY]: "曜日収集なし（施設へ持ち込み）",
 });
 
 function getNonRegularType(item) {
@@ -365,6 +401,8 @@ function getNonRegularType(item) {
   if (/(販売店.*回収|回収ボックス|店頭回収)/.test(category)) {
     return NON_REGULAR_TYPES.STORE;
   }
+  // 集積所には出せず、ごみ処理施設へ自分で持ち込むもの（例：白岡市の「持ち込み」）
+  if (/(持ち?込み|直接搬入)/.test(category)) return NON_REGULAR_TYPES.SELF_CARRY;
 
   return null;
 }
@@ -397,14 +435,23 @@ function getNonRegularGuide(cityId, nonRegularType) {
 
 const WEEKDAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
 
-/** 収集曜日の文字列から「次回 11/20(金)」のような表示を作ります。判定できない場合は空文字。 */
-function formatNextCollection(dayText, fromDate = new Date()) {
+/**
+ * 収集曜日の文字列から「次回 11/20(金)」のような表示を作ります。判定できない場合は空文字。
+ * 年末年始（12/29〜1/7）は日付を出さない。1月に収集日がずれる自治体は、
+ * 設定の yearEndUntilJanuary（例：31）で、1月の何日まで日付を出さないかを指定できる。
+ */
+function formatNextCollection(dayText, cityId, fromDate = new Date()) {
   const next = getNextCollectionDate(dayText, fromDate);
   if (!next) return "";
 
-  if (next.isYearEnd) return "次回：年末年始のため自治体の案内を確認";
-
   const { date } = next;
+  const untilJanuary = MUNICIPALITIES[cityId]?.yearEndUntilJanuary ?? 7;
+  const inYearEnd =
+    next.isYearEnd ||
+    (date.getMonth() === 0 && date.getDate() <= untilJanuary);
+
+  if (inYearEnd) return "次回：年末年始のため自治体の案内を確認";
+
   const today = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
   const diffDays = Math.round((date - today) / 86400000);
   const label = `${date.getMonth() + 1}/${date.getDate()}(${WEEKDAY_LABELS[date.getDay()]})`;
@@ -609,7 +656,7 @@ function appendOversizedGuide(container, cityId) {
     guide.append(
       createExternalLink(
         info.oversizedDetailsUrl,
-        `${info.name}公式の粗大ごみ案内`,
+        info.oversizedDetailsLabel || `${info.name}公式の粗大ごみ案内`,
         "oversized-details-link",
       ),
     );
@@ -779,7 +826,7 @@ function getBlockSchedule(locationName) {
   if (!blockRecord) {
     return {
       found: false,
-      message: `${location.town}${location.block}丁目のスケジュールが見つかりません。`,
+      message: `${location.town}${formatBlockLabel(location.block)}のスケジュールが見つかりません。`,
     };
   }
 
@@ -809,7 +856,7 @@ function getScheduleRows(locationName) {
     rows: rows.map(({ key, label }) => ({
       label,
       day: schedule[key] || "-",
-      next: schedule[key] ? formatNextCollection(schedule[key]) : "",
+      next: schedule[key] ? formatNextCollection(schedule[key], location.city) : "",
     })),
   };
 }
@@ -1145,7 +1192,7 @@ function getLocationItemResult(locationName, query) {
     collectionDay = `${MUNICIPALITIES[location.city]?.name ?? "自治体"}では収集しません`;
   } else if (schedule.collectionDay) {
     const prefix = curbsideOverride ? "集積所では可燃ごみ：" : "";
-    const next = formatNextCollection(schedule.collectionDay);
+    const next = formatNextCollection(schedule.collectionDay, location.city);
     collectionDay = `${prefix}${schedule.collectionDay}${next ? `\n${next}` : ""}`;
   } else {
     collectionDay = "—";

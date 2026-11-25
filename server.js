@@ -236,7 +236,7 @@ function getCategoryGroup(category, cityId) {
   // 集団回収・拠点回収・販売店回収だけの区分（区の集積所では収集しない）
   const regular =
     /(資源|可燃|燃やす|燃える|不燃|燃やさない|燃えない|プラスチック|プラ|陶器.*ガラス.*金属|ペットボトル)/;
-  if (!regular.test(normalized) && /(集団回収|拠点回収|販売店|回収ボックス|店頭回収)/.test(normalized)) {
+  if (!regular.test(normalized) && /(集団回収|拠点回収|販売店|回収ボックス|店頭回収|持ち?込み|直接搬入)/.test(normalized)) {
     return "回収";
   }
 
