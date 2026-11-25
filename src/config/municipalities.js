@@ -8,6 +8,10 @@
  *   3. （任意）名前が違う同じ品目があれば ITEM_ALIASES に追加する
  * これで、品目検索・比較・収集日・写真判定のすべてで使えるようになります。
  *
+ * 粗大ごみの申込先は、Web申込なら oversizedApplicationUrl / oversizedApplicationLabel、
+ * 電話なら oversizedApplicationTel / oversizedApplicationTelLabel に書く（両方でも可）。
+ * oversizedDetailsUrl には自治体公式の粗大ごみ案内ページを書く。
+ *
  * scheduleKeys の左側は分別区分のID（src/utils/garbage-mapping.js の GARBAGE_CATEGORIES）、
  * 右側はその街の収集日データ（schedules.json の schedule）の項目名です。
  *   burnable … 燃やす（可燃）ごみ
@@ -183,11 +187,11 @@ export const MUNICIPALITY_CONFIG = {
 
     designatedBag:
       "指定ごみ袋：なし（ごみは市販の45L以内の白色半透明袋、資源物は市販の45L以内の透明袋。紙・布類は袋に入れずひもでしばる）",
-    oversizedApplicationUrl:
-      "https://www.town.moroyama.saitama.jp/soshikikarasagasu/seikatsukankyoka/kankyoukakari/gominowakekatadasikata/10420.html",
-    oversizedApplicationLabel: "粗大ごみ受付専用電話 049-276-3355（平日）",
+    // 粗大ごみは電話で申し込む（Web申込なし）
+    oversizedApplicationTel: "049-276-3355",
+    oversizedApplicationTelLabel: "電話 049-276-3355（平日）",
     oversizedDetailsUrl:
-      "https://www.town.moroyama.saitama.jp/soshikikarasagasu/seikatsukankyoka/kankyoukakari/gominowakekatadasikata/index.html",
+      "https://www.town.moroyama.saitama.jp/soshikikarasagasu/seikatsukankyoka/kankyoukakari/gominowakekatadasikata/10420.html",
 
     scheduleNotes: [
       "収集日当日の朝8時30分までに出してください（前日には出さないでください）。",

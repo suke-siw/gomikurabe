@@ -27,7 +27,7 @@ export const CATEGORY_LABELS = Object.freeze({
   [GARBAGE_CATEGORIES.RESOURCE]: "資源・その他",
   [GARBAGE_CATEGORIES.HAZARDOUS]: "有害ごみ",
   [GARBAGE_CATEGORIES.OVERSIZED]: "粗大ごみ",
-  [GARBAGE_CATEGORIES.NOT_COLLECTED]: "区では収集できないもの",
+  [GARBAGE_CATEGORIES.NOT_COLLECTED]: "自治体では収集できないもの",
 });
 
 // 街ごとの設定は src/config/municipalities.js にまとめている
@@ -42,11 +42,18 @@ export function mapCategory(sourceCategory, municipalityId = "") {
     return GARBAGE_CATEGORIES.OVERSIZED;
   }
 
-  if (
-    /(区では収集できない|区では収集しない|収集不可|家電リサイクル法対象品目|パソコン)/.test(
+  // 「区では収集できない」「市では収集しない」「町では回収できない」など自治体の種類によらず判定する。
+  // ただし「不燃ごみもしくは区では回収できないもの」のように、収集する区分と並べて
+  // 書かれている場合は、収集する区分を優先する（下の判定に進む）。
+  const notCollected =
+    /([区市町村]では(収集|回収)(でき|し)(ない|ません)|収集不可|家電リサイクル法対象品目|パソコン)/.test(
       value,
-    )
-  ) {
+    );
+  const listedWithRegular =
+    /(または|もしくは|又は)/.test(value) &&
+    /(可燃|燃やす|燃やせ|燃える|不燃|燃えない|資源|プラ|びん|缶|ペットボトル)/.test(value);
+
+  if (notCollected && !listedWithRegular) {
     return GARBAGE_CATEGORIES.NOT_COLLECTED;
   }
 

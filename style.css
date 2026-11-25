@@ -824,8 +824,11 @@ select:disabled {
 }
 
 .oversized-application-link {
-  display: block;
+  display: flex;
   min-width: 0;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
   padding: 10px 12px;
   border-radius: 11px;
   background: var(--green);

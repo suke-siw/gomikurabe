@@ -19,7 +19,7 @@ const CURBSIDE_OVERRIDE_NOTE =
   "資源の日に集積所へ出すことはできません。店頭・拠点の回収ボックスや指定の回収日を利用するか、集積所へ出す場合は可燃ごみの日に出してください。";
 
 const DEFAULT_NON_REGULAR_GUIDE =
-  "区の集積所での曜日収集はありません。回収の日時・場所は区の案内でご確認ください。";
+  "集積所での曜日収集はありません。回収の日時・場所は自治体の案内でご確認ください。";
 
 const LOCATIONS = {
   current: {
@@ -168,7 +168,7 @@ function populateTowns(locationName, preferredTown = "", preferredBlock = "") {
   const location = LOCATIONS[locationName];
   const data = cityData.get(location.city.value);
 
-  location.town.replaceChildren(new Option("町名を選択", ""));
+  location.town.replaceChildren(new Option("町名・地区を選択", ""));
   location.block.replaceChildren(new Option("丁目を選択", ""));
   location.town.disabled = true;
   location.block.disabled = true;
@@ -203,7 +203,7 @@ function populateBlocks(locationName, preferredBlock = "") {
   location.block.replaceChildren();
 
   if (blocks.length === 0) {
-    location.block.add(new Option("（丁目なし）", ""));
+    location.block.add(new Option("（選択不要）", ""));
     location.block.value = "";
     location.block.disabled = true;
     return;
@@ -253,7 +253,8 @@ function formatLocation(location) {
   if (!locationIsComplete(location)) return "未設定";
 
   const municipalityName = MUNICIPALITIES[location.city].name;
-  const blockSuffix = location.block ? `${location.block}丁目` : "（丁目なし）";
+  // 丁目がない町名・地区（例：毛呂山町のA地区）は丁目を付けずに表示する
+  const blockSuffix = location.block ? `${location.block}丁目` : "";
 
   return `${municipalityName} ${location.town}${blockSuffix}`;
 }
@@ -401,7 +402,7 @@ function formatNextCollection(dayText, fromDate = new Date()) {
   const next = getNextCollectionDate(dayText, fromDate);
   if (!next) return "";
 
-  if (next.isYearEnd) return "次回：年末年始のため区の案内を確認";
+  if (next.isYearEnd) return "次回：年末年始のため自治体の案内を確認";
 
   const { date } = next;
   const today = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
@@ -491,9 +492,22 @@ function createExternalLink(url, label, className) {
   return link;
 }
 
+/** 電話番号のリンク（スマートフォンでは押すと電話をかけられる） */
+function createPhoneLink(phoneNumber, label, className) {
+  const link = document.createElement("a");
+  link.href = `tel:${String(phoneNumber).replace(/[^0-9+]/g, "")}`;
+  link.className = className;
+  link.textContent = label;
+  return link;
+}
+
+/*
+ * 粗大ごみの申込案内。自治体の設定に応じて、Web申込のボタンか電話のボタン（または両方）と、
+ * 公式の案内ページへのリンクを表示する。
+ */
 function appendOversizedGuide(container, cityId) {
   const info = MUNICIPALITIES[cityId];
-  if (!info?.oversizedApplicationUrl) return;
+  if (!info?.oversizedApplicationUrl && !info?.oversizedApplicationTel) return;
 
   const guide = document.createElement("div");
   guide.className = "oversized-guide";
@@ -504,17 +518,37 @@ function appendOversizedGuide(container, cityId) {
       "oversized-guide-note",
       "粗大ごみは事前申し込みが必要です。品目・手数料・収集日を申込先でご確認ください。",
     ),
-    createExternalLink(
-      info.oversizedApplicationUrl,
-      info.oversizedApplicationLabel,
-      "oversized-application-link",
-    ),
-    createExternalLink(
-      info.oversizedDetailsUrl,
-      "区公式の粗大ごみ案内",
-      "oversized-details-link",
-    ),
   );
+
+  if (info.oversizedApplicationUrl) {
+    guide.append(
+      createExternalLink(
+        info.oversizedApplicationUrl,
+        info.oversizedApplicationLabel || `${info.name} 粗大ごみ申込`,
+        "oversized-application-link",
+      ),
+    );
+  }
+
+  if (info.oversizedApplicationTel) {
+    guide.append(
+      createPhoneLink(
+        info.oversizedApplicationTel,
+        info.oversizedApplicationTelLabel || `電話で申し込む ${info.oversizedApplicationTel}`,
+        "oversized-application-link",
+      ),
+    );
+  }
+
+  if (info.oversizedDetailsUrl) {
+    guide.append(
+      createExternalLink(
+        info.oversizedDetailsUrl,
+        `${info.name}公式の粗大ごみ案内`,
+        "oversized-details-link",
+      ),
+    );
+  }
 
   container.append(guide);
 }
@@ -1043,7 +1077,7 @@ function getLocationItemResult(locationName, query) {
   } else if (schedule.requiresApplication) {
     collectionDay = "曜日収集なし（個別申し込み）";
   } else if (isNotCollected) {
-    collectionDay = "区では収集しません";
+    collectionDay = `${MUNICIPALITIES[location.city]?.name ?? "自治体"}では収集しません`;
   } else if (schedule.collectionDay) {
     const prefix = curbsideOverride ? "集積所では可燃ごみ：" : "";
     const next = formatNextCollection(schedule.collectionDay);
@@ -1169,7 +1203,7 @@ function saveSettings() {
 
   if (!locationIsComplete(current) || !locationIsComplete(previous)) {
     elements.settingsMessage.textContent =
-      "今の自治体・町名と、前の自治体・町名を選択してください。丁目がある町名では丁目も選択してください。";
+      "今の自治体・町名（地区）と、前の自治体・町名（地区）を選択してください。丁目がある場合は丁目も選択してください。";
     return;
   }
 
