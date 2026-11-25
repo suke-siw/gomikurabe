@@ -170,6 +170,14 @@ select {
   min-height: 44px;
 }
 
+/* 似た品目で選択中のもの */
+.similar-items .suggestion-button.is-selected {
+  border-color: var(--green);
+  background: #ecfdf5;
+  color: var(--green-dark);
+  font-weight: 800;
+}
+
 .settings-panel {
   padding: 18px;
   border-bottom: 1px solid var(--border);

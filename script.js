@@ -1211,6 +1211,15 @@ function getLocationItemResult(locationName, query) {
   };
 }
 
+/*
+ * 個別検索の「似た品目」の状態（今の街・前の街それぞれ）。
+ * 似た品目を押したときは、その側の欄だけを入れ替え、もう片方はそのまま残す。
+ */
+const similarState = {
+  current: { query: "", similarItems: [], selectedName: null },
+  previous: { query: "", similarItems: [], selectedName: null },
+};
+
 function renderLocationResult(locationName, result) {
   const prefix = locationName === "current" ? "current" : "previous";
   const locationElementId = locationName === "current"
@@ -1238,25 +1247,74 @@ function renderLocationResult(locationName, result) {
     appendOversizedGuide(resultBody, result.cityId);
   }
 
-  if (result.valid && !result.found && result.similarItems?.length > 0) {
-    resultBody.append(createSimilarItems(result.similarItems));
+  const state = similarState[locationName];
+  if (result.valid && state.similarItems.length > 0) {
+    resultBody.append(
+      createSimilarItems(locationName, state.similarItems, state.selectedName),
+    );
   }
 }
 
-function createSimilarItems(names) {
+/** 見出し：両方の品目名が同じなら1つ、違えば「今：〇〇 ⇄ 前：〇〇」と出す */
+function updateMatchedHeading() {
+  const currentName = document.getElementById("current-item").textContent;
+  const previousName = document.getElementById("previous-item").textContent;
+  const shown = (name) => (name && name !== "—" ? `「${name}」` : "（未選択）");
+
+  const found = (name) => name && name !== "—";
+
+  if (!found(currentName) && !found(previousName)) {
+    elements.matchedItem.textContent = `「${similarState.current.query}」の検索結果`;
+    return;
+  }
+
+  elements.matchedItem.textContent =
+    currentName === previousName
+      ? `品目${shown(currentName)}の比較`
+      : `今：${shown(currentName)} ⇄ 前：${shown(previousName)} の比較`;
+}
+
+/** 似た品目を選んだとき、その側の欄だけをその品目の結果に切り替える */
+function selectSimilarItem(locationName, name) {
+  const state = similarState[locationName];
+  const result = getLocationItemResult(locationName, name);
+
+  if (result.valid && result.found) {
+    result.note = [
+      `「${state.query}」の似た品目から選んでいます。`,
+      result.note,
+    ].filter(Boolean).join("\n");
+  }
+
+  state.selectedName = name;
+  renderLocationResult(locationName, result);
+  updateMatchedHeading();
+}
+
+function createSimilarItems(locationName, names, selectedName = null) {
   const container = document.createElement("div");
   container.className = "similar-items";
-  container.append(createTextElement("p", "suggestions-heading", "似た品目（押すと検索します）"));
+  container.append(
+    createTextElement(
+      "p",
+      "suggestions-heading",
+      selectedName
+        ? "似た品目（押すと、この欄だけ切り替わります）"
+        : "似た品目（押すと、この欄に表示します）",
+    ),
+  );
 
   const list = document.createElement("div");
   list.className = "suggestion-list";
 
   for (const name of names) {
     const button = document.createElement("button");
+    const selected = name === selectedName;
     button.type = "button";
-    button.className = "suggestion-button";
-    button.textContent = name;
-    button.addEventListener("click", () => searchItem(name));
+    button.className = selected ? "suggestion-button is-selected" : "suggestion-button";
+    button.setAttribute("aria-pressed", String(selected));
+    button.textContent = selected ? `✓ ${name}` : name;
+    button.addEventListener("click", () => selectSimilarItem(locationName, name));
     list.append(button);
   }
 
@@ -1296,15 +1354,21 @@ function searchItem(selectedName = null) {
   const currentResult = getLocationItemResult("current", query);
   const previousResult = getLocationItemResult("previous", query);
 
-  const matchedName = currentResult.found
-    ? currentResult.itemName
-    : previousResult.found
-      ? previousResult.itemName
-      : query;
+  // 新しく検索したら、似た品目の選択状態をリセットする
+  for (const [locationName, result] of [
+    ["current", currentResult],
+    ["previous", previousResult],
+  ]) {
+    similarState[locationName] = {
+      query,
+      similarItems: result.valid && !result.found ? result.similarItems ?? [] : [],
+      selectedName: null,
+    };
+  }
 
-  elements.matchedItem.textContent = `品目「${matchedName}」の比較`;
   renderLocationResult("current", currentResult);
   renderLocationResult("previous", previousResult);
+  updateMatchedHeading();
   elements.searchResult.classList.remove("hidden");
   elements.suggestions.classList.add("hidden");
 }
