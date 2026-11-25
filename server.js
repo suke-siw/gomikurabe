@@ -51,8 +51,64 @@ const SETAGAYA_ITEMS_PATH = path.join(
 );
 const CACHE_PATH = path.join(__dirname, "results_cache.json");
 
+// Render などのプロキシ経由でも、利用者のIPアドレスを正しく取得する
+app.set("trust proxy", 1);
+
 app.use(express.json({ limit: "15mb" }));
-app.use(express.static(__dirname));
+
+/*
+ * ブラウザに公開するのは画面に必要なファイルだけにする。
+ * server.js・package.json・node_modules・results_cache.json・.env などは公開しない。
+ */
+const PUBLIC_FILES = {
+  "/": "index.html",
+  "/index.html": "index.html",
+  "/style.css": "style.css",
+  "/script.js": "script.js",
+  "/image-search.css": "image-search.css",
+  "/image-search.js": "image-search.js",
+};
+
+for (const [route, file] of Object.entries(PUBLIC_FILES)) {
+  app.get(route, (req, res) => res.sendFile(path.join(__dirname, file)));
+}
+
+// フォルダ単位の公開は、そのフォルダを起点にする（「..」などで外のファイルに届かないようにするため）
+app.use("/src", express.static(path.join(__dirname, "src"), { dotfiles: "ignore" }));
+app.use("/data", express.static(path.join(__dirname, "data"), { dotfiles: "ignore" }));
+
+/*
+ * 写真判定の利用回数の制限（公開後に無料枠を使い切られないようにする）。
+ * 同じIPアドレスから RATE_LIMIT_WINDOW_MS の間に RATE_LIMIT_MAX 回まで。
+ */
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX = Number(process.env.RATE_LIMIT_MAX || 20);
+const requestLog = new Map();
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const recent = (requestLog.get(ip) ?? []).filter(
+    (time) => now - time < RATE_LIMIT_WINDOW_MS,
+  );
+
+  if (recent.length >= RATE_LIMIT_MAX) {
+    requestLog.set(ip, recent);
+    return true;
+  }
+
+  recent.push(now);
+  requestLog.set(ip, recent);
+  return false;
+}
+
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, times] of requestLog) {
+    if (times.every((time) => now - time >= RATE_LIMIT_WINDOW_MS)) {
+      requestLog.delete(ip);
+    }
+  }
+}, RATE_LIMIT_WINDOW_MS).unref();
 
 const ai = process.env.GEMINI_API_KEY
   ? new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
@@ -87,10 +143,25 @@ const CATEGORY_MAP = {
   },
 };
 
+/*
+ * 中野区の品目名 → 世田谷区の品目名（名前が違う同じ品目）。
+ * 世田谷区「キャップ(プラスチック製)」の注意事項にペットボトルキャップの記載がある。
+ */
 const ALIAS = {
   "クリアファイル": "プラスチック類",
+  "ペットボトルのキャップ": "キャップ(プラスチック製)",
 };
 
+/** 表記の揺れ（全角・半角、空白、大文字小文字）だけをそろえた名前。括弧の中身は残す。 */
+function normalizeExactName(value) {
+  return String(value ?? "")
+    .normalize("NFKC")
+    .replace(/[ 　\t\r\n]/g, "")
+    .trim()
+    .toLowerCase();
+}
+
+/** 括弧書き（「(飲食用)」など）を除いた名前。自治体間で表記が違う同じ品目の照合に使う。 */
 function normalizeName(value) {
   return String(value ?? "")
     .normalize("NFKC")
@@ -143,27 +214,35 @@ async function writeCache(cache) {
   await fs.rename(temporaryPath, CACHE_PATH);
 }
 
-function findItemMatches(items, name) {
-  const target = normalizeName(name);
+/**
+ * Gemini は中野区の品目名リストから名前をそのまま選ぶので、中野区は完全一致だけで照合する。
+ * （括弧を除いて照合すると「空き缶(飲食用)」に「空き缶(飲食用以外のもの)」が混ざるため）
+ */
+function findExactItems(items, name) {
+  const target = normalizeExactName(name);
   if (!target) return [];
 
-  const exactMatches = items.filter(
-    (item) => normalizeName(item.name) === target,
-  );
-  if (exactMatches.length > 0) return exactMatches;
-
-  return items.filter((item) => {
-    const candidate = normalizeName(item.name);
-    return candidate && (candidate.includes(target) || target.includes(candidate));
-  });
+  return items.filter((item) => normalizeExactName(item.name) === target);
 }
 
+/**
+ * 世田谷区の同じ品目を探す。部分一致は使わない（別の品目の分別が混ざるため）。
+ * 1. 名前が完全に同じ  2. 対応表（ALIAS）  3. 括弧を除いた名前が同じ（例：空き缶(飲食用) → 空き缶(アルミ・スチール)）
+ */
 function findSetagayaMatches(setagayaItems, nakanoName) {
-  const directMatches = findItemMatches(setagayaItems, nakanoName);
-  if (directMatches.length > 0) return directMatches;
+  const exactMatches = findExactItems(setagayaItems, nakanoName);
+  if (exactMatches.length > 0) return exactMatches;
 
   const alias = ALIAS[nakanoName];
-  return alias ? findItemMatches(setagayaItems, alias) : [];
+  if (alias) {
+    const aliasMatches = findExactItems(setagayaItems, alias);
+    if (aliasMatches.length > 0) return aliasMatches;
+  }
+
+  const baseName = normalizeName(nakanoName);
+  if (!baseName) return [];
+
+  return setagayaItems.filter((item) => normalizeName(item.name) === baseName);
 }
 
 function categoryGroup(city, category) {
@@ -202,7 +281,7 @@ function buildResults(candidateNames, municipalityItems) {
   const results = [];
 
   for (const candidateName of candidateNames.slice(0, 3)) {
-    const nakanoMatches = findItemMatches(
+    const nakanoMatches = findExactItems(
       municipalityItems.nakano,
       candidateName,
     );
@@ -362,9 +441,15 @@ app.post("/api/identify", async (req, res) => {
   try {
     const { imageBase64, mediaType, fileKey } = req.body ?? {};
 
-    if (typeof fileKey !== "string" || fileKey.length > 300) {
+    if (fileKey !== undefined && (typeof fileKey !== "string" || fileKey.length > 300)) {
       return res.status(400).json({
         error: "fileKey は300文字以内で指定してください。",
+      });
+    }
+
+    if (isRateLimited(req.ip)) {
+      return res.status(429).json({
+        error: "短い時間に写真判定が多すぎます。しばらく待ってからお試しいただくか、品目名で検索してください。",
       });
     }
 
@@ -380,11 +465,13 @@ app.post("/api/identify", async (req, res) => {
       }
     }
 
-    const cacheKey =
-      fileKey.trim() ||
-      (imageBuffer
-        ? crypto.createHash("sha256").update(imageBuffer).digest("hex")
-        : "");
+    /*
+     * 保存結果のキーは画像の中身から計算する（ファイル名とサイズが同じ別の写真で
+     * 前回の結果が返らないようにするため）。画像がない場合だけ fileKey を使う。
+     */
+    const cacheKey = imageBuffer
+      ? `sha256:${crypto.createHash("sha256").update(imageBuffer).digest("hex")}`
+      : (fileKey ?? "").trim();
 
     if (!cacheKey) {
       return res.status(400).json({
@@ -494,8 +581,11 @@ app.post("/api/identify", async (req, res) => {
     );
     const results = buildResults(selectedNames, municipalityItems);
 
-    cache[cacheKey] = results;
-    await writeCache(cache);
+    // 候補なしの結果は保存しない（撮り直しや混雑解消後に再判定できるようにする）
+    if (results.length > 0) {
+      cache[cacheKey] = results;
+      await writeCache(cache);
+    }
 
     return res.json({
       results,
@@ -509,6 +599,26 @@ app.post("/api/identify", async (req, res) => {
       error: "写真判定中にエラーが発生しました。",
     });
   }
+});
+
+/*
+ * 送信データが大きすぎる・JSONが壊れているなどのエラーも、画面側で読めるJSONで返す。
+ */
+app.use((error, req, res, next) => {
+  if (res.headersSent) return next(error);
+
+  if (error?.type === "entity.too.large") {
+    return res.status(413).json({
+      error: "画像サイズが大きすぎます。別の写真でお試しください。",
+    });
+  }
+
+  if (error?.type === "entity.parse.failed") {
+    return res.status(400).json({ error: "送信データの形式が正しくありません。" });
+  }
+
+  console.error("サーバーエラー:", error);
+  return res.status(500).json({ error: "サーバーでエラーが発生しました。" });
 });
 
 app.listen(PORT, () => {

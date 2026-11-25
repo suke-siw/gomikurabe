@@ -243,9 +243,17 @@
                     placeholder="例：アイロン、ペットボトル"
                     autocomplete="off"
                   />
-                  <label class="camera-btn" aria-label="写真を撮影または選択">
+                </div>
+
+                <!--
+                  Android ではカメラ指定（capture）がないと写真の選択画面しか開かないため、
+                  「撮影」と「写真を選ぶ」を別のボタンにしている
+                -->
+                <div class="photo-buttons">
+                  <label class="photo-btn">
                     <input
                       id="camera-input"
+                      class="photo-file-input"
                       type="file"
                       accept="image/*"
                       capture="environment"
@@ -255,17 +263,40 @@
                       fill="none"
                       stroke="currentColor"
                       stroke-width="2"
-                      width="22"
-                      height="22"
+                      width="20"
+                      height="20"
                       aria-hidden="true"
                     >
                       <path d="M4 8h3l1.5-2h7L17 8h3v11H4z"></path>
                       <circle cx="12" cy="13" r="3"></circle>
                     </svg>
+                    <span>撮影する</span>
+                  </label>
+                  <label class="photo-btn photo-btn-secondary">
+                    <input
+                      id="photo-input"
+                      class="photo-file-input"
+                      type="file"
+                      accept="image/*"
+                    />
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      width="20"
+                      height="20"
+                      aria-hidden="true"
+                    >
+                      <rect x="4" y="5" width="16" height="14" rx="2"></rect>
+                      <circle cx="9" cy="10" r="1.5"></circle>
+                      <path d="M20 16l-5-5-7 8"></path>
+                    </svg>
+                    <span>写真を選ぶ</span>
                   </label>
                 </div>
                 <p class="field-hint">
-                  写真判定はデモ用のモックです。画像は認識・送信されません。
+                  ごみを撮影するか、保存済みの写真を選ぶとAIが品目を判定します。写真は判定のため Google（Gemini）に送信されます。
                 </p>
               </div>
 
@@ -408,7 +439,7 @@
           </li>
         </ul>
         <p>
-          収集日データの公式照合日：2026年11月18日。収集日は変更されることがあります。最新の情報は各区の案内でご確認ください。
+          収集日データの公式照合日：2026年11月25日。収集日は変更されることがあります。最新の情報は各区の案内でご確認ください。
         </p>
         <p>
           AIの判定は間違えることがあります。最終的には各区の公式情報をご確認ください。
