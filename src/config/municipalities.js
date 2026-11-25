@@ -267,16 +267,12 @@ export const MUNICIPALITY_CONFIG = {
 
     sources: [
       {
-        title: "白岡市「ごみの出し方」",
-        url: "https://www.city.shiraoka.lg.jp/soshiki/seikatsukeizaibu/kankyoka/2_1/803.html",
+        title: "白岡市「ごみサク」",
+        url: "https://www.gomisaku.jp/0013/?lang=ja",
       },
       {
         title: "蓮田白岡衛生組合「収集日程表（白岡市）」",
         url: "https://hs-eiseikumiai.org/shimin/schedule/shiraoka/",
-      },
-      {
-        title: "蓮田白岡衛生組合「ごみの種類・出し方」「粗大ごみ収集」",
-        url: "https://hs-eiseikumiai.org/shimin/sodaigomi/",
       },
     ],
     verifiedOn: "2026-11-25",
