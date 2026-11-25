@@ -1,0 +1,395 @@
+[
+  {
+    "town": "新白岡",
+    "blocks": [
+      {
+        "target_blocks": ["1", "2", "3", "4", "5", "6"],
+        "schedule": {
+          "burnable": "月・木",
+          "non_burnable": "第1金曜日",
+          "glass": "第2火曜日",
+          "hazardous": "第3金曜日",
+          "pet_bottle": "第1・3火曜日",
+          "beverage_can": "第2・4水曜日",
+          "paper_cloth": "第1・3水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "寺塚",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "月・木",
+          "non_burnable": "第1金曜日",
+          "glass": "第2火曜日",
+          "hazardous": "第3金曜日",
+          "pet_bottle": "第1・3火曜日",
+          "beverage_can": "第2・4水曜日",
+          "paper_cloth": "第1・3水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "上野田",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "月・木",
+          "non_burnable": "第1金曜日",
+          "glass": "第2火曜日",
+          "hazardous": "第3金曜日",
+          "pet_bottle": "第1・3火曜日",
+          "beverage_can": "第2・4水曜日",
+          "paper_cloth": "第1・3水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "下野田",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "月・木",
+          "non_burnable": "第1金曜日",
+          "glass": "第2火曜日",
+          "hazardous": "第3金曜日",
+          "pet_bottle": "第1・3火曜日",
+          "beverage_can": "第2・4水曜日",
+          "paper_cloth": "第1・3水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "爪田ヶ谷",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "月・木",
+          "non_burnable": "第1金曜日",
+          "glass": "第2火曜日",
+          "hazardous": "第3金曜日",
+          "pet_bottle": "第1・3火曜日",
+          "beverage_can": "第2・4水曜日",
+          "paper_cloth": "第1・3水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "高岩",
+    "blocks": [
+      {
+        "target_blocks": ["宇都宮線東側"],
+        "schedule": {
+          "burnable": "月・木",
+          "non_burnable": "第1金曜日",
+          "glass": "第2火曜日",
+          "hazardous": "第3金曜日",
+          "pet_bottle": "第1・3火曜日",
+          "beverage_can": "第2・4水曜日",
+          "paper_cloth": "第1・3水曜日"
+        }
+      },
+      {
+        "target_blocks": ["宇都宮線西側"],
+        "schedule": {
+          "burnable": "火・金",
+          "non_burnable": "第1月曜日",
+          "glass": "第2月曜日",
+          "hazardous": "第4月曜日",
+          "pet_bottle": "第2・4水曜日",
+          "beverage_can": "第1・3水曜日",
+          "paper_cloth": "第1・3木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "千駄野",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "月・木",
+          "non_burnable": "第3金曜日",
+          "glass": "第4金曜日",
+          "hazardous": "第2金曜日",
+          "pet_bottle": "第1・3水曜日",
+          "beverage_can": "第2・4水曜日",
+          "paper_cloth": "第2・4火曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "岡泉",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "月・木",
+          "non_burnable": "第3金曜日",
+          "glass": "第4金曜日",
+          "hazardous": "第2金曜日",
+          "pet_bottle": "第1・3水曜日",
+          "beverage_can": "第2・4水曜日",
+          "paper_cloth": "第2・4火曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "太田新井",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "月・木",
+          "non_burnable": "第3金曜日",
+          "glass": "第4金曜日",
+          "hazardous": "第2金曜日",
+          "pet_bottle": "第1・3水曜日",
+          "beverage_can": "第2・4水曜日",
+          "paper_cloth": "第2・4火曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "彦兵衛",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "月・木",
+          "non_burnable": "第3金曜日",
+          "glass": "第4金曜日",
+          "hazardous": "第2金曜日",
+          "pet_bottle": "第1・3水曜日",
+          "beverage_can": "第2・4水曜日",
+          "paper_cloth": "第2・4火曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "実ヶ谷",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "月・木",
+          "non_burnable": "第3金曜日",
+          "glass": "第4金曜日",
+          "hazardous": "第2金曜日",
+          "pet_bottle": "第1・3水曜日",
+          "beverage_can": "第2・4水曜日",
+          "paper_cloth": "第2・4火曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "小久喜",
+    "blocks": [
+      {
+        "target_blocks": ["宇都宮線東側"],
+        "schedule": {
+          "burnable": "月・木",
+          "non_burnable": "第3金曜日",
+          "glass": "第4金曜日",
+          "hazardous": "第2金曜日",
+          "pet_bottle": "第1・3水曜日",
+          "beverage_can": "第2・4水曜日",
+          "paper_cloth": "第2・4火曜日"
+        }
+      },
+      {
+        "target_blocks": ["宇都宮線西側"],
+        "schedule": {
+          "burnable": "火・金",
+          "non_burnable": "第2月曜日",
+          "glass": "第1木曜日",
+          "hazardous": "第3月曜日",
+          "pet_bottle": "第2・4水曜日",
+          "beverage_can": "第1・3水曜日",
+          "paper_cloth": "第2・4木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "白岡",
+    "blocks": [
+      {
+        "target_blocks": ["宇都宮線東側"],
+        "schedule": {
+          "burnable": "月・木",
+          "non_burnable": "第3金曜日",
+          "glass": "第4金曜日",
+          "hazardous": "第2金曜日",
+          "pet_bottle": "第1・3水曜日",
+          "beverage_can": "第2・4水曜日",
+          "paper_cloth": "第2・4火曜日"
+        }
+      },
+      {
+        "target_blocks": ["宇都宮線西側"],
+        "schedule": {
+          "burnable": "火・金",
+          "non_burnable": "第2月曜日",
+          "glass": "第1木曜日",
+          "hazardous": "第3月曜日",
+          "pet_bottle": "第2・4水曜日",
+          "beverage_can": "第1・3水曜日",
+          "paper_cloth": "第2・4木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "下大崎",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "火・金",
+          "non_burnable": "第1月曜日",
+          "glass": "第2月曜日",
+          "hazardous": "第4月曜日",
+          "pet_bottle": "第2・4水曜日",
+          "beverage_can": "第1・3水曜日",
+          "paper_cloth": "第1・3木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "荒井新田",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "火・金",
+          "non_burnable": "第1月曜日",
+          "glass": "第2月曜日",
+          "hazardous": "第4月曜日",
+          "pet_bottle": "第2・4水曜日",
+          "beverage_can": "第1・3水曜日",
+          "paper_cloth": "第1・3木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "柴山",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "火・金",
+          "non_burnable": "第1月曜日",
+          "glass": "第2月曜日",
+          "hazardous": "第4月曜日",
+          "pet_bottle": "第2・4水曜日",
+          "beverage_can": "第1・3水曜日",
+          "paper_cloth": "第1・3木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "篠津",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "火・金",
+          "non_burnable": "第1月曜日",
+          "glass": "第2月曜日",
+          "hazardous": "第4月曜日",
+          "pet_bottle": "第2・4水曜日",
+          "beverage_can": "第1・3水曜日",
+          "paper_cloth": "第1・3木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "西",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "火・金",
+          "non_burnable": "第1月曜日",
+          "glass": "第2月曜日",
+          "hazardous": "第4月曜日",
+          "pet_bottle": "第2・4水曜日",
+          "beverage_can": "第1・3水曜日",
+          "paper_cloth": "第1・3木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "野牛",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "火・金",
+          "non_burnable": "第1月曜日",
+          "glass": "第2月曜日",
+          "hazardous": "第4月曜日",
+          "pet_bottle": "第2・4水曜日",
+          "beverage_can": "第1・3水曜日",
+          "paper_cloth": "第1・3木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "新白岡",
+    "blocks": [
+      {
+        "target_blocks": ["7", "8", "9"],
+        "schedule": {
+          "burnable": "火・金",
+          "non_burnable": "第1月曜日",
+          "glass": "第2月曜日",
+          "hazardous": "第4月曜日",
+          "pet_bottle": "第2・4水曜日",
+          "beverage_can": "第1・3水曜日",
+          "paper_cloth": "第1・3木曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "白岡東",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "火・金",
+          "non_burnable": "第2月曜日",
+          "glass": "第1木曜日",
+          "hazardous": "第3月曜日",
+          "pet_bottle": "第2・4水曜日",
+          "beverage_can": "第1・3水曜日",
+          "paper_cloth": "第2・4木曜日"
+        }
+      }
+    ]
+  }
+]
