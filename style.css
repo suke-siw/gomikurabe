@@ -1008,7 +1008,7 @@ select:focus-visible {
   white-space: pre-line;
 }
 
-/* 出典フッター */
+/* 画面下の注意書きと「データの出典」の枠 */
 .app-footer {
   padding: 16px 18px 20px;
   border-top: 1px solid var(--border);
@@ -1018,20 +1018,87 @@ select:focus-visible {
   overflow-wrap: anywhere;
 }
 
-.app-footer p {
-  margin: 6px 0 0;
-}
-
-.app-footer .footer-title {
-  margin: 0 0 4px;
-  font-weight: 800;
-}
-
-.app-footer ul {
-  margin: 0;
-  padding-left: 18px;
+.app-footer > p {
+  margin: 0 0 6px;
 }
 
 .app-footer a {
   color: var(--green-dark);
+}
+
+.data-sources {
+  margin-top: 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.data-sources-summary {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 0 14px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  list-style: none;
+}
+
+.data-sources-summary::-webkit-details-marker {
+  display: none;
+}
+
+/* 開閉できることが分かるよう、右端に矢印を出す（開くと上向き） */
+.data-sources-summary::after {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 14px;
+  content: "⌄";
+  transform: translateY(-2px);
+}
+
+.data-sources[open] .data-sources-summary::after {
+  transform: rotate(180deg) translateY(-2px);
+}
+
+.data-sources[open] .data-sources-summary {
+  border-bottom: 1px solid var(--border);
+}
+
+.data-sources-list {
+  display: grid;
+  gap: 12px;
+  max-height: 360px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 12px 14px 14px;
+}
+
+.data-source-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 4px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.data-source-badge {
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #d1fae5;
+  color: var(--green-dark);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.data-source-city ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.data-source-meta {
+  margin: 4px 0 0;
 }

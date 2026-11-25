@@ -131,6 +131,7 @@ gomikurabe/
     | `oversizedApplicationTel` / `oversizedApplicationTelLabel` | 粗大ごみの申込電話番号とボタンの文言（電話申込の自治体。Webと両方でも可） |
     | `oversizedDetailsUrl` | 自治体公式の粗大ごみ案内ページ |
     | `scheduleNotes` | 朝何時までに出すか・祝日の扱いなど（公式で確認できた内容だけ） |
+    | `sources` / `verifiedOn` | データの出典（資料名とURL）と、収集日データを公式と照合した日。画面下の「データの出典」に自動で表示される |
     | `areaNotices` など | 必要な場合だけ（丁目より細かい例外、集団回収の案内、表示名の上書きなど） |
 
 3. （任意）名前が違う同じ品目があれば、`ITEM_ALIASES` に追加する。名前が同じ品目や、括弧を除くと同じになる品目は自動で照合されるので不要

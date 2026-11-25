@@ -492,6 +492,71 @@ function createExternalLink(url, label, className) {
   return link;
 }
 
+/** "2026-11-25" → "2026年11月25日" */
+function formatJapaneseDate(value) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value ?? ""));
+  if (!match) return "";
+  return `${match[1]}年${Number(match[2])}月${Number(match[3])}日`;
+}
+
+/*
+ * 画面下の「データの出典」を、src/config/municipalities.js の sources から作る。
+ * 自治体が増えても画面が長くならないよう折りたたみの枠に入れ、
+ * 今・前に設定している自治体を先頭に表示する。
+ */
+function renderDataSources() {
+  const list = document.getElementById("data-sources-list");
+  const count = document.getElementById("data-sources-count");
+  if (!list || !count) return;
+
+  const selected = [appState.current?.city, appState.previous?.city].filter(Boolean);
+  const rank = (cityId) => (selected.includes(cityId) ? selected.indexOf(cityId) : selected.length);
+  const cityIds = Object.keys(MUNICIPALITIES).sort((a, b) => rank(a) - rank(b));
+
+  list.replaceChildren();
+  count.textContent = String(cityIds.length);
+
+  for (const cityId of cityIds) {
+    const municipality = MUNICIPALITIES[cityId];
+    const section = document.createElement("section");
+    section.className = "data-source-city";
+
+    const heading = createTextElement("h3", "data-source-name", municipality.name);
+    if (selected.includes(cityId)) {
+      heading.append(createTextElement("span", "data-source-badge", "設定中"));
+    }
+    section.append(heading);
+
+    const sources = Array.isArray(municipality.sources) ? municipality.sources : [];
+    if (sources.length > 0) {
+      const ul = document.createElement("ul");
+      for (const source of sources) {
+        const li = document.createElement("li");
+        if (source.url) {
+          li.append(createExternalLink(source.url, source.title, "data-source-link"));
+        } else {
+          li.textContent = source.title;
+        }
+        ul.append(li);
+      }
+      section.append(ul);
+    } else {
+      section.append(createTextElement("p", "data-source-meta", "出典：未記入"));
+    }
+
+    const verified = formatJapaneseDate(municipality.verifiedOn);
+    section.append(
+      createTextElement(
+        "p",
+        "data-source-meta",
+        `収集日データの公式照合日：${verified || "未記入"}`,
+      ),
+    );
+
+    list.append(section);
+  }
+}
+
 /** 電話番号のリンク（スマートフォンでは押すと電話をかけられる） */
 function createPhoneLink(phoneNumber, label, className) {
   const link = document.createElement("a");
@@ -1228,6 +1293,7 @@ function saveSettings() {
   elements.toggleSettings.textContent = "地域設定を変更";
 
   updateLocationSummary();
+  renderDataSources();
   elements.comparisonFilter.value = "";
   resetComparisonList();
   renderScheduleList();
@@ -1268,6 +1334,7 @@ async function loadCityData() {
     populateCityOptions();
     restoreSavedLocations();
     updateLocationSummary();
+    renderDataSources();
 
     const configured = hasSavedLocations();
     elements.features.hidden = !configured;
@@ -1379,4 +1446,6 @@ document.addEventListener("click", (event) => {
   }
 });
 
+// 出典はデータの読み込みに失敗しても表示できるよう、先に作っておく
+renderDataSources();
 loadCityData();

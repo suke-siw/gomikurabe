@@ -12,6 +12,9 @@
  * 電話なら oversizedApplicationTel / oversizedApplicationTelLabel に書く（両方でも可）。
  * oversizedDetailsUrl には自治体公式の粗大ごみ案内ページを書く。
  *
+ * sources にはデータの出典（資料名と公式ページのURL）を、verifiedOn には収集日データを
+ * 公式の資料と照合した日（例："2026-11-25"）を書く。画面下の「データの出典」に表示される。
+ *
  * scheduleKeys の左側は分別区分のID（src/utils/garbage-mapping.js の GARBAGE_CATEGORIES）、
  * 右側はその街の収集日データ（schedules.json の schedule）の項目名です。
  *   burnable … 燃やす（可燃）ごみ
@@ -27,6 +30,20 @@
 export const MUNICIPALITY_CONFIG = {
   nakano: {
     name: "中野区",
+
+    // データの出典（画面下の「データの出典」に表示）と、収集日データを公式と照合した日
+    sources: [
+      {
+        title: "中野区「ごみ分別一覧」（オープンデータ）",
+        url: "https://www2.wagmap.jp/nakanodatamap/nakanodatamap/opendatafile/map_1/CSV/opendata_5000769.csv",
+      },
+      {
+        title: "中野区「資源とごみの分け方・出し方」2026年版（区内収集日一覧）",
+        url: "https://www.city.tokyo-nakano.lg.jp/kurashi/gomi/dashikata/leaflet.files/nakano_gomi_Pamphlet_2026.pdf",
+      },
+    ],
+    verifiedOn: "2026-11-25",
+
     itemsUrl: "data/nakano_garbage_items.json",
     schedulesUrl: "data/nakano_garbage_schedules.json",
 
@@ -94,6 +111,19 @@ export const MUNICIPALITY_CONFIG = {
 
   setagaya: {
     name: "世田谷区",
+
+    sources: [
+      {
+        title: "世田谷区「ごみ分別一覧」（オープンデータ）",
+        url: "https://www.city.setagaya.lg.jp/documents/22308/n6_131121_garbage_separation.csv",
+      },
+      {
+        title: "世田谷区「資源・ごみ収集日（一覧）」",
+        url: "https://www.city.setagaya.lg.jp/02241/416.html",
+      },
+    ],
+    verifiedOn: "2026-11-25",
+
     itemsUrl: "data/setagaya_garbage_items.json",
     schedulesUrl: "data/setagaya_garbage_schedules.json",
 
@@ -162,6 +192,19 @@ export const MUNICIPALITY_CONFIG = {
    */
   moroyama: {
     name: "毛呂山町",
+
+    sources: [
+      {
+        title: "毛呂山町「令和8年度 ごみ・資源収集カレンダー」",
+        url: "https://www.town.moroyama.saitama.jp/soshikikarasagasu/seikatsukankyoka/kankyoukakari/gominowakekatadasikata/index.html",
+      },
+      {
+        title: "埼玉西部環境保全組合「家庭ごみと資源の分別表」「ごみと資源の分け方・出し方」",
+        url: "https://www.town.moroyama.saitama.jp/soshikikarasagasu/seikatsukankyoka/kankyoukakari/gominowakekatadasikata/index.html",
+      },
+    ],
+    verifiedOn: "2026-11-25",
+
     itemsUrl: "data/moroyama_garbage_items.json",
     schedulesUrl: "data/moroyama_garbage_schedules.json",
 

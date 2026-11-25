@@ -427,27 +427,20 @@
       </div>
 
       <footer class="app-footer">
-        <p class="footer-title">データの出典</p>
-        <ul>
-          <li>
-            世田谷区「ごみ分別一覧」「資源・ごみ収集日（一覧）」
-            （<a href="https://www.city.setagaya.lg.jp/02241/416.html" target="_blank" rel="noopener noreferrer">区公式ページ</a>）
-          </li>
-          <li>
-            中野区「ごみ分別一覧」「資源とごみの収集曜日一覧」
-            （<a href="https://www.city.tokyo-nakano.lg.jp/kurashi/gomi/dashikata/leaflet.files/nakano_gomi_Pamphlet_2026.pdf" target="_blank" rel="noopener noreferrer">区公式資料</a>）
-          </li>
-          <li>
-            毛呂山町「令和8年度 ごみ・資源収集カレンダー」、埼玉西部環境保全組合「家庭ごみと資源の分別表」「ごみと資源の分け方・出し方」
-            （<a href="https://www.town.moroyama.saitama.jp/soshikikarasagasu/seikatsukankyoka/kankyoukakari/gominowakekatadasikata/index.html" target="_blank" rel="noopener noreferrer">町公式ページ</a>）
-          </li>
-        </ul>
         <p>
-          収集日データの公式照合日：2026年11月25日。収集日は変更されることがあります。最新の情報は各自治体の案内でご確認ください。
+          収集日は変更されることがあります。最新の情報は各自治体の案内でご確認ください。
         </p>
         <p>
           AIの判定は間違えることがあります。最終的には各自治体の公式情報をご確認ください。
         </p>
+
+        <!-- 出典は src/config/municipalities.js の sources から script.js が作る -->
+        <details class="data-sources">
+          <summary class="data-sources-summary">
+            データの出典（<span id="data-sources-count">0</span>自治体）
+          </summary>
+          <div id="data-sources-list" class="data-sources-list"></div>
+        </details>
       </footer>
     </div>
 
