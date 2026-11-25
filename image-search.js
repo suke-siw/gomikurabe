@@ -4,6 +4,36 @@ import { DEFAULT_LOCATIONS, MUNICIPALITY_CONFIG } from "./src/config/municipalit
 const fileInputs = ["camera-input", "photo-input"]
   .map((id) => document.getElementById(id))
   .filter(Boolean);
+/*
+ * 端末に合わせて写真のボタンを出し分ける。
+ * - Android：カメラ指定がないと写真の選択画面しか開かないため「撮影する」「写真を選ぶ」の2つ
+ * - iPhone・iPad：「写真を選ぶ」の画面で「写真を撮る／フォトライブラリ」を選べるため1つ
+ * - パソコン：カメラ指定が効かず、どちらもファイル選択になるため1つ
+ */
+function setupPhotoButtons() {
+  const container = document.getElementById("photo-buttons");
+  const cameraButton = document.getElementById("camera-button");
+  const photoButton = document.getElementById("photo-button");
+  const photoLabel = document.getElementById("photo-button-label");
+  if (!container || !cameraButton || !photoButton || !photoLabel) return;
+
+  const userAgent = navigator.userAgent || "";
+  const isAndroid = /Android/i.test(userAgent);
+  // iPadOS は「Mac」と名乗るため、タッチ操作できるかどうかでも判定する
+  const isIOS =
+    /iPhone|iPad|iPod/i.test(userAgent) ||
+    (/Macintosh/i.test(userAgent) && navigator.maxTouchPoints > 1);
+
+  if (isAndroid) return;
+
+  cameraButton.hidden = true;
+  container.classList.add("is-single");
+  photoButton.classList.remove("photo-btn-secondary");
+  photoLabel.textContent = isIOS ? "撮影・写真を選ぶ" : "写真を選ぶ";
+}
+
+setupPhotoButtons();
+
 const statusElement = document.getElementById("ai-photo-status");
 const resultsElement = document.getElementById("ai-photo-results");
 const searchResult = document.getElementById("search-result");

@@ -516,6 +516,11 @@ select:disabled {
   margin-top: 9px;
 }
 
+/* ボタンが1つのとき（iPhone・iPad・パソコン）は横幅いっぱいにする */
+.photo-buttons.is-single {
+  grid-template-columns: 1fr;
+}
+
 .photo-btn {
   position: relative;
   display: flex;

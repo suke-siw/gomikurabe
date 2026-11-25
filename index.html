@@ -247,10 +247,12 @@
 
                 <!--
                   Android ではカメラ指定（capture）がないと写真の選択画面しか開かないため、
-                  「撮影」と「写真を選ぶ」を別のボタンにしている
+                  「撮影する」と「写真を選ぶ」を別のボタンにしている。
+                  iPhone・iPad とパソコンでは「写真を選ぶ」だけで足りるため、image-search.js で
+                  「撮影する」を隠して1つのボタンにする（iPhone は選ぶ画面で撮影もできる）。
                 -->
-                <div class="photo-buttons">
-                  <label class="photo-btn">
+                <div id="photo-buttons" class="photo-buttons">
+                  <label id="camera-button" class="photo-btn">
                     <input
                       id="camera-input"
                       class="photo-file-input"
@@ -272,7 +274,7 @@
                     </svg>
                     <span>撮影する</span>
                   </label>
-                  <label class="photo-btn photo-btn-secondary">
+                  <label id="photo-button" class="photo-btn photo-btn-secondary">
                     <input
                       id="photo-input"
                       class="photo-file-input"
@@ -292,7 +294,7 @@
                       <circle cx="9" cy="10" r="1.5"></circle>
                       <path d="M20 16l-5-5-7 8"></path>
                     </svg>
-                    <span>写真を選ぶ</span>
+                    <span id="photo-button-label">写真を選ぶ</span>
                   </label>
                 </div>
                 <p class="field-hint">
