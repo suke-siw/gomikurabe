@@ -10,6 +10,7 @@ export const GARBAGE_CATEGORIES = Object.freeze({
   GLASS: "glass",
   CAN: "can",
   RESOURCE: "resource",
+  HAZARDOUS: "hazardous",
   OVERSIZED: "oversized",
   NOT_COLLECTED: "not_collected",
 });
@@ -24,6 +25,7 @@ export const CATEGORY_LABELS = Object.freeze({
   [GARBAGE_CATEGORIES.GLASS]: "びん",
   [GARBAGE_CATEGORIES.CAN]: "缶",
   [GARBAGE_CATEGORIES.RESOURCE]: "資源・その他",
+  [GARBAGE_CATEGORIES.HAZARDOUS]: "有害ごみ",
   [GARBAGE_CATEGORIES.OVERSIZED]: "粗大ごみ",
   [GARBAGE_CATEGORIES.NOT_COLLECTED]: "区では収集できないもの",
 });
@@ -46,6 +48,11 @@ export function mapCategory(sourceCategory, municipalityId = "") {
     )
   ) {
     return GARBAGE_CATEGORIES.NOT_COLLECTED;
+  }
+
+  // 電池類・蛍光灯・水銀体温計など（毛呂山町など、有害ごみを別区分で集める自治体）
+  if (/有害/.test(value)) {
+    return GARBAGE_CATEGORIES.HAZARDOUS;
   }
 
   if (/(可燃|燃やす|燃える|burnable)/.test(value)) {

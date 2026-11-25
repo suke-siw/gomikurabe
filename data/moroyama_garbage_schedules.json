@@ -1,0 +1,53 @@
+[
+  {
+    "town": "A地区（JR八高線より西側）",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "月曜日・木曜日",
+          "non_burnable": "第1・第3金曜日",
+          "hazardous": "第1・第3金曜日",
+          "plastic": "火曜日",
+          "bottle_can": "第2・第4火曜日",
+          "pet": "第2・第4金曜日",
+          "paper_cloth": "第1・第3水曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "B地区（JR八高線と東武越生線の間）",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3木曜日",
+          "hazardous": "第1・第3木曜日",
+          "plastic": "水曜日",
+          "bottle_can": "第2・第4水曜日",
+          "pet": "第2・第4木曜日",
+          "paper_cloth": "第1・第3月曜日"
+        }
+      }
+    ]
+  },
+  {
+    "town": "C地区（東武越生線より東側）",
+    "blocks": [
+      {
+        "target_blocks": [],
+        "schedule": {
+          "burnable": "火曜日・金曜日",
+          "non_burnable": "第1・第3月曜日",
+          "hazardous": "第1・第3月曜日",
+          "plastic": "木曜日",
+          "bottle_can": "第2・第4木曜日",
+          "pet": "第2・第4月曜日",
+          "paper_cloth": "第2・第4水曜日"
+        }
+      }
+    ]
+  }
+]

@@ -149,6 +149,63 @@ export const MUNICIPALITY_CONFIG = {
       "ペットボトル": "ペットボトル",
     },
   },
+
+  /*
+   * 出典：毛呂山町「令和8年度 ごみ・資源収集カレンダー（A・B・C地区）」
+   *       埼玉西部環境保全組合「令和8年度 ごみと資源の分け方・出し方」「家庭ごみと資源の分別表」
+   * 町の地区は A・B・C の3つで、町名（大字）ごとの地区一覧は公式資料にないため、
+   * カレンダーの地図の境目（JR八高線・東武越生線）で地区を選ぶ形にしている。
+   */
+  moroyama: {
+    name: "毛呂山町",
+    itemsUrl: "data/moroyama_garbage_items.json",
+    schedulesUrl: "data/moroyama_garbage_schedules.json",
+
+    scheduleKeys: {
+      burnable: ["burnable"],
+      non_burnable: ["non_burnable"],
+      hazardous: ["hazardous"],
+      plastic: ["plastic"],
+      bottle: ["pet"],
+      glass: ["bottle_can"],
+      can: ["bottle_can"],
+      resource: ["paper_cloth"],
+    },
+
+    scheduleRows: [
+      { key: "burnable", label: "燃やせるごみ" },
+      { key: "non_burnable", label: "燃やせないごみ・有害ごみ" },
+      { key: "plastic", label: "その他容器包装プラスチック" },
+      { key: "bottle_can", label: "びん・かん類" },
+      { key: "pet", label: "ペットボトル" },
+      { key: "paper_cloth", label: "紙・布類" },
+    ],
+
+    designatedBag:
+      "指定ごみ袋：なし（ごみは市販の45L以内の白色半透明袋、資源物は市販の45L以内の透明袋。紙・布類は袋に入れずひもでしばる）",
+    oversizedApplicationUrl:
+      "https://www.town.moroyama.saitama.jp/soshikikarasagasu/seikatsukankyoka/kankyoukakari/gominowakekatadasikata/10420.html",
+    oversizedApplicationLabel: "粗大ごみ受付専用電話 049-276-3355（平日）",
+    oversizedDetailsUrl:
+      "https://www.town.moroyama.saitama.jp/soshikikarasagasu/seikatsukankyoka/kankyoukakari/gominowakekatadasikata/index.html",
+
+    scheduleNotes: [
+      "収集日当日の朝8時30分までに出してください（前日には出さないでください）。",
+      "祝日も通常どおり収集します。",
+      "「第5」にあたる曜日の収集はありません。",
+      "紙・布類は雨の日には出さないでください。",
+      "長辺が80cmを超えるもの、または10kgを超えるものは粗大ごみです（集積所には出せません）。",
+      "年末年始（12/31〜1/1）は収集がありません。A地区は令和9年1/29（金）に燃やせないごみ・有害ごみの臨時収集、B・C地区は12/29（火）に燃やせるごみの臨時収集があります。",
+    ],
+
+    areaNotices: [],
+
+    nonRegularGuides: {},
+
+    curbsideOverrides: {},
+
+    displayCategoryOverrides: {},
+  },
 };
 
 // 地域設定の画面を最初に開いたときに選ばれている自治体

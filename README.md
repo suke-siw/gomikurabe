@@ -38,6 +38,7 @@
 
 - 東京都世田谷区
 - 東京都中野区
+- 埼玉県入間郡毛呂山町（A・B・C地区単位。町名ごとの地区一覧は公式資料にないため、カレンダーの地図の境目で地区を選ぶ）
 
 ## 使用技術
 
@@ -65,6 +66,8 @@ gomikurabe/
 ├── data/
 │   ├── nakano_garbage_items.json       … 中野区の品目と分別区分
 │   ├── nakano_garbage_schedules.json   … 中野区の町名・丁目ごとの収集曜日
+│   ├── moroyama_garbage_items.json     … 毛呂山町の品目と分別区分（組合の分別表 878品目）
+│   ├── moroyama_garbage_schedules.json … 毛呂山町の地区（A・B・C）ごとの収集曜日
 │   ├── setagaya_garbage_items.json     … 世田谷区の品目と分別区分
 │   └── setagaya_garbage_schedules.json … 世田谷区の町名・丁目ごとの収集曜日
 └── README.md
@@ -106,6 +109,7 @@ gomikurabe/
 | --- | --- | --- |
 | 世田谷区 | `burnable` / `non_burnable` / `resource` / `bottle` | 可燃ごみ / 不燃ごみ / 資源 / ペットボトル |
 | 中野区 | `burnable` / `glass_metal` / `resource` / `plastic` | 燃やすごみ / 陶器・ガラス・金属ごみ / **びん・缶・ペットボトル** / **資源プラスチック** |
+| 毛呂山町 | `burnable` / `non_burnable` / `hazardous` / `plastic` / `bottle_can` / `pet` / `paper_cloth` | 燃やせるごみ / 燃やせないごみ / 有害ごみ / その他容器包装プラスチック / びん・かん類 / ペットボトル / 紙・布類 |
 
 収集日データを更新するときは、区の公式の収集日一覧と照合してください（中野区は `resource` と `plastic` を取り違えやすいので注意）。
 
