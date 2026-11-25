@@ -1,4 +1,7 @@
-const fileInput = document.getElementById("camera-input");
+// 「撮影する」（カメラ）と「写真を選ぶ」（保存済みの写真）の2つの入力
+const fileInputs = ["camera-input", "photo-input"]
+  .map((id) => document.getElementById(id))
+  .filter(Boolean);
 const statusElement = document.getElementById("ai-photo-status");
 const resultsElement = document.getElementById("ai-photo-results");
 const searchResult = document.getElementById("search-result");
@@ -376,23 +379,17 @@ async function identifyPhoto(file) {
   }
 }
 
-if (fileInput && statusElement && resultsElement) {
-  /*
-   * 既存 script.js のカメラ入力モック処理より先に実行し、
-   * 同じ画像選択イベントがモック判定にも流れるのを防ぎます。
-   */
-  fileInput.addEventListener(
-    "change",
-    (event) => {
+if (statusElement && resultsElement) {
+  for (const fileInput of fileInputs) {
+    fileInput.addEventListener("change", (event) => {
       const file = event.target.files?.[0];
       if (!file) return;
 
-      event.stopImmediatePropagation();
       identifyPhoto(file);
+      // 同じ写真をもう一度選んでも反応するように、選択状態を戻す
       event.target.value = "";
-    },
-    true,
-  );
+    });
+  }
 }
 
 /*
