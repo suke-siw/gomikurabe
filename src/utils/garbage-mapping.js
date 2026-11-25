@@ -1,3 +1,5 @@
+import { MUNICIPALITY_CONFIG } from "../config/municipalities.js";
+
 export const GARBAGE_CATEGORIES = Object.freeze({
   BURNABLE: "burnable",
   NON_BURNABLE: "non_burnable",
@@ -26,37 +28,8 @@ export const CATEGORY_LABELS = Object.freeze({
   [GARBAGE_CATEGORIES.NOT_COLLECTED]: "区では収集できないもの",
 });
 
-export const MUNICIPALITIES = {
-  nakano: {
-    name: "中野区",
-    schedulesUrl: "data/nakano_garbage_schedules.json",
-    scheduleKeys: {
-      [GARBAGE_CATEGORIES.BURNABLE]: ["burnable"],
-      [GARBAGE_CATEGORIES.NON_BURNABLE]: ["glass_metal"],
-      [GARBAGE_CATEGORIES.NAKANO_CERAMIC_GLASS_METAL]: ["glass_metal"],
-      // 中野区の schedule JSON: plastic = 資源プラスチック、resource = びん・缶・ペットボトル
-      [GARBAGE_CATEGORIES.PLASTIC]: ["plastic"],
-      [GARBAGE_CATEGORIES.BOTTLE]: ["resource"],
-      [GARBAGE_CATEGORIES.GLASS]: ["glass_metal"],
-      [GARBAGE_CATEGORIES.CAN]: ["glass_metal"],
-      [GARBAGE_CATEGORIES.RESOURCE]: ["resource"],
-    },
-  },
-  setagaya: {
-    name: "世田谷区",
-    schedulesUrl: "data/setagaya_garbage_schedules.json",
-    scheduleKeys: {
-      [GARBAGE_CATEGORIES.BURNABLE]: ["burnable"],
-      [GARBAGE_CATEGORIES.NON_BURNABLE]: ["non_burnable"],
-      [GARBAGE_CATEGORIES.SETAGAYA_NON_BURNABLE]: ["non_burnable"],
-      [GARBAGE_CATEGORIES.PLASTIC]: ["plastic"],
-      [GARBAGE_CATEGORIES.BOTTLE]: ["bottle"],
-      [GARBAGE_CATEGORIES.GLASS]: ["resource"],
-      [GARBAGE_CATEGORIES.CAN]: ["resource"],
-      [GARBAGE_CATEGORIES.RESOURCE]: ["resource"],
-    },
-  },
-};
+// 街ごとの設定は src/config/municipalities.js にまとめている
+export const MUNICIPALITIES = MUNICIPALITY_CONFIG;
 
 export function mapCategory(sourceCategory, municipalityId = "") {
   const value = normalizeText(sourceCategory);

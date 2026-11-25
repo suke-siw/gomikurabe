@@ -6,116 +6,17 @@ import {
   loadSchedules,
   mapCategory,
 } from "./src/utils/garbage-mapping.js";
+import { DEFAULT_LOCATIONS } from "./src/config/municipalities.js";
 
 const STORAGE_KEY = "move-gomi-navi.locations";
 
-const ITEM_DATA_URLS = {
-  nakano: "data/nakano_garbage_items.json",
-  setagaya: "data/setagaya_garbage_items.json",
-};
-
-const CITY_INFO = {
-  nakano: {
-    designatedBag: "指定ごみ袋：なし（市販の透明・半透明袋を使用）",
-    oversizedApplicationUrl: "https://www2.sodai-web.jp/nakano/index.html",
-    oversizedApplicationLabel: "中野区 粗大ごみWeb申込",
-    oversizedDetailsUrl:
-      "https://www.city.tokyo-nakano.lg.jp/kurashi/gomi/sodaigomi/index.html",
-  },
-  setagaya: {
-    designatedBag: "指定ごみ袋：なし（市販の透明・半透明袋を使用）",
-    oversizedApplicationUrl: "https://www.sodai-setagaya.jp/eco/view/setagaya/top.html",
-    oversizedApplicationLabel: "世田谷区 粗大ごみWeb申込",
-    oversizedDetailsUrl:
-      "https://www.city.setagaya.lg.jp/02241/online_tetsuzuki/380.html#p1",
-  },
-};
-
 /*
- * 中野区の schedule JSON では、resource がびん・缶・ペットボトル、
- * plastic が資源プラスチックに対応します（区公式の収集日一覧と照合済み）。
+ * 街ごとの設定（区名・データの場所・収集日の項目名・案内文など）は
+ * src/config/municipalities.js にまとめている（MUNICIPALITIES として読み込む）。
  */
-const SCHEDULE_CATEGORY_ROWS = {
-  nakano: [
-    { key: "burnable", label: "燃やすごみ" },
-    { key: "glass_metal", label: "陶器・ガラス・金属ごみ" },
-    { key: "resource", label: "びん・缶・ペットボトル" },
-    { key: "plastic", label: "資源プラスチック" },
-  ],
-  setagaya: [
-    { key: "burnable", label: "可燃ごみ" },
-    { key: "non_burnable", label: "不燃ごみ" },
-    { key: "bottle", label: "ペットボトル" },
-    { key: "resource", label: "資源" },
-  ],
-};
-
-/*
- * 丁目より細かい単位（番地など）で収集日が異なる地域の注意書きです。
- * 番地単位のデータがないため、該当する丁目では注意を表示します。
- * 出典：中野区「資源とごみの分け方・出し方」2026年版 p.1 区内収集日一覧
- */
-const AREA_NOTICES = [
-  {
-    city: "nakano",
-    town: "中野",
-    blocks: ["2", "3", "5"],
-    message:
-      "中野2・3・5丁目の一部（毎日収集地域）は収集日が異なります。表示している曜日は毎日収集地域以外のものです。該当するかどうかは中野区の清掃事務所にご確認ください。",
-  },
-];
-
-/*
- * 自治体ごとの収集日に関する共通の案内です（公式資料で確認できた内容のみ）。
- */
-const CITY_SCHEDULE_NOTES = {
-  nakano: [
-    "収集日の朝8時までに出してください。",
-    "祝日も通常どおり収集します。",
-    "「第5」にあたる曜日の収集はありません。",
-    "年末年始の収集日は区のホームページ等でご確認ください。",
-  ],
-  setagaya: [
-    "収集日の朝8時までに出してください（可燃ごみは、三軒茶屋駅・下北沢駅周辺の一部地域では朝7時まで）。",
-    "祝日も通常どおり収集します。",
-    "「第5」（5回目）にあたる曜日の収集はありません。",
-    "年末年始の収集日は区のホームページ等でご確認ください。",
-  ],
-};
-
-/*
- * 公式データの区分は「資源」だが、集積所の資源回収には出せない品目です。
- * （店頭・拠点回収、または月2回の指定場所での回収。集積所に出す場合は可燃ごみ）
- * 出典：世田谷区「ごみ分別一覧」各品目の注意事項
- */
-const CURBSIDE_OVERRIDES = {
-  setagaya: {
-    "食品トレイ(白色発泡トレイ)": "burnable",
-    "食品トレイ(色・柄付き発泡トレイ)": "burnable",
-    "発泡トレー": "burnable",
-    "食品用透明プラスチック容器": "burnable",
-    "食用油": "burnable",
-  },
-};
 
 const CURBSIDE_OVERRIDE_NOTE =
   "資源の日に集積所へ出すことはできません。店頭・拠点の回収ボックスや指定の回収日を利用するか、集積所へ出す場合は可燃ごみの日に出してください。";
-
-/*
- * 集団回収・拠点回収の品目について、回収日の調べ方の案内です。
- */
-const NON_REGULAR_GUIDES = {
-  nakano: {
-    collective:
-      "古紙・古着は地域の集団回収に出してください。実施日は中野区の冊子「資源とごみの分け方・出し方」の集団回収実施日一覧（11・12ページ）や「中野区ごみ分別アプリ」で確認できます。",
-    drop_off:
-      "区の施設などに設置された回収ボックス（拠点回収）に出してください。回収場所は中野区の冊子「資源とごみの分け方・出し方」（15ページ〜）で確認できます。",
-  },
-  setagaya: {
-    drop_off:
-      "区の施設などで行う拠点回収に出してください。回収場所・日時は世田谷区ホームページの「拠点回収」のページで確認できます。",
-  },
-};
 
 const DEFAULT_NON_REGULAR_GUIDE =
   "区の集積所での曜日収集はありません。回収の日時・場所は区の案内でご確認ください。";
@@ -247,10 +148,13 @@ function populateCityOptions() {
     setOptions(location.city, options);
   }
 
+  // 初期表示の自治体は src/config/municipalities.js の DEFAULT_LOCATIONS で決める
   const cityIds = Object.keys(MUNICIPALITIES);
-  const currentDefault = cityIds.includes("setagaya") ? "setagaya" : cityIds[0];
-  const previousDefault = cityIds.includes("nakano")
-    ? "nakano"
+  const currentDefault = cityIds.includes(DEFAULT_LOCATIONS.current)
+    ? DEFAULT_LOCATIONS.current
+    : cityIds[0];
+  const previousDefault = cityIds.includes(DEFAULT_LOCATIONS.previous)
+    ? DEFAULT_LOCATIONS.previous
     : cityIds.find((id) => id !== currentDefault) || currentDefault;
 
   LOCATIONS.current.city.value = currentDefault;
@@ -473,7 +377,7 @@ function isNonRegularCollection(item) {
  * 出し方が異なるため独立した区分として比較します。
  */
 function getCurbsideOverride(item, cityId) {
-  const overrides = CURBSIDE_OVERRIDES[cityId] ?? {};
+  const overrides = MUNICIPALITIES[cityId]?.curbsideOverrides ?? {};
   const name = normalize(getItemName(item));
 
   for (const [overrideName, category] of Object.entries(overrides)) {
@@ -484,7 +388,10 @@ function getCurbsideOverride(item, cityId) {
 }
 
 function getNonRegularGuide(cityId, nonRegularType) {
-  return NON_REGULAR_GUIDES[cityId]?.[nonRegularType] ?? DEFAULT_NON_REGULAR_GUIDE;
+  return (
+    MUNICIPALITIES[cityId]?.nonRegularGuides?.[nonRegularType] ??
+    DEFAULT_NON_REGULAR_GUIDE
+  );
 }
 
 const WEEKDAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
@@ -585,8 +492,8 @@ function createExternalLink(url, label, className) {
 }
 
 function appendOversizedGuide(container, cityId) {
-  const info = CITY_INFO[cityId];
-  if (!info) return;
+  const info = MUNICIPALITIES[cityId];
+  if (!info?.oversizedApplicationUrl) return;
 
   const guide = document.createElement("div");
   guide.className = "oversized-guide";
@@ -795,7 +702,7 @@ function getScheduleRows(locationName) {
     };
   }
 
-  const rows = SCHEDULE_CATEGORY_ROWS[location.city] ??
+  const rows = MUNICIPALITIES[location.city]?.scheduleRows ??
     Object.keys(schedule).map((key) => ({ key, label: key }));
 
   return {
@@ -811,9 +718,8 @@ function getScheduleRows(locationName) {
 function getAreaNotice(location) {
   if (!location) return "";
 
-  const notice = AREA_NOTICES.find(
+  const notice = (MUNICIPALITIES[location.city]?.areaNotices ?? []).find(
     (entry) =>
-      entry.city === location.city &&
       normalize(entry.town) === normalize(location.town) &&
       entry.blocks.includes(String(location.block)),
   );
@@ -829,7 +735,7 @@ function createScheduleNotes(location) {
     fragment.append(createTextElement("p", "area-notice", `⚠ ${areaNotice}`));
   }
 
-  const notes = CITY_SCHEDULE_NOTES[location.city] ?? [];
+  const notes = MUNICIPALITIES[location.city]?.scheduleNotes ?? [];
 
   if (notes.length > 0) {
     const list = document.createElement("ul");
@@ -847,7 +753,7 @@ function createScheduleNotes(location) {
 
 function createScheduleCard(locationName) {
   const location = appState[locationName];
-  const cityInfo = CITY_INFO[location.city];
+  const cityInfo = MUNICIPALITIES[location.city];
   const card = document.createElement("article");
   card.className = "schedule-card";
 
@@ -1106,11 +1012,11 @@ function getLocationItemResult(locationName, query) {
     note: getItemNote(item),
   });
 
-  const displayCategory =
-    location.city === "setagaya" &&
-    normalize(itemName) === normalize("ペットボトル")
-      ? "ペットボトル"
-      : sourceCategory || "カテゴリ未登録";
+  // 街の設定で表示名を指定している品目（例：世田谷区のペットボトル）は、その名前で表示する
+  const displayOverride = Object.entries(
+    MUNICIPALITIES[location.city]?.displayCategoryOverrides ?? {},
+  ).find(([name]) => normalize(name) === normalize(itemName))?.[1];
+  const displayCategory = displayOverride || sourceCategory || "カテゴリ未登録";
 
   const nonRegularType = getNonRegularType(item);
   const isNotCollected =
@@ -1299,7 +1205,7 @@ async function loadCityData() {
   try {
     await Promise.all(
       Object.entries(MUNICIPALITIES).map(async ([cityId, municipality]) => {
-        const itemUrl = ITEM_DATA_URLS[cityId];
+        const itemUrl = municipality.itemsUrl;
 
         if (!itemUrl) {
           throw new Error(`${municipality.name}の品目データURLがありません。`);

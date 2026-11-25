@@ -1,3 +1,5 @@
+import { DEFAULT_LOCATIONS, MUNICIPALITY_CONFIG } from "./src/config/municipalities.js";
+
 // 「撮影する」（カメラ）と「写真を選ぶ」（保存済みの写真）の2つの入力
 const fileInputs = ["camera-input", "photo-input"]
   .map((id) => document.getElementById(id))
@@ -127,19 +129,13 @@ async function resizeImageToBase64(file) {
   };
 }
 
-const CITY_NAMES = {
-  nakano: "中野区",
-  setagaya: "世田谷区",
-};
-
 // script.js が保存している地域設定（今の街・前の街）
 const LOCATION_STORAGE_KEY = "move-gomi-navi.locations";
 
-/**
- * 地域設定に合わせて、表示する自治体の順番と見出しを決める。
- * 例：今＝世田谷・前＝中野なら「今の街：世田谷区」「前の街：中野区」の順。
- */
-function getMunicipalityOrder() {
+const cityName = (cityId) => MUNICIPALITY_CONFIG[cityId]?.name ?? cityId;
+
+/** 地域設定から今の街・前の街を取り出す（未設定なら初期設定を使う） */
+function getSavedCities() {
   let saved = null;
 
   try {
@@ -148,20 +144,26 @@ function getMunicipalityOrder() {
     saved = null;
   }
 
-  const current = saved?.current?.city;
-  const previous = saved?.previous?.city;
+  const valid = (cityId) => Object.hasOwn(MUNICIPALITY_CONFIG, cityId ?? "");
 
-  if (!CITY_NAMES[current] || !CITY_NAMES[previous]) {
-    return Object.keys(CITY_NAMES).map((city) => ({ city, title: CITY_NAMES[city] }));
-  }
+  return {
+    currentCity: valid(saved?.current?.city) ? saved.current.city : DEFAULT_LOCATIONS.current,
+    previousCity: valid(saved?.previous?.city) ? saved.previous.city : DEFAULT_LOCATIONS.previous,
+  };
+}
 
-  if (current === previous) {
-    return [{ city: current, title: `今・前の街：${CITY_NAMES[current]}` }];
+/**
+ * 判定結果に表示する欄と見出し。今の街 → 前の街の順に表示し、同じ街なら1つにまとめる。
+ * 例：今＝世田谷・前＝中野なら「今の街：世田谷区」「前の街：中野区」。
+ */
+function getSections({ currentCity, previousCity }) {
+  if (currentCity === previousCity) {
+    return [{ key: "current", title: `今・前の街：${cityName(currentCity)}` }];
   }
 
   return [
-    { city: current, title: `今の街：${CITY_NAMES[current]}` },
-    { city: previous, title: `前の街：${CITY_NAMES[previous]}` },
+    { key: "current", title: `今の街：${cityName(currentCity)}` },
+    { key: "previous", title: `前の街：${cityName(previousCity)}` },
   ];
 }
 
@@ -228,7 +230,8 @@ function selectCandidate(name, card) {
   selectingCandidate = false;
 }
 
-function createResultCard(result, index) {
+function createResultCard(result, index, cities) {
+  const sections = getSections(cities);
   const card = createElement("article", "ai-photo-result-card");
   const heading = createElement("div", "ai-photo-result-heading");
 
@@ -241,7 +244,7 @@ function createResultCard(result, index) {
   );
 
   // 今と前が別の区のときだけ「分別が変わります」を表示する
-  if (result.classificationChanged && getMunicipalityOrder().length > 1) {
+  if (result.classificationChanged && sections.length > 1) {
     heading.append(
       createElement("span", "ai-photo-change-badge", "分別が変わります"),
     );
@@ -249,8 +252,8 @@ function createResultCard(result, index) {
 
   card.append(heading);
 
-  for (const { city, title } of getMunicipalityOrder()) {
-    card.append(createMunicipalitySection(title, result[city], result.name));
+  for (const { key, title } of sections) {
+    card.append(createMunicipalitySection(title, result[key], result.name));
   }
 
   const selectButton = createElement(
@@ -272,7 +275,7 @@ function createResultCard(result, index) {
   return card;
 }
 
-function renderResults(results) {
+function renderResults(results, cities) {
   resultsElement.replaceChildren();
 
   if (!Array.isArray(results) || results.length === 0) {
@@ -283,7 +286,7 @@ function renderResults(results) {
   const candidates = results.slice(0, 3);
 
   candidates.forEach((result, index) => {
-    resultsElement.append(createResultCard(result, index));
+    resultsElement.append(createResultCard(result, index, cities));
   });
 
   if (standardResults) {
@@ -324,6 +327,7 @@ async function identifyPhoto(file) {
     startLoadingMessages();
 
     const fileKey = `${file.name}_${file.size}`;
+    const requestCities = getSavedCities();
 
     // AIの応答がないまま画面が止まらないよう、一定時間で打ち切る（サーバー側は40秒で打ち切る）
     const controller = new AbortController();
@@ -341,6 +345,7 @@ async function identifyPhoto(file) {
           imageBase64,
           mediaType,
           fileKey,
+          ...requestCities,
         }),
         signal: controller.signal,
       });
@@ -372,7 +377,11 @@ async function identifyPhoto(file) {
     }
 
     clearLoadingTimers();
-    renderResults(payload.results);
+    // サーバーが実際に使った街（未登録の街などは初期設定に置き換わる）で表示する
+    renderResults(payload.results, {
+      currentCity: payload.currentCity ?? requestCities.currentCity,
+      previousCity: payload.previousCity ?? requestCities.previousCity,
+    });
   } catch (error) {
     clearLoadingTimers();
     setStatus(error.message || "写真判定に失敗しました。");

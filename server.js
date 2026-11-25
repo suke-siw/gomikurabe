@@ -5,6 +5,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { GoogleGenAI } from "@google/genai";
+import { MUNICIPALITY_CONFIG, DEFAULT_LOCATIONS, ITEM_ALIASES } from "./src/config/municipalities.js";
+import { GARBAGE_CATEGORIES, mapCategory } from "./src/utils/garbage-mapping.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -39,16 +41,6 @@ const unavailableModels = new Set();
 const DEMO_ONLY = process.env.DEMO_ONLY === "1";
 const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
 
-const NAKANO_ITEMS_PATH = path.join(
-  __dirname,
-  "data",
-  "nakano_garbage_items.json",
-);
-const SETAGAYA_ITEMS_PATH = path.join(
-  __dirname,
-  "data",
-  "setagaya_garbage_items.json",
-);
 const CACHE_PATH = path.join(__dirname, "results_cache.json");
 
 // Render などのプロキシ経由でも、利用者のIPアドレスを正しく取得する
@@ -116,42 +108,6 @@ const ai = process.env.GEMINI_API_KEY
 
 let municipalityItemsPromise;
 
-const CATEGORY_MAP = {
-  nakano: {
-    "燃やすごみ": "可燃",
-    "陶器・ガラス・金属ごみ": "不燃",
-    "資源プラスチック": "資源",
-    "びん・缶・ペットボトル": "資源",
-    "古紙(集団回収)": "資源",
-    "古着・古布(集団回収)": "資源",
-    "粗大ごみ": "粗大",
-    "使用済小型家電(拠点回収)": "拠点回収",
-    "乾電池(拠点回収)": "拠点回収",
-    "食用油(拠点回収)": "拠点回収",
-    "使用済蛍光管(拠点回収)": "拠点回収",
-    "インクカートリッジ(拠点回収)": "拠点回収",
-    "区では収集しないもの": "収集不可",
-    "家電リサイクル法対象品目": "収集不可",
-    "パソコン": "収集不可",
-  },
-  setagaya: {
-    "可燃ごみ": "可燃",
-    "不燃ごみ": "不燃",
-    "資源": "資源",
-    "粗大ごみ": "粗大",
-    "区では収集できないもの": "収集不可",
-  },
-};
-
-/*
- * 中野区の品目名 → 世田谷区の品目名（名前が違う同じ品目）。
- * 世田谷区「キャップ(プラスチック製)」の注意事項にペットボトルキャップの記載がある。
- */
-const ALIAS = {
-  "クリアファイル": "プラスチック類",
-  "ペットボトルのキャップ": "キャップ(プラスチック製)",
-};
-
 /** 表記の揺れ（全角・半角、空白、大文字小文字）だけをそろえた名前。括弧の中身は残す。 */
 function normalizeExactName(value) {
   return String(value ?? "")
@@ -172,26 +128,21 @@ function normalizeName(value) {
     .toLowerCase();
 }
 
-function normalizeCategory(value) {
-  return String(value ?? "")
-    .normalize("NFKC")
-    .replace(/[ 　\t\r\n]/g, "")
-    .trim();
-}
-
 function getItems(payload) {
   return Array.isArray(payload?.items) ? payload.items : [];
 }
 
+/** src/config/municipalities.js に登録されているすべての街の品目データを読み込む */
 async function loadMunicipalityItems() {
   if (!municipalityItemsPromise) {
-    municipalityItemsPromise = Promise.all([
-      fs.readFile(NAKANO_ITEMS_PATH, "utf8").then(JSON.parse),
-      fs.readFile(SETAGAYA_ITEMS_PATH, "utf8").then(JSON.parse),
-    ]).then(([nakanoPayload, setagayaPayload]) => ({
-      nakano: getItems(nakanoPayload),
-      setagaya: getItems(setagayaPayload),
-    }));
+    municipalityItemsPromise = Promise.all(
+      Object.entries(MUNICIPALITY_CONFIG).map(async ([cityId, config]) => {
+        const payload = JSON.parse(
+          await fs.readFile(path.join(__dirname, config.itemsUrl), "utf8"),
+        );
+        return [cityId, getItems(payload)];
+      }),
+    ).then((entries) => Object.fromEntries(entries));
   }
 
   return municipalityItemsPromise;
@@ -215,7 +166,7 @@ async function writeCache(cache) {
 }
 
 /**
- * Gemini は中野区の品目名リストから名前をそのまま選ぶので、中野区は完全一致だけで照合する。
+ * Gemini は「今の街」の品目名リストから名前をそのまま選ぶので、今の街は完全一致だけで照合する。
  * （括弧を除いて照合すると「空き缶(飲食用)」に「空き缶(飲食用以外のもの)」が混ざるため）
  */
 function findExactItems(items, name) {
@@ -225,89 +176,119 @@ function findExactItems(items, name) {
   return items.filter((item) => normalizeExactName(item.name) === target);
 }
 
+/** 対応表（ITEM_ALIASES）から、fromCity の品目名に対応する toCity の品目名を探す */
+function findAliasNames(name, fromCity, toCity) {
+  const target = normalizeExactName(name);
+
+  return ITEM_ALIASES.filter(
+    (entry) =>
+      entry[fromCity] &&
+      entry[toCity] &&
+      normalizeExactName(entry[fromCity]) === target &&
+      (!entry.oneWayFrom || entry.oneWayFrom === fromCity),
+  ).map((entry) => entry[toCity]);
+}
+
 /**
- * 世田谷区の同じ品目を探す。部分一致は使わない（別の品目の分別が混ざるため）。
- * 1. 名前が完全に同じ  2. 対応表（ALIAS）  3. 括弧を除いた名前が同じ（例：空き缶(飲食用) → 空き缶(アルミ・スチール)）
+ * 前の街の同じ品目を探す。部分一致は使わない（別の品目の分別が混ざるため）。
+ * 1. 名前が完全に同じ  2. 対応表（ITEM_ALIASES）  3. 括弧を除いた名前が同じ
+ *    （例：空き缶(飲食用) → 空き缶(アルミ・スチール)）
  */
-function findSetagayaMatches(setagayaItems, nakanoName) {
-  const exactMatches = findExactItems(setagayaItems, nakanoName);
+function findCounterpartItems(items, name, fromCity, toCity) {
+  const exactMatches = findExactItems(items, name);
   if (exactMatches.length > 0) return exactMatches;
 
-  const alias = ALIAS[nakanoName];
-  if (alias) {
-    const aliasMatches = findExactItems(setagayaItems, alias);
+  for (const aliasName of findAliasNames(name, fromCity, toCity)) {
+    const aliasMatches = findExactItems(items, aliasName);
     if (aliasMatches.length > 0) return aliasMatches;
   }
 
-  const baseName = normalizeName(nakanoName);
+  const baseName = normalizeName(name);
   if (!baseName) return [];
 
-  return setagayaItems.filter((item) => normalizeName(item.name) === baseName);
+  return items.filter((item) => normalizeName(item.name) === baseName);
 }
 
-function categoryGroup(city, category) {
-  const normalized = normalizeCategory(category);
-  const cityMap = CATEGORY_MAP[city];
+/*
+ * 「分別が変わります」の判定に使う大まかな区分。
+ * 街ごとの表は使わず、品目検索と同じ共通のルール（mapCategory）で判定するので、
+ * 新しい街を追加しても設定は不要。
+ */
+const CATEGORY_GROUPS = {
+  [GARBAGE_CATEGORIES.BURNABLE]: "可燃",
+  [GARBAGE_CATEGORIES.NON_BURNABLE]: "不燃",
+  [GARBAGE_CATEGORIES.SETAGAYA_NON_BURNABLE]: "不燃",
+  [GARBAGE_CATEGORIES.NAKANO_CERAMIC_GLASS_METAL]: "不燃",
+  [GARBAGE_CATEGORIES.PLASTIC]: "プラスチック",
+  [GARBAGE_CATEGORIES.BOTTLE]: "資源",
+  [GARBAGE_CATEGORIES.GLASS]: "資源",
+  [GARBAGE_CATEGORIES.CAN]: "資源",
+  [GARBAGE_CATEGORIES.RESOURCE]: "資源",
+  [GARBAGE_CATEGORIES.OVERSIZED]: "粗大",
+  [GARBAGE_CATEGORIES.NOT_COLLECTED]: "収集不可",
+};
 
-  if (!cityMap) return null;
+function getCategoryGroup(category, cityId) {
+  const normalized = String(category ?? "").normalize("NFKC").replace(/\s/g, "");
+  if (!normalized) return null;
 
-  const exactMatch = Object.entries(cityMap).find(
-    ([label]) => normalizeCategory(label) === normalized,
-  );
-
-  if (exactMatch) return exactMatch[1];
-
-  if (city === "setagaya" && normalized.includes("拠点回収")) {
-    return "拠点回収";
+  // 集団回収・拠点回収・販売店回収だけの区分（区の集積所では収集しない）
+  const regular =
+    /(資源|可燃|燃やす|燃える|不燃|燃やさない|燃えない|プラスチック|プラ|陶器.*ガラス.*金属|ペットボトル)/;
+  if (!regular.test(normalized) && /(集団回収|拠点回収|販売店|回収ボックス|店頭回収)/.test(normalized)) {
+    return "回収";
   }
 
-  return null;
+  return CATEGORY_GROUPS[mapCategory(normalized, cityId)] ?? null;
 }
 
-function hasClassificationChange(nakanoItem, setagayaItems) {
-  const nakanoGroup = categoryGroup("nakano", nakanoItem.category);
-  if (!nakanoGroup || setagayaItems.length === 0) return false;
+function hasClassificationChange(currentItem, previousItems, currentCity, previousCity) {
+  const currentGroup = getCategoryGroup(currentItem.category, currentCity);
+  if (!currentGroup || previousItems.length === 0) return false;
 
-  const setagayaGroups = setagayaItems
-    .map((item) => categoryGroup("setagaya", item.category))
+  const previousGroups = previousItems
+    .map((item) => getCategoryGroup(item.category, previousCity))
     .filter(Boolean);
 
-  if (setagayaGroups.length === 0) return false;
+  if (previousGroups.length === 0) return false;
 
-  return setagayaGroups.every((group) => group !== nakanoGroup);
+  return previousGroups.every((group) => group !== currentGroup);
 }
 
-function buildResults(candidateNames, municipalityItems) {
+const toRecord = (item) => ({
+  name: item.name,
+  category: item.category || "",
+  note: item.note || "",
+});
+
+/** Gemini が選んだ品目名（今の街の名前）から、今の街・前の街の分別をまとめる */
+function buildResults(candidateNames, municipalityItems, currentCity, previousCity) {
   const results = [];
 
   for (const candidateName of candidateNames.slice(0, 3)) {
-    const nakanoMatches = findExactItems(
-      municipalityItems.nakano,
+    const currentMatches = findExactItems(
+      municipalityItems[currentCity],
       candidateName,
     );
 
-    for (const nakanoItem of nakanoMatches) {
-      const setagayaMatches = findSetagayaMatches(
-        municipalityItems.setagaya,
-        nakanoItem.name,
-      );
+    for (const currentItem of currentMatches) {
+      const previousMatches =
+        previousCity === currentCity
+          ? [currentItem]
+          : findCounterpartItems(
+            municipalityItems[previousCity],
+            currentItem.name,
+            currentCity,
+            previousCity,
+          );
 
       results.push({
-        name: nakanoItem.name,
-        nakano: [{
-          name: nakanoItem.name,
-          category: nakanoItem.category || "",
-          note: nakanoItem.note || "",
-        }],
-        setagaya: setagayaMatches.map((item) => ({
-          name: item.name,
-          category: item.category || "",
-          note: item.note || "",
-        })),
-        classificationChanged: hasClassificationChange(
-          nakanoItem,
-          setagayaMatches,
-        ),
+        name: currentItem.name,
+        current: [toRecord(currentItem)],
+        previous: previousMatches.map(toRecord),
+        classificationChanged:
+          previousCity !== currentCity &&
+          hasClassificationChange(currentItem, previousMatches, currentCity, previousCity),
       });
     }
   }
@@ -441,6 +422,12 @@ app.post("/api/identify", async (req, res) => {
   try {
     const { imageBase64, mediaType, fileKey } = req.body ?? {};
 
+    // 画面の地域設定（今の街・前の街）。未指定や未登録の街は初期設定を使う
+    const pickCity = (value, fallback) =>
+      typeof value === "string" && Object.hasOwn(MUNICIPALITY_CONFIG, value) ? value : fallback;
+    const currentCity = pickCity(req.body?.currentCity, DEFAULT_LOCATIONS.current);
+    const previousCity = pickCity(req.body?.previousCity, DEFAULT_LOCATIONS.previous);
+
     if (fileKey !== undefined && (typeof fileKey !== "string" || fileKey.length > 300)) {
       return res.status(400).json({
         error: "fileKey は300文字以内で指定してください。",
@@ -469,9 +456,11 @@ app.post("/api/identify", async (req, res) => {
      * 保存結果のキーは画像の中身から計算する（ファイル名とサイズが同じ別の写真で
      * 前回の結果が返らないようにするため）。画像がない場合だけ fileKey を使う。
      */
-    const cacheKey = imageBuffer
+    const imageKey = imageBuffer
       ? `sha256:${crypto.createHash("sha256").update(imageBuffer).digest("hex")}`
       : (fileKey ?? "").trim();
+    // 結果は街の組み合わせによって変わるので、キーに街も含める
+    const cacheKey = imageKey ? `${imageKey}:${currentCity}:${previousCity}` : "";
 
     if (!cacheKey) {
       return res.status(400).json({
@@ -484,6 +473,8 @@ app.post("/api/identify", async (req, res) => {
     if (Object.prototype.hasOwnProperty.call(cache, cacheKey)) {
       return res.json({
         results: cache[cacheKey],
+        currentCity,
+        previousCity,
         cached: true,
       });
     }
@@ -519,13 +510,14 @@ app.post("/api/identify", async (req, res) => {
     }
 
     const municipalityItems = await loadMunicipalityItems();
-    const candidateNames = municipalityItems.nakano
+    // Gemini には「今の街」の品目名の一覧から選ばせる
+    const candidateNames = municipalityItems[currentCity]
       .map((item) => item.name)
       .filter((name) => typeof name === "string" && name.trim());
 
     const prompt = [
       "画像に写っているごみの品目を判定してください。",
-      "次の中野区の品目名候補から、画像に最も近い品目を最大3つ選択してください。",
+      `次の${MUNICIPALITY_CONFIG[currentCity].name}の品目名候補から、画像に最も近い品目を最大3つ選択してください。`,
       "候補リスト外の品目名は回答しないでください。",
       "該当する品目がなければ空配列 [] を返してください。",
       "説明文やコードフェンスを付けず、JSON文字列配列だけを返してください。",
@@ -579,7 +571,12 @@ app.post("/api/identify", async (req, res) => {
       geminiResponse.text,
       allowedNames,
     );
-    const results = buildResults(selectedNames, municipalityItems);
+    const results = buildResults(
+      selectedNames,
+      municipalityItems,
+      currentCity,
+      previousCity,
+    );
 
     // 候補なしの結果は保存しない（撮り直しや混雑解消後に再判定できるようにする）
     if (results.length > 0) {
@@ -589,6 +586,8 @@ app.post("/api/identify", async (req, res) => {
 
     return res.json({
       results,
+      currentCity,
+      previousCity,
       cached: false,
       model: usedModel,
     });

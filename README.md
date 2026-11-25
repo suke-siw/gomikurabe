@@ -55,9 +55,13 @@ gomikurabe/
 ├── index.html                      … 画面（検索フォームと比較結果）
 ├── style.css                       … スタイル
 ├── script.js                       … 画面の処理（データ読み込み・検索・表示）
+├── image-search.js / image-search.css … 写真判定の画面
+├── server.js                       … サーバー（画面の配信と写真判定の Gemini 呼び出し）
 ├── src/
+│   ├── config/
+│   │   └── municipalities.js       … 自治体（街）の設定と、名前が違う同じ品目の対応表
 │   └── utils/
-│       └── garbage-mapping.js      … 自治体設定と分別区分の対応付け・収集曜日の取得
+│       └── garbage-mapping.js      … 分別区分の判定・収集曜日と次回収集日の計算
 ├── data/
 │   ├── nakano_garbage_items.json       … 中野区の品目と分別区分
 │   ├── nakano_garbage_schedules.json   … 中野区の町名・丁目ごとの収集曜日
@@ -96,7 +100,7 @@ gomikurabe/
 ]
 ```
 
-`schedule` のキー（`burnable` など）は自治体ごとに異なります。各区の分別区分とキーの対応は `src/utils/garbage-mapping.js` の `MUNICIPALITIES` で設定しています。
+`schedule` のキー（`burnable` など）は自治体ごとに異なります。各区の分別区分とキーの対応は `src/config/municipalities.js` の `scheduleKeys` で設定しています。
 
 | 自治体 | キー | 区分 |
 | --- | --- | --- |
@@ -107,9 +111,25 @@ gomikurabe/
 
 ### 自治体を追加するには
 
-1. `data/` に `〇〇_garbage_items.json` と `〇〇_garbage_schedules.json` を追加する
-2. `src/utils/garbage-mapping.js` の `MUNICIPALITIES` に自治体名・スケジュールのパス・`scheduleKeys` を追加する
-3. `script.js` の `ITEM_DATA_URLS` に品目データのパスを追加する
+コードの変更は不要です。データと設定を追加するだけで、品目検索・比較一覧・収集日・写真判定のすべてで使えるようになります。
+
+1. `data/` に `〇〇_garbage_items.json`（品目と分別区分）と `〇〇_garbage_schedules.json`（町名・丁目ごとの収集曜日）を、上の「データ形式」に合わせて追加する
+2. `src/config/municipalities.js` の `MUNICIPALITY_CONFIG` に、その街の設定を1つ追加する（既存の中野区・世田谷区の設定をコピーして書き換える）
+
+    | 項目 | 内容 |
+    | --- | --- |
+    | `name` | 画面に表示する区名 |
+    | `itemsUrl` / `schedulesUrl` | 1 で追加したデータのパス |
+    | `scheduleKeys` | 分別区分ID（ファイル冒頭の説明を参照）→ 収集日データの項目名 |
+    | `scheduleRows` | 「ごみ出しスケジュール」タブに表示する行と、その表示名 |
+    | `designatedBag` / `oversized…` | 指定袋の案内、粗大ごみの申込先・案内のURL |
+    | `scheduleNotes` | 朝何時までに出すか・祝日の扱いなど（公式で確認できた内容だけ） |
+    | `areaNotices` など | 必要な場合だけ（丁目より細かい例外、集団回収の案内、表示名の上書きなど） |
+
+3. （任意）名前が違う同じ品目があれば、`ITEM_ALIASES` に追加する。名前が同じ品目や、括弧を除くと同じになる品目は自動で照合されるので不要
+4. 収集日データを、区の公式の収集日一覧と照合する
+
+写真判定では、Gemini に「今の街」の品目一覧から品目を選ばせ、「前の街」の同じ品目を自動で照合して並べて表示します。
 
 ## 開発環境の準備
 
