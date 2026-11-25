@@ -1,0 +1,5382 @@
+{
+  "city_code": "112461",
+  "city_name": "白岡市",
+  "items": [
+    {
+      "id": "shiraoka_0001",
+      "name": "ＩＨヒーター",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0002",
+      "name": "ＩＣレコーダ",
+      "category": "燃やせないごみ",
+      "note": "充電池を内蔵しているものは有害ごみ"
+    },
+    {
+      "id": "shiraoka_0003",
+      "name": "アイロン",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0004",
+      "name": "アイロン台",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0005",
+      "name": "あき缶",
+      "category": "飲食料用缶",
+      "note": "飲食料用は飲食料用缶の日に出してください"
+    },
+    {
+      "id": "shiraoka_0006",
+      "name": "あきびん",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0007",
+      "name": "アコーディオンカーテン",
+      "category": "粗大ごみ",
+      "note": "リユース（紹介コンテンツ） / 当サイトは「可能な限り、ごみにしない」をミッションにしており、リユースにつながる選択肢を提案しています。 / 是非ごみとして捨てるのではなく、再利用できないか下記もあわせてご検討ください。 / ------------------------------------------------------------------ / まだ着られる衣類を寄付してパラスポーツを応援しよう！ / ふくのわは衣類のリユースによる収益金を競技団体に寄付しています。 / < 株式会社 産業経済新聞社 >"
+    },
+    {
+      "id": "shiraoka_0008",
+      "name": "アコーディオン（楽器）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0009",
+      "name": "足拭きマット",
+      "category": "燃えるごみ",
+      "note": "珪藻土マットは燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0010",
+      "name": "アタッシュケース",
+      "category": "粗大ごみ",
+      "note": "４５ℓの指定袋に入れば燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0011",
+      "name": "厚紙（ボール紙）",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0012",
+      "name": "圧力釜（圧力鍋）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0013",
+      "name": "油紙",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0014",
+      "name": "油（オイル）",
+      "category": "燃えるごみ",
+      "note": "少量ずつ紙や布などにしみこませる。食用のみリサイクルステーション可。"
+    },
+    {
+      "id": "shiraoka_0015",
+      "name": "雨具（カッパ）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0016",
+      "name": "編み機",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0017",
+      "name": "網戸",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0018",
+      "name": "網（金属）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0019",
+      "name": "網（ネット）",
+      "category": "燃えるごみ",
+      "note": "座ぶとん大の大きさに切って出してください"
+    },
+    {
+      "id": "shiraoka_0020",
+      "name": "アルバム",
+      "category": "燃えるごみ",
+      "note": "金具は外して燃やせないごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0021",
+      "name": "アルミサッシ",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0022",
+      "name": "アルミ箔",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0023",
+      "name": "アルミホイル",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0024",
+      "name": "安全靴",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0025",
+      "name": "安全ピン",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0026",
+      "name": "アンテナ（テレビ）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0027",
+      "name": "アンプ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0028",
+      "name": "衣装ケース（プラスチック製）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0029",
+      "name": "石（岩）",
+      "category": "持ち込み",
+      "note": "大きいものは不可。専門店へご依頼ください"
+    },
+    {
+      "id": "shiraoka_0030",
+      "name": "椅子",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0031",
+      "name": "井水ポンプ",
+      "category": "粗大ごみ",
+      "note": "４５ℓの指定袋に入れば燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0032",
+      "name": "板材",
+      "category": "粗大ごみ",
+      "note": "４５ℓの指定袋に入れば燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0033",
+      "name": "一輪車（スポーツ用、ねこ）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0034",
+      "name": "一斗缶",
+      "category": "燃やせないごみ",
+      "note": "飲食料用は飲食料用缶の日（中身が入っていないもの）"
+    },
+    {
+      "id": "shiraoka_0035",
+      "name": "犬小屋",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0036",
+      "name": "鋳物鍋",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0037",
+      "name": "衣類（古着）",
+      "category": "古紙・布類",
+      "note": "ボタン・ファスナーなどはついたままで出せます / リユース（紹介コンテンツ） / 当サイトは「可能な限り、ごみにしない」をミッションにしており、リユースにつながる選択肢を提案しています。 / 是非ごみとして捨てるのではなく、再利用できないか下記もあわせてご検討ください。 / ------------------------------------------------------------------ / まだ着られる衣類を寄付してパラスポーツを応援しよう！ / ふくのわは衣類のリユースによる収益金を競技団体に寄付しています。 / < 株式会社 産業経済新聞社 >"
+    },
+    {
+      "id": "shiraoka_0038",
+      "name": "衣類乾燥機",
+      "category": "引き取り不可",
+      "note": "家電リサイクル法対象品は引き取り不可 / リユース（紹介コンテンツ） / 当サイトは「可能な限り、ごみにしない」をミッションにしており、リユースにつながる選択肢を提案しています。 / 是非ごみとして捨てるのではなく、再利用できないか下記もあわせてご検討ください。 / ------------------------------------------------------------------ / まだ着られる衣類を寄付してパラスポーツを応援しよう！ / ふくのわは衣類のリユースによる収益金を競技団体に寄付しています。 / < 株式会社 産業経済新聞社 >"
+    },
+    {
+      "id": "shiraoka_0039",
+      "name": "入れ歯",
+      "category": "燃やせないごみ",
+      "note": "市役所などの回収箱をご利用ください"
+    },
+    {
+      "id": "shiraoka_0040",
+      "name": "色鉛筆",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0041",
+      "name": "印鑑（はんこ）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0042",
+      "name": "インクカートリッジ",
+      "category": "燃えるごみ",
+      "note": "エコプラザまたは電気店等の回収箱をご利用ください"
+    },
+    {
+      "id": "shiraoka_0043",
+      "name": "飲食料用缶（ジュース・ビール）",
+      "category": "飲食料用缶",
+      "note": "軽くすすいでから出してください"
+    },
+    {
+      "id": "shiraoka_0044",
+      "name": "インスリン針",
+      "category": "燃えるごみ",
+      "note": "在宅医療廃棄物のみ、容器等に入れてください。その他は専門店へ"
+    },
+    {
+      "id": "shiraoka_0045",
+      "name": "インターホン",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0046",
+      "name": "ウィンドファン",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0047",
+      "name": "ウィンドブレーカー",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0048",
+      "name": "ウェットティッシュ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0049",
+      "name": "植木台",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0050",
+      "name": "植木の枝葉",
+      "category": "燃えるごみ",
+      "note": "少量のみ（４５ℓの指定袋に１/３以内で、５袋以内）"
+    },
+    {
+      "id": "shiraoka_0051",
+      "name": "植木バサミ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0052",
+      "name": "植木鉢（陶磁器製）",
+      "category": "ガラス類",
+      "note": "土などは入れないでください"
+    },
+    {
+      "id": "shiraoka_0053",
+      "name": "植木鉢（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": "土などは入れないでください"
+    },
+    {
+      "id": "shiraoka_0054",
+      "name": "植木用支柱（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0055",
+      "name": "植木用支柱（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0056",
+      "name": "ウォシュレット便座",
+      "category": "燃やせないごみ",
+      "note": "業者が行った改装などの場合は、引き取りできません。業者に処分を依頼してください。"
+    },
+    {
+      "id": "shiraoka_0057",
+      "name": "うき輪",
+      "category": "燃えるごみ",
+      "note": "空気を抜いてから出してください"
+    },
+    {
+      "id": "shiraoka_0058",
+      "name": "ウッドカーペット",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0059",
+      "name": "腕時計",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0060",
+      "name": "乳母車（ベビーカー）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0061",
+      "name": "羽毛布団",
+      "category": "粗大ごみ",
+      "note": "座布団大に切って出してください。 / リユース（紹介コンテンツ） / 当サイトは「可能な限り、ごみにしない」をミッションにしており、リユースにつながる選択肢を提案しています。 / 是非ごみとして捨てるのではなく、再利用できないか下記もあわせてご検討ください。 / ------------------------------------------------------------------ / まだ着られる衣類を寄付してパラスポーツを応援しよう！ / ふくのわは衣類のリユースによる収益金を競技団体に寄付しています。 / < 株式会社 産業経済新聞社 >"
+    },
+    {
+      "id": "shiraoka_0062",
+      "name": "上履き",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0063",
+      "name": "運動靴",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0064",
+      "name": "エアコン（室内機・室外機）",
+      "category": "引き取り不可",
+      "note": "家電リサイクル法対象品は引き取り不可"
+    },
+    {
+      "id": "shiraoka_0065",
+      "name": "液晶テレビ",
+      "category": "引き取り不可",
+      "note": "家電リサイクル法対象品は引き取り不可"
+    },
+    {
+      "id": "shiraoka_0066",
+      "name": "エキスパンダー（トレーニング器具）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0067",
+      "name": "ＳＤカード",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0068",
+      "name": "枝木",
+      "category": "燃えるごみ",
+      "note": "多量の場合は持ち込み、又は特別収集"
+    },
+    {
+      "id": "shiraoka_0069",
+      "name": "枝切りばさみ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0070",
+      "name": "絵具チューブ（金属製）",
+      "category": "燃やせないごみ",
+      "note": "中身を抜いて出してください / プラスチック製は燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0071",
+      "name": "絵具チューブ（ビニール製・プラスチック製）",
+      "category": "燃えるごみ",
+      "note": "中身を抜いて出してください"
+    },
+    {
+      "id": "shiraoka_0072",
+      "name": "エプロン",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0073",
+      "name": "絵本",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0074",
+      "name": "ＭＤ（ミニディスク）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0075",
+      "name": "エレクトーン",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0076",
+      "name": "エンジンオイル",
+      "category": "燃えるごみ",
+      "note": "少量ずつ布や紙などにしみこませて出してください"
+    },
+    {
+      "id": "shiraoka_0077",
+      "name": "縁台",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0078",
+      "name": "えんぴつ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0079",
+      "name": "えんぴつ削り器",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0080",
+      "name": "オイル（油）",
+      "category": "燃えるごみ",
+      "note": "少量ずつ布や紙などにしみこませて出してください。食用のみリサイクルステーション可。"
+    },
+    {
+      "id": "shiraoka_0081",
+      "name": "オイルエレメント",
+      "category": "燃やせないごみ",
+      "note": "オイルを良く切ってから出してください"
+    },
+    {
+      "id": "shiraoka_0082",
+      "name": "オイル缶（１８リットル）",
+      "category": "燃やせないごみ",
+      "note": "中身を使い切ってから出してください"
+    },
+    {
+      "id": "shiraoka_0083",
+      "name": "オイルヒーター",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0084",
+      "name": "応接椅子",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0085",
+      "name": "応接セット",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0086",
+      "name": "桶",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0087",
+      "name": "押し入れケース",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0088",
+      "name": "お玉（金属製）",
+      "category": "燃やせないごみ",
+      "note": "木製またはプラスチック製は燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0089",
+      "name": "落ち葉",
+      "category": "燃えるごみ",
+      "note": "少量のみ（４５ℓの指定袋に１/３以内で、５袋以内）"
+    },
+    {
+      "id": "shiraoka_0090",
+      "name": "斧（おの）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0091",
+      "name": "おまる",
+      "category": "燃えるごみ",
+      "note": "汚物はきちんと処理してください"
+    },
+    {
+      "id": "shiraoka_0092",
+      "name": "おむつ",
+      "category": "燃えるごみ",
+      "note": "汚物はきちんと処理してください"
+    },
+    {
+      "id": "shiraoka_0093",
+      "name": "おむつカバー",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0094",
+      "name": "おもちゃ（金属含む）",
+      "category": "燃やせないごみ",
+      "note": "乾電池は有害ごみの日に出してください。"
+    },
+    {
+      "id": "shiraoka_0095",
+      "name": "おもちゃ（金属含まない）",
+      "category": "燃えるごみ",
+      "note": "乾電池は有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0096",
+      "name": "折り紙",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0097",
+      "name": "折りたたみ傘",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0098",
+      "name": "折りたたみ机・いす",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0099",
+      "name": "折りたたみベッド",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0100",
+      "name": "オルガン",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0101",
+      "name": "おろしがね",
+      "category": "燃やせないごみ",
+      "note": "プラスチック製は燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0102",
+      "name": "温水洗浄便座",
+      "category": "燃やせないごみ",
+      "note": "業者が行った改装などの場合は、引き取りできません。業者に処分を依頼してください。"
+    },
+    {
+      "id": "shiraoka_0103",
+      "name": "温度計",
+      "category": "燃やせないごみ",
+      "note": "水銀使用のものは有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0104",
+      "name": "温風ヒーター",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0105",
+      "name": "オーディオラック",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0106",
+      "name": "オーブントースター",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0107",
+      "name": "オーブンレンジ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0108",
+      "name": "貝がら",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0109",
+      "name": "懐中電灯",
+      "category": "燃やせないごみ",
+      "note": "乾電池は有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0110",
+      "name": "回転椅子",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0111",
+      "name": "かいまき",
+      "category": "粗大ごみ",
+      "note": "座ぶとん大の大きさに切れば燃えるごみとして出せます"
+    },
+    {
+      "id": "shiraoka_0112",
+      "name": "カイロ（使い捨て）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0113",
+      "name": "鏡",
+      "category": "が難しいものは燃やせないごみ",
+      "note": "分別が難しいものは燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0114",
+      "name": "鍵（かぎ）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0115",
+      "name": "家具調こたつ",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0116",
+      "name": "掛けふとん",
+      "category": "粗大ごみ",
+      "note": "座ぶとん大の大きさに切れば燃えるごみとしても出せます"
+    },
+    {
+      "id": "shiraoka_0117",
+      "name": "傘立て（金属製）",
+      "category": "燃やせないごみ",
+      "note": "４５ℓ袋に入らないものは粗大ごみ"
+    },
+    {
+      "id": "shiraoka_0118",
+      "name": "傘立て（陶器製）",
+      "category": "ガラス類",
+      "note": "４５ℓ袋に入らないものは粗大ごみ"
+    },
+    {
+      "id": "shiraoka_0119",
+      "name": "傘立て（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": "４５ℓ袋に入らないものは粗大ごみ"
+    },
+    {
+      "id": "shiraoka_0120",
+      "name": "傘（かさ）",
+      "category": "燃やせないごみ",
+      "note": "４５ℓ袋の指定袋に限って柄がはみ出ていても収集します"
+    },
+    {
+      "id": "shiraoka_0121",
+      "name": "菓子缶",
+      "category": "飲食料用缶",
+      "note": "一斗缶までの大きさの物"
+    },
+    {
+      "id": "shiraoka_0122",
+      "name": "加湿器",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0123",
+      "name": "菓子箱",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0124",
+      "name": "菓子袋",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0125",
+      "name": "カセットコンロ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0126",
+      "name": "カセットテープ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0127",
+      "name": "カセットデッキ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0128",
+      "name": "カセットボンベ缶（卓上）",
+      "category": "有害ごみ",
+      "note": "穴あけ不要、中身が入っていても出せます"
+    },
+    {
+      "id": "shiraoka_0129",
+      "name": "カタログ",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0130",
+      "name": "カッター",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0131",
+      "name": "カップラーメン容器",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0132",
+      "name": "かつら",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0133",
+      "name": "金具",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0134",
+      "name": "かなづち",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0135",
+      "name": "かばん",
+      "category": "燃えるごみ",
+      "note": "金属が付いているものは燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0136",
+      "name": "花びん",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0137",
+      "name": "壁掛け時計",
+      "category": "燃やせないごみ",
+      "note": "乾電池は有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0138",
+      "name": "壁紙",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0139",
+      "name": "壁土",
+      "category": "引き取り不可",
+      "note": "専門店へご依頼ください"
+    },
+    {
+      "id": "shiraoka_0140",
+      "name": "鎌（かま）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0141",
+      "name": "紙おむつ",
+      "category": "燃えるごみ",
+      "note": "汚物はきちんと処理してください"
+    },
+    {
+      "id": "shiraoka_0142",
+      "name": "紙くず",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0143",
+      "name": "紙コップ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0144",
+      "name": "かみそり",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0145",
+      "name": "神棚",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0146",
+      "name": "紙粘土",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0147",
+      "name": "髪（髪の毛）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0148",
+      "name": "カメラ",
+      "category": "燃やせないごみ",
+      "note": "乾電池は有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0149",
+      "name": "買物袋（レジ袋等）",
+      "category": "燃えるごみ",
+      "note": "ガラス類、飲食料用缶、有害ごみを出すときに使用してください"
+    },
+    {
+      "id": "shiraoka_0150",
+      "name": "蚊帳（かや）",
+      "category": "燃えるごみ",
+      "note": "座布団大に切って出してください"
+    },
+    {
+      "id": "shiraoka_0151",
+      "name": "カラオケ機器",
+      "category": "粗大ごみ",
+      "note": "一般家庭用のみ"
+    },
+    {
+      "id": "shiraoka_0152",
+      "name": "カラーボックス",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0153",
+      "name": "刈り草",
+      "category": "燃えるごみ",
+      "note": "多量の場合は持ちこみ、又は特別収集。"
+    },
+    {
+      "id": "shiraoka_0154",
+      "name": "軽石",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0155",
+      "name": "革靴",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0156",
+      "name": "革コート",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0157",
+      "name": "革ジャンパー",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0158",
+      "name": "皮手袋",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0159",
+      "name": "瓦（かわら）",
+      "category": "持ち込み",
+      "note": "少量のみ（４５ℓの指定袋に１/３で、５袋以内）"
+    },
+    {
+      "id": "shiraoka_0160",
+      "name": "簡易焼却炉",
+      "category": "粗大ごみ",
+      "note": "一般家庭用のみ"
+    },
+    {
+      "id": "shiraoka_0161",
+      "name": "換気扇",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0162",
+      "name": "換気扇フィルター",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0163",
+      "name": "缶切り器",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0164",
+      "name": "乾燥機",
+      "category": "引き取り不可",
+      "note": "家電リサイクル法対象品は引き取り不可"
+    },
+    {
+      "id": "shiraoka_0165",
+      "name": "乾燥剤",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0166",
+      "name": "かんづめ缶",
+      "category": "飲食料用缶",
+      "note": "軽くすすいでから出してください（中身入りは不可）"
+    },
+    {
+      "id": "shiraoka_0167",
+      "name": "乾電池",
+      "category": "有害ごみ",
+      "note": "透明・半透明の袋に入れて出してください"
+    },
+    {
+      "id": "shiraoka_0168",
+      "name": "感熱紙",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0169",
+      "name": "カーテン",
+      "category": "古紙・布類",
+      "note": "金属製のフックは取ってください / リユース（紹介コンテンツ） / 当サイトは「可能な限り、ごみにしない」をミッションにしており、リユースにつながる選択肢を提案しています。 / 是非ごみとして捨てるのではなく、再利用できないか下記もあわせてご検討ください。 / ------------------------------------------------------------------ / まだ着られる衣類を寄付してパラスポーツを応援しよう！ / ふくのわは衣類のリユースによる収益金を競技団体に寄付しています。 / < 株式会社 産業経済新聞社 >"
+    },
+    {
+      "id": "shiraoka_0170",
+      "name": "カーテンレール",
+      "category": "燃やせないごみ",
+      "note": "リユース（紹介コンテンツ） / 当サイトは「可能な限り、ごみにしない」をミッションにしており、リユースにつながる選択肢を提案しています。 / 是非ごみとして捨てるのではなく、再利用できないか下記もあわせてご検討ください。 / ------------------------------------------------------------------ / まだ着られる衣類を寄付してパラスポーツを応援しよう！ / ふくのわは衣類のリユースによる収益金を競技団体に寄付しています。 / < 株式会社 産業経済新聞社 >"
+    },
+    {
+      "id": "shiraoka_0171",
+      "name": "カーナビゲーション",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0172",
+      "name": "カーペット",
+      "category": "粗大ごみ",
+      "note": "集積所に出す場合は座ぶとん大の大きさに切って燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0173",
+      "name": "学習机",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0174",
+      "name": "額縁（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0175",
+      "name": "額縁（木製・プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0176",
+      "name": "ガステーブル",
+      "category": "粗大ごみ",
+      "note": "乾電池は有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0177",
+      "name": "ガスレンジ",
+      "category": "粗大ごみ",
+      "note": "乾電池は有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0178",
+      "name": "ガソリン",
+      "category": "引き取り不可",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0179",
+      "name": "ガチャポンプ（手動式井戸ポンプ）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0180",
+      "name": "ガムテープ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0181",
+      "name": "ガラスくず（破片）",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0182",
+      "name": "ガラスケース",
+      "category": "ガラス類",
+      "note": "４５ℓ袋に入らないものは粗大ごみ"
+    },
+    {
+      "id": "shiraoka_0183",
+      "name": "ガラスコップ",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0184",
+      "name": "ガラス食器類",
+      "category": "ガラス類",
+      "note": "未使用で、箱に入っているものはリサイクルステーション可"
+    },
+    {
+      "id": "shiraoka_0185",
+      "name": "ガラス戸",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0186",
+      "name": "ガラス蓋（鍋等の蓋）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0187",
+      "name": "ガレキ（ブロック、瓦）",
+      "category": "持ち込み",
+      "note": "少量のみ（４５ℓの指定袋に１/３で、５袋以内）"
+    },
+    {
+      "id": "shiraoka_0188",
+      "name": "玩具（金属のついていないもの）",
+      "category": "燃えるごみ",
+      "note": "乾電池は有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0189",
+      "name": "玩具（金属のついているもの）",
+      "category": "燃やせないごみ",
+      "note": "乾電池は有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0190",
+      "name": "木",
+      "category": "燃えるごみ",
+      "note": "指定袋に入る長さで１０ｃｍ角以内のもの"
+    },
+    {
+      "id": "shiraoka_0191",
+      "name": "木くず",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0192",
+      "name": "キックボード",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0193",
+      "name": "キッチンワゴン",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0194",
+      "name": "木づち",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0195",
+      "name": "脚立（きゃたつ）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0196",
+      "name": "キャッシュカード（磁気カード）",
+      "category": "燃えるごみ",
+      "note": "切断してから燃えるごみへ"
+    },
+    {
+      "id": "shiraoka_0197",
+      "name": "キャリングケース",
+      "category": "粗大ごみ",
+      "note": "４５ℓの指定袋に入れば燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0198",
+      "name": "キャリーバッグ",
+      "category": "粗大ごみ",
+      "note": "４５ℓの指定袋に入れば燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0199",
+      "name": "急須（きゅうす）",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0200",
+      "name": "給湯器",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0201",
+      "name": "鏡台（ドレッサー）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0202",
+      "name": "金庫（耐火金庫）",
+      "category": "粗大ごみ",
+      "note": "２人で持ち運べる大きさまで"
+    },
+    {
+      "id": "shiraoka_0203",
+      "name": "キーホルダー",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0204",
+      "name": "キーボード（楽器・パソコン）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0205",
+      "name": "ギター類",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0206",
+      "name": "牛乳パック",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0207",
+      "name": "空気入れ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0208",
+      "name": "空気清浄機",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0209",
+      "name": "釘（くぎ）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0210",
+      "name": "草刈り機（刈払機）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0211",
+      "name": "草花",
+      "category": "燃えるごみ",
+      "note": "なるべく堆肥化してください"
+    },
+    {
+      "id": "shiraoka_0212",
+      "name": "鎖（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0213",
+      "name": "鎖（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0214",
+      "name": "串（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0215",
+      "name": "櫛",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0216",
+      "name": "串（竹製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0217",
+      "name": "薬（カプセルの包装）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0218",
+      "name": "口紅ケース（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0219",
+      "name": "口紅ケース（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0220",
+      "name": "クッキングペーパー",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0221",
+      "name": "クッション",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0222",
+      "name": "靴",
+      "category": "燃えるごみ",
+      "note": "安全靴は燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0223",
+      "name": "靴下",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0224",
+      "name": "クリアケース",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0225",
+      "name": "クリスタルガラス",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0226",
+      "name": "クリスマスツリー",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0227",
+      "name": "クリップ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0228",
+      "name": "クリーナー紙パック",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0229",
+      "name": "車椅子",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0230",
+      "name": "車用チェーン",
+      "category": "燃やせないごみ",
+      "note": "金属製、ゴム製ともに燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0231",
+      "name": "クレヨン",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0232",
+      "name": "鍬（くわ）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0233",
+      "name": "クーラーバッグ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0234",
+      "name": "クーラーボックス",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0235",
+      "name": "グローブ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0236",
+      "name": "グローランプ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0237",
+      "name": "軍手",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0238",
+      "name": "蛍光管（蛍光灯）",
+      "category": "有害ごみ",
+      "note": "包装箱に入れて出してください"
+    },
+    {
+      "id": "shiraoka_0239",
+      "name": "珪藻土マット",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0240",
+      "name": "携帯型扇風機",
+      "category": "有害ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0241",
+      "name": "携帯電話",
+      "category": "有害ごみ",
+      "note": "販売店でもリサイクルを行っております。"
+    },
+    {
+      "id": "shiraoka_0242",
+      "name": "毛糸",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0243",
+      "name": "計量はかり",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0244",
+      "name": "消しゴム",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0245",
+      "name": "化粧品容器（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0246",
+      "name": "化粧品容器（ガラスなどの混合物）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0247",
+      "name": "化粧品容器（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0248",
+      "name": "血圧計",
+      "category": "燃やせないごみ",
+      "note": "水銀を含むものは有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0249",
+      "name": "健康器具",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0250",
+      "name": "剣山",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0251",
+      "name": "建築廃材",
+      "category": "引き取り不可",
+      "note": "専門店へご依頼ください"
+    },
+    {
+      "id": "shiraoka_0252",
+      "name": "ケージ",
+      "category": "燃やせないごみ",
+      "note": "金属が付いていないものは燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0253",
+      "name": "下駄箱",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0254",
+      "name": "下駄（げた）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0255",
+      "name": "ゲームソフト（カセット・ＣＤ・ＤＶＤ等）",
+      "category": "燃えるごみ",
+      "note": "金属が付いているものは燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0256",
+      "name": "工業用ミシン",
+      "category": "引き取り不可",
+      "note": "専門店へご依頼ください"
+    },
+    {
+      "id": "shiraoka_0257",
+      "name": "工具（ドライバー・スパナ等）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0258",
+      "name": "広告類",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0259",
+      "name": "小型充電式電池",
+      "category": "有害ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0260",
+      "name": "小型電気製品",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0261",
+      "name": "こたつ",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0262",
+      "name": "こたつ板",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0263",
+      "name": "こたつ掛けふとん",
+      "category": "燃えるごみ",
+      "note": "座ぶとん大の大きさに切って出してください"
+    },
+    {
+      "id": "shiraoka_0264",
+      "name": "こたつ掛け毛布",
+      "category": "燃えるごみ",
+      "note": "座ぶとん大の大きさに切って出してください / リユース（紹介コンテンツ） / 当サイトは「可能な限り、ごみにしない」をミッションにしており、リユースにつながる選択肢を提案しています。 / 是非ごみとして捨てるのではなく、再利用できないか下記もあわせてご検討ください。 / ------------------------------------------------------------------ / まだ着られる衣類を寄付してパラスポーツを応援しよう！ / ふくのわは衣類のリユースによる収益金を競技団体に寄付しています。 / < 株式会社 産業経済新聞社 >"
+    },
+    {
+      "id": "shiraoka_0265",
+      "name": "こたつのヒーター部",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0266",
+      "name": "コップ（ガラス製）",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0267",
+      "name": "コップ（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0268",
+      "name": "コップ（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0269",
+      "name": "粉ミルクの缶",
+      "category": "飲食料用缶",
+      "note": "軽くすすいでから出してください"
+    },
+    {
+      "id": "shiraoka_0270",
+      "name": "コピー機（家庭用のみ）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0271",
+      "name": "コピー用紙",
+      "category": "古紙・布類",
+      "note": "感熱紙は燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0272",
+      "name": "米びつ",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0273",
+      "name": "米袋",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0274",
+      "name": "コルクボード",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0275",
+      "name": "コンクリート",
+      "category": "持ち込み",
+      "note": "少量のみ（４５ℓの指定袋に１/３以内で、５袋以内）"
+    },
+    {
+      "id": "shiraoka_0276",
+      "name": "コンパクト（化粧品容器）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0277",
+      "name": "コンパクトディスク（ＣＤ）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0278",
+      "name": "コンパス",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0279",
+      "name": "コードリール",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0280",
+      "name": "碁石",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0281",
+      "name": "ござ",
+      "category": "燃えるごみ",
+      "note": "座ぶとん大の大きさに切って出してください"
+    },
+    {
+      "id": "shiraoka_0282",
+      "name": "ごみ処理容器（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0283",
+      "name": "ごみ箱（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0284",
+      "name": "ごみ箱（木製・プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0285",
+      "name": "ゴム手袋",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0286",
+      "name": "ゴムホース",
+      "category": "燃えるごみ",
+      "note": "１ｍ以内に切って出してください"
+    },
+    {
+      "id": "shiraoka_0287",
+      "name": "ゴムボール",
+      "category": "燃えるごみ",
+      "note": "空気を抜いてください"
+    },
+    {
+      "id": "shiraoka_0288",
+      "name": "ゴムマット",
+      "category": "燃えるごみ",
+      "note": "座ぶとん大の大きさに切って出してください"
+    },
+    {
+      "id": "shiraoka_0289",
+      "name": "ゴルフクラブ",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0290",
+      "name": "ゴルフシューズ",
+      "category": "燃やせないごみ",
+      "note": "金具の付いていないものは燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0291",
+      "name": "ゴルフバッグ",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0292",
+      "name": "ゴルフボール",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0293",
+      "name": "ゴーグル",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0294",
+      "name": "裁断くず",
+      "category": "燃えるごみ",
+      "note": "一般家庭のみ（事業者は不可）"
+    },
+    {
+      "id": "shiraoka_0295",
+      "name": "サイドボード",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0296",
+      "name": "財布",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0297",
+      "name": "サインペン",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0298",
+      "name": "酒パック",
+      "category": "古紙・布類",
+      "note": "内側が銀色のものは燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0299",
+      "name": "酒びん",
+      "category": "ガラス類",
+      "note": "リターナルびんは販売店にお返しください"
+    },
+    {
+      "id": "shiraoka_0300",
+      "name": "サポーター",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0301",
+      "name": "サマーベッド",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0302",
+      "name": "皿（ガラス・陶磁器類）",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0303",
+      "name": "産業廃棄物",
+      "category": "引き取り不可",
+      "note": "専門業者へご依頼ください"
+    },
+    {
+      "id": "shiraoka_0304",
+      "name": "サングラス",
+      "category": "燃やせないごみ",
+      "note": "フレームがプラスチックのものは燃えるごみへ"
+    },
+    {
+      "id": "shiraoka_0305",
+      "name": "サンダル",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0306",
+      "name": "三輪車",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0307",
+      "name": "サーフボード",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0308",
+      "name": "座椅子",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0309",
+      "name": "材木",
+      "category": "燃えるごみ",
+      "note": "指定袋に入る長さで１０ｃｍ角以内のもの"
+    },
+    {
+      "id": "shiraoka_0310",
+      "name": "座卓",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0311",
+      "name": "雑誌",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0312",
+      "name": "座布団",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0313",
+      "name": "ざる（竹・プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0314",
+      "name": "ざる（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0315",
+      "name": "残土",
+      "category": "燃えるごみ",
+      "note": "少量のみ（４５リットルの指定袋に１／３以内で５袋以内）"
+    },
+    {
+      "id": "shiraoka_0316",
+      "name": "残灰",
+      "category": "燃えるごみ",
+      "note": "少量ずつ火の気がないことを確認して"
+    },
+    {
+      "id": "shiraoka_0317",
+      "name": "残飯",
+      "category": "燃えるごみ",
+      "note": "なるべく堆肥化してください"
+    },
+    {
+      "id": "shiraoka_0318",
+      "name": "下着類",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0319",
+      "name": "七輪（しちりん）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0320",
+      "name": "竹刀（しない）",
+      "category": "燃えるごみ",
+      "note": "指定袋に入りきらないものは粗大ごみ"
+    },
+    {
+      "id": "shiraoka_0321",
+      "name": "芝刈り機",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0322",
+      "name": "敷布団",
+      "category": "燃えるごみ",
+      "note": "座ぶとん大の大きさに切って出してください"
+    },
+    {
+      "id": "shiraoka_0323",
+      "name": "シャベル",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0324",
+      "name": "しゃもじ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0325",
+      "name": "シャープペンシル（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0326",
+      "name": "シャープペンシル（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0327",
+      "name": "収納ケース",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0328",
+      "name": "朱肉",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0329",
+      "name": "シュレッダー（ごみ）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0330",
+      "name": "シュレッダー（本体）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0331",
+      "name": "瞬間湯沸し器",
+      "category": "燃やせないごみ",
+      "note": "乾電池は有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0332",
+      "name": "消火器",
+      "category": "引き取り不可",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0333",
+      "name": "障子戸",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0334",
+      "name": "照明器具",
+      "category": "燃やせないごみ",
+      "note": "蛍光管（有害ごみ）は外してから出してください"
+    },
+    {
+      "id": "shiraoka_0335",
+      "name": "食用油",
+      "category": "燃えるごみ",
+      "note": "固めるか、布等にしみこませて出してください。リサイクルステーション可"
+    },
+    {
+      "id": "shiraoka_0336",
+      "name": "食料油缶",
+      "category": "飲食料用缶",
+      "note": "軽くすすいでから出してください"
+    },
+    {
+      "id": "shiraoka_0337",
+      "name": "書棚",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0338",
+      "name": "書類",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0339",
+      "name": "シルバーカー",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0340",
+      "name": "芯（トイレットペーパー・ラップ類）",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0341",
+      "name": "シングルベッド",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0342",
+      "name": "シンセサイザー（楽器）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0343",
+      "name": "シンナー類",
+      "category": "引き取り不可",
+      "note": "専門店へご依頼ください"
+    },
+    {
+      "id": "shiraoka_0344",
+      "name": "新聞紙",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0345",
+      "name": "シーツ",
+      "category": "古紙・布類",
+      "note": "リユース（紹介コンテンツ） / 当サイトは「可能な限り、ごみにしない」をミッションにしており、リユースにつながる選択肢を提案しています。 / 是非ごみとして捨てるのではなく、再利用できないか下記もあわせてご検討ください。 / ------------------------------------------------------------------"
+    },
+    {
+      "id": "shiraoka_0346",
+      "name": "ＣＤ（ＣＤ－Ｒなど）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0347",
+      "name": "ＣＤキャビネット",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0348",
+      "name": "ＣＤケース",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0349",
+      "name": "ＣＤコンポ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0350",
+      "name": "ＣＤプレーヤー",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0351",
+      "name": "磁気マットレス",
+      "category": "粗大ごみ",
+      "note": "集積所に出す場合は座ぶとん大の大きさに切って燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0352",
+      "name": "自在スケール（メジャー）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0353",
+      "name": "磁石",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0354",
+      "name": "辞書・辞典",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0355",
+      "name": "自転車",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0356",
+      "name": "自転車のゴムタイヤ（チューブ）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0357",
+      "name": "自転車（フレームのみ）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0358",
+      "name": "自動車部品等",
+      "category": "粗大ごみ",
+      "note": "自分で取り外したものに限る"
+    },
+    {
+      "id": "shiraoka_0359",
+      "name": "蛇口",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0360",
+      "name": "砂利（じゃり）",
+      "category": "持ち込み",
+      "note": "少量のみ（４５ℓの指定袋に１/３で、５袋以内）"
+    },
+    {
+      "id": "shiraoka_0361",
+      "name": "ジャンパー",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0362",
+      "name": "充電器",
+      "category": "燃やせないごみ",
+      "note": "モバイルバッテリーは、有害ごみ。"
+    },
+    {
+      "id": "shiraoka_0363",
+      "name": "充電式電池",
+      "category": "有害ごみ",
+      "note": "車・バイク用の大きなバッテリーは引き取り不可。"
+    },
+    {
+      "id": "shiraoka_0364",
+      "name": "ジューサー（ミキサー）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0365",
+      "name": "ジュースの缶",
+      "category": "飲食料用缶",
+      "note": "軽くすすいでから出してください（中身入りは不可）"
+    },
+    {
+      "id": "shiraoka_0366",
+      "name": "ジュースのびん",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0367",
+      "name": "ジュースのふた（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0368",
+      "name": "ジュースのふた（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0369",
+      "name": "ジュータン",
+      "category": "粗大ごみ",
+      "note": "集積所に出す場合は座ぶとん大の大きさに切って燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0370",
+      "name": "定規（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0371",
+      "name": "定規（木製・プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0372",
+      "name": "浄水器",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0373",
+      "name": "ジョウロ（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0374",
+      "name": "ジョウロ（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0375",
+      "name": "除湿機",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0376",
+      "name": "除湿剤",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0377",
+      "name": "人工芝",
+      "category": "燃えるごみ",
+      "note": "座ぶとん大の大きさに切って出してください"
+    },
+    {
+      "id": "shiraoka_0378",
+      "name": "水槽（ガラス製）",
+      "category": "ガラス類",
+      "note": "フレームがあるものは燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0379",
+      "name": "水槽（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0380",
+      "name": "水筒",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0381",
+      "name": "炊飯器",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0382",
+      "name": "姿見",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0383",
+      "name": "隙間家具",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0384",
+      "name": "スキー板",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0385",
+      "name": "スキーウェア",
+      "category": "燃えるごみ",
+      "note": "綿が入っていないものは布類"
+    },
+    {
+      "id": "shiraoka_0386",
+      "name": "スキーキャリア",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0387",
+      "name": "スキー靴",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0388",
+      "name": "スキーグローブ（手袋）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0389",
+      "name": "スキーストック",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0390",
+      "name": "スケート靴",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0391",
+      "name": "スケートボード",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0392",
+      "name": "スコップ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0393",
+      "name": "硯（すずり）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0394",
+      "name": "すだれ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0395",
+      "name": "スチール板",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0396",
+      "name": "スチール書庫",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0397",
+      "name": "スチール整理棚",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0398",
+      "name": "スチール机",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0399",
+      "name": "スチールロッカー",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0400",
+      "name": "ステレオセット",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0401",
+      "name": "ステレオ（アンプのみ）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0402",
+      "name": "ステンレスパイプ棚",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0403",
+      "name": "ストッキング",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0404",
+      "name": "ストーブ",
+      "category": "燃やせないごみ",
+      "note": "燃料は完全に使い切るか抜いてから出してください"
+    },
+    {
+      "id": "shiraoka_0405",
+      "name": "砂",
+      "category": "燃えるごみ",
+      "note": "少量のみ（４５ℓの指定袋に１／３以内で、５袋以内）"
+    },
+    {
+      "id": "shiraoka_0406",
+      "name": "すのこ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0407",
+      "name": "スノーボード",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0408",
+      "name": "スパイクシューズ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0409",
+      "name": "スパナ（工具）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0410",
+      "name": "スピーカー",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0411",
+      "name": "スプリング",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0412",
+      "name": "スプリング付きマットレス",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0413",
+      "name": "スプレー缶",
+      "category": "有害ごみ",
+      "note": "穴あけ不要、中身が入っていても出せます"
+    },
+    {
+      "id": "shiraoka_0414",
+      "name": "スプーン",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0415",
+      "name": "すべり台",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0416",
+      "name": "スポンジ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0417",
+      "name": "スマートフォン",
+      "category": "有害ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0418",
+      "name": "スリッパ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0419",
+      "name": "スーツ",
+      "category": "古紙・布類",
+      "note": "リユース（紹介コンテンツ） / 当サイトは「可能な限り、ごみにしない」をミッションにしており、リユースにつながる選択肢を提案しています。 / 是非ごみとして捨てるのではなく、再利用できないか下記もあわせてご検討ください。 / ------------------------------------------------------------------"
+    },
+    {
+      "id": "shiraoka_0420",
+      "name": "スーツケース",
+      "category": "粗大ごみ",
+      "note": "リユース（紹介コンテンツ） / 当サイトは「可能な限り、ごみにしない」をミッションにしており、リユースにつながる選択肢を提案しています。 / 是非ごみとして捨てるのではなく、再利用できないか下記もあわせてご検討ください。 / ------------------------------------------------------------------"
+    },
+    {
+      "id": "shiraoka_0421",
+      "name": "ズボンプレッサー",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0422",
+      "name": "精米機",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0423",
+      "name": "整理たんす",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0424",
+      "name": "生理用品",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0425",
+      "name": "石油",
+      "category": "引き取り不可",
+      "note": "専門店にご依頼ください。"
+    },
+    {
+      "id": "shiraoka_0426",
+      "name": "石油ストーブ",
+      "category": "粗大ごみ",
+      "note": "燃料は完全に使い切るか抜いてから出してください / 乾電池は有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0427",
+      "name": "石油ポンプ（電池式）",
+      "category": "燃やせないごみ",
+      "note": "乾電池は有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0428",
+      "name": "石油ポンプ（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0429",
+      "name": "石鹸（せっけん）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0430",
+      "name": "石膏ボード",
+      "category": "持ち込み",
+      "note": "少量のみ（４５ℓの指定袋で１/３以内で、５袋以内）"
+    },
+    {
+      "id": "shiraoka_0431",
+      "name": "瀬戸物類",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0432",
+      "name": "背広",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0433",
+      "name": "セメント",
+      "category": "持ち込み",
+      "note": "少量のみ（４５ℓの指定袋で１/３以内で、５袋以内）"
+    },
+    {
+      "id": "shiraoka_0434",
+      "name": "セロハンテープ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0435",
+      "name": "洗剤",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0436",
+      "name": "洗剤容器",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0437",
+      "name": "洗濯機",
+      "category": "引き取り不可",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0438",
+      "name": "洗濯ハンガー",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0439",
+      "name": "栓抜き",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0440",
+      "name": "扇風機",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0441",
+      "name": "洗面器（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0442",
+      "name": "洗面器（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0443",
+      "name": "洗面化粧台",
+      "category": "粗大ごみ",
+      "note": "一般家庭用のみ（事業者は不可）"
+    },
+    {
+      "id": "shiraoka_0444",
+      "name": "セーター",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0445",
+      "name": "双眼鏡",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0446",
+      "name": "掃除機",
+      "category": "燃やせないごみ",
+      "note": "充電池は取り外して有害ごみ。"
+    },
+    {
+      "id": "shiraoka_0447",
+      "name": "ソファー",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0448",
+      "name": "ソファーベッド",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0449",
+      "name": "そり（子供用玩具）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0450",
+      "name": "造花",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0451",
+      "name": "ぞうり",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0452",
+      "name": "体温計（水銀式）",
+      "category": "有害ごみ",
+      "note": "乾電池は有害ごみの日に出してください。"
+    },
+    {
+      "id": "shiraoka_0453",
+      "name": "体温計（デジタル式）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0454",
+      "name": "耐火金庫",
+      "category": "粗大ごみ",
+      "note": "２人で持ち運べる大きさまで"
+    },
+    {
+      "id": "shiraoka_0455",
+      "name": "体重計",
+      "category": "燃やせないごみ",
+      "note": "電気、電池式に限る"
+    },
+    {
+      "id": "shiraoka_0456",
+      "name": "タイヤ",
+      "category": "引き取り不可",
+      "note": "年１回環境センターで有料引取会を実施しています"
+    },
+    {
+      "id": "shiraoka_0457",
+      "name": "太陽光パネル",
+      "category": "引き取り不可",
+      "note": "専門店へご依頼ください。"
+    },
+    {
+      "id": "shiraoka_0458",
+      "name": "タイル（少量）",
+      "category": "持ち込み",
+      "note": "少量のみ（４５ℓの指定袋に１/３以内で、５袋以内）"
+    },
+    {
+      "id": "shiraoka_0459",
+      "name": "タオル",
+      "category": "古紙・布類",
+      "note": "リユース（紹介コンテンツ） / 当サイトは「可能な限り、ごみにしない」をミッションにしており、リユースにつながる選択肢を提案しています。 / 是非ごみとして捨てるのではなく、再利用できないか下記もあわせてご検討ください。 / ------------------------------------------------------------------ / まだ着られる衣類を寄付してパラスポーツを応援しよう！ / ふくのわは衣類のリユースによる収益金を競技団体に寄付しています。 / < 株式会社 産業経済新聞社 >"
+    },
+    {
+      "id": "shiraoka_0460",
+      "name": "タオルケット",
+      "category": "古紙・布類",
+      "note": "リユース（紹介コンテンツ） / 当サイトは「可能な限り、ごみにしない」をミッションにしており、リユースにつながる選択肢を提案しています。 / 是非ごみとして捨てるのではなく、再利用できないか下記もあわせてご検討ください。 / ------------------------------------------------------------------ / まだ着られる衣類を寄付してパラスポーツを応援しよう！ / ふくのわは衣類のリユースによる収益金を競技団体に寄付しています。 / < 株式会社 産業経済新聞社 >"
+    },
+    {
+      "id": "shiraoka_0461",
+      "name": "卓上コンロ（本体）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0462",
+      "name": "卓上コンロ（ガス）",
+      "category": "有害ごみ",
+      "note": "穴あけ不要、中身が入っていても出せます。"
+    },
+    {
+      "id": "shiraoka_0463",
+      "name": "卓上ミシン",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0464",
+      "name": "竹製マット",
+      "category": "燃えるごみ",
+      "note": "座布団大に切って出してください"
+    },
+    {
+      "id": "shiraoka_0465",
+      "name": "竹ほうき",
+      "category": "燃えるごみ",
+      "note": "袋に入らないものは粗大ごみ"
+    },
+    {
+      "id": "shiraoka_0466",
+      "name": "畳",
+      "category": "粗大ごみ",
+      "note": "持ち込む場合はお問い合わせください"
+    },
+    {
+      "id": "shiraoka_0467",
+      "name": "卓球台",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0468",
+      "name": "卓球ラケット",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0469",
+      "name": "タッパ（台所用品）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0470",
+      "name": "建具",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0471",
+      "name": "たび",
+      "category": "燃えるごみ",
+      "note": "金属部分が外せない場合は燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0472",
+      "name": "樽（木製・プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0473",
+      "name": "たわし類",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0474",
+      "name": "タンク（金属製）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0475",
+      "name": "単行本",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0476",
+      "name": "たんす",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0477",
+      "name": "台車",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0478",
+      "name": "ダウンジャケット",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0479",
+      "name": "脱臭剤",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0480",
+      "name": "ダブルベッド",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0481",
+      "name": "ダンベル",
+      "category": "持ち込み",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0482",
+      "name": "段ボール",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0483",
+      "name": "チェーン（車用）",
+      "category": "燃やせないごみ",
+      "note": "ゴム製・金属製ともに燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0484",
+      "name": "チェーンソー",
+      "category": "粗大ごみ",
+      "note": "燃料は完全に使い切るか抜いてから出してください"
+    },
+    {
+      "id": "shiraoka_0485",
+      "name": "チャイルドシート",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0486",
+      "name": "茶がら",
+      "category": "燃えるごみ",
+      "note": "なるべく堆肥化してください"
+    },
+    {
+      "id": "shiraoka_0487",
+      "name": "茶筒",
+      "category": "飲食料用缶",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0488",
+      "name": "茶箱",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0489",
+      "name": "茶碗",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0490",
+      "name": "注射針",
+      "category": "引き取り不可",
+      "note": "専門店へご依頼ください"
+    },
+    {
+      "id": "shiraoka_0491",
+      "name": "調味料等のあき缶",
+      "category": "飲食料用缶",
+      "note": "軽くすすいでから出してください"
+    },
+    {
+      "id": "shiraoka_0492",
+      "name": "調味料等のあきびん",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0493",
+      "name": "調味料等の容器（ペットボトル製）",
+      "category": "ペットボトル",
+      "note": "油・ドレッシング類、汚れているものは燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0494",
+      "name": "調味料等の容器（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": "油・ドレッシング類、汚れているものは燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0495",
+      "name": "チラシ（広告）",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0496",
+      "name": "ちりとり（金属製）",
+      "category": "燃やせないごみ",
+      "note": "プラスチック製は燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0497",
+      "name": "ついたて",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0498",
+      "name": "使い捨てカイロ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0499",
+      "name": "使い捨てカメラ",
+      "category": "燃えるごみ",
+      "note": "乾電池は有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0500",
+      "name": "使い捨てライター",
+      "category": "有害ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0501",
+      "name": "机（木製・金属製）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0502",
+      "name": "机の天板",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0503",
+      "name": "漬物石",
+      "category": "持ち込み",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0504",
+      "name": "土",
+      "category": "燃えるごみ",
+      "note": "少量のみ（４５ℓの指定袋に１/３以内で、５袋以内）"
+    },
+    {
+      "id": "shiraoka_0505",
+      "name": "壺（つぼ）",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0506",
+      "name": "積み木",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0507",
+      "name": "爪切り",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0508",
+      "name": "釣り糸",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0509",
+      "name": "釣り竿（竹製）",
+      "category": "燃えるごみ",
+      "note": "袋に入らないものは粗大ごみ"
+    },
+    {
+      "id": "shiraoka_0510",
+      "name": "釣り竿（カーボン製）",
+      "category": "燃やせないごみ",
+      "note": "袋に入らないものは粗大ごみ"
+    },
+    {
+      "id": "shiraoka_0511",
+      "name": "Ｔシャツ",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0512",
+      "name": "鉄アレー",
+      "category": "持ち込み",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0513",
+      "name": "鉄パイプ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0514",
+      "name": "鉄棒",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0515",
+      "name": "テニスボール",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0516",
+      "name": "テニスラケット（カーボン製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0517",
+      "name": "テニスラケット（木製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0518",
+      "name": "手袋",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0519",
+      "name": "テレビ（ビデオ内蔵型を含む）",
+      "category": "引き取り不可",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0520",
+      "name": "テレビゲームソフト",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0521",
+      "name": "テレビゲーム（本体）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0522",
+      "name": "テレビ台（金属製）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0523",
+      "name": "テレビ台（木製）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0524",
+      "name": "テレホンカード",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0525",
+      "name": "天体望遠鏡",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0526",
+      "name": "テント",
+      "category": "粗大ごみ",
+      "note": "座ぶとん大の大きさに切って燃えるごみで出せます"
+    },
+    {
+      "id": "shiraoka_0527",
+      "name": "テーブル",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0528",
+      "name": "テーブルタップ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0529",
+      "name": "ＤＶＤディスク",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0530",
+      "name": "ＤＶＤプレーヤー",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0531",
+      "name": "デジタルカメラ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0532",
+      "name": "デスクキャビネット",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0533",
+      "name": "デスクマット",
+      "category": "燃えるごみ",
+      "note": "座ぶとん大の大きさに切って出してください"
+    },
+    {
+      "id": "shiraoka_0534",
+      "name": "デッキブラシ",
+      "category": "燃えるごみ",
+      "note": "袋に入りきらないものは粗大ごみ"
+    },
+    {
+      "id": "shiraoka_0535",
+      "name": "電気あんか",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0536",
+      "name": "電気温水器",
+      "category": "引き取り不可",
+      "note": "専門店へご依頼ください"
+    },
+    {
+      "id": "shiraoka_0537",
+      "name": "電気釜",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0538",
+      "name": "電気カーペット",
+      "category": "粗大ごみ",
+      "note": "座ぶとん大の大きさに切って燃えるごみで出せます / スイッチは燃やせないごみへ"
+    },
+    {
+      "id": "shiraoka_0539",
+      "name": "電気ケトル",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0540",
+      "name": "電気こたつ",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0541",
+      "name": "電気コード・ケーブル",
+      "category": "燃やせないごみ",
+      "note": "１ｍ以内に切ってください"
+    },
+    {
+      "id": "shiraoka_0542",
+      "name": "電気スタンド",
+      "category": "燃やせないごみ",
+      "note": "電球は燃やせないごみへ"
+    },
+    {
+      "id": "shiraoka_0543",
+      "name": "電気ストーブ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0544",
+      "name": "電気ポット",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0545",
+      "name": "電気毛布",
+      "category": "粗大ごみ",
+      "note": "座ぶとん大の大きさに切って燃えるごみで出せます / スイッチは燃やせないごみへ / リユース（紹介コンテンツ） / 当サイトは「可能な限り、ごみにしない」をミッションにしており、リユースにつながる選択肢を提案しています。 / 是非ごみとして捨てるのではなく、再利用できないか下記もあわせてご検討ください。 / ------------------------------------------------------------------"
+    },
+    {
+      "id": "shiraoka_0546",
+      "name": "電球",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0547",
+      "name": "電球型ＬＥＤ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0548",
+      "name": "電球型蛍光管",
+      "category": "有害ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0549",
+      "name": "電球型蛍光灯",
+      "category": "有害ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0550",
+      "name": "電子オルガン",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0551",
+      "name": "電子キーボード（楽器）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0552",
+      "name": "電子たばこ",
+      "category": "有害ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0553",
+      "name": "電子ピアノ",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0554",
+      "name": "電子レンジ",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0555",
+      "name": "電卓",
+      "category": "燃やせないごみ",
+      "note": "ボタン電池は有害ごみへ"
+    },
+    {
+      "id": "shiraoka_0556",
+      "name": "電池（ボタン電池含む）",
+      "category": "有害ごみ",
+      "note": "小型充電式電池は有害ごみ。"
+    },
+    {
+      "id": "shiraoka_0557",
+      "name": "電動グラインダー",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0558",
+      "name": "電動工具",
+      "category": "燃やせないごみ",
+      "note": "充電池は取り外して有害ごみ。"
+    },
+    {
+      "id": "shiraoka_0559",
+      "name": "電動ドライバー",
+      "category": "燃やせないごみ",
+      "note": "充電池は取り外して有害ごみ。"
+    },
+    {
+      "id": "shiraoka_0560",
+      "name": "電動ドリル",
+      "category": "燃やせないごみ",
+      "note": "充電池は取り外して有害ごみ。"
+    },
+    {
+      "id": "shiraoka_0561",
+      "name": "電動のこぎり",
+      "category": "粗大ごみ",
+      "note": "充電池は取り外して有害ごみ。"
+    },
+    {
+      "id": "shiraoka_0562",
+      "name": "電動歯ブラシ",
+      "category": "燃やせないごみ",
+      "note": "充電池は取り外して有害ごみ。"
+    },
+    {
+      "id": "shiraoka_0563",
+      "name": "電動ミシン",
+      "category": "燃やせないごみ",
+      "note": "工業用は引き取り不可"
+    },
+    {
+      "id": "shiraoka_0564",
+      "name": "電話機",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0565",
+      "name": "電話台",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0566",
+      "name": "投網（とあみ）",
+      "category": "すれば、燃えるごみと燃やせないごみで出せます",
+      "note": "分別すれば、燃えるごみと燃やせないごみで出せます"
+    },
+    {
+      "id": "shiraoka_0567",
+      "name": "砥石（といし）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0568",
+      "name": "戸板",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0569",
+      "name": "トイレ便座",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0570",
+      "name": "陶磁器",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0571",
+      "name": "籐の椅子",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0572",
+      "name": "籐の飾り棚",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0573",
+      "name": "籐のカーペット",
+      "category": "燃えるごみ",
+      "note": "座布団大の大きさに切って出してください"
+    },
+    {
+      "id": "shiraoka_0574",
+      "name": "籐のテーブル",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0575",
+      "name": "灯油",
+      "category": "引き取り不可",
+      "note": "販売店へご相談ください"
+    },
+    {
+      "id": "shiraoka_0576",
+      "name": "時計",
+      "category": "燃やせないごみ",
+      "note": "乾電池は有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0577",
+      "name": "トタン（ブリキ製）",
+      "category": "粗大ごみ",
+      "note": "持ち込む場合はお問い合わせください"
+    },
+    {
+      "id": "shiraoka_0578",
+      "name": "戸棚",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0579",
+      "name": "トナー",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0580",
+      "name": "トランク（旅行カバン）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0581",
+      "name": "塗料スプレー缶",
+      "category": "有害ごみ",
+      "note": "穴あけ不要、中身が入っていても出せます"
+    },
+    {
+      "id": "shiraoka_0582",
+      "name": "トレー（発泡・食器用）",
+      "category": "燃えるごみ",
+      "note": "スーパー等の店頭回収もご利用ください"
+    },
+    {
+      "id": "shiraoka_0583",
+      "name": "トレーナー",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0584",
+      "name": "トースター",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0585",
+      "name": "ドアノブ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0586",
+      "name": "銅鍋",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0587",
+      "name": "土砂",
+      "category": "持ち込み",
+      "note": "少量のみ（４５ℓの指定袋に１/３以内で、５袋以内）"
+    },
+    {
+      "id": "shiraoka_0588",
+      "name": "ドライヤー",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0589",
+      "name": "ドラム缶",
+      "category": "持ち込み",
+      "note": "中身の入っていないものでフタが開いているもの"
+    },
+    {
+      "id": "shiraoka_0590",
+      "name": "ドラムセット（楽器）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0591",
+      "name": "ドレッサー（鏡台）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0592",
+      "name": "泥落としマット（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0593",
+      "name": "泥落としマット（ナイロン製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0594",
+      "name": "ナイフ類",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0595",
+      "name": "長靴",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0596",
+      "name": "ナット（ねじ類）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0597",
+      "name": "鍋",
+      "category": "燃やせないごみ",
+      "note": "ガラス製、金属製、ホーロー製、セラミック製は燃やせないごみ。"
+    },
+    {
+      "id": "shiraoka_0598",
+      "name": "鍋（土鍋）",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0599",
+      "name": "生ごみ",
+      "category": "燃えるごみ",
+      "note": "なるべく堆肥化してください"
+    },
+    {
+      "id": "shiraoka_0600",
+      "name": "生ごみ処理機（電動）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0601",
+      "name": "なわとび",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0602",
+      "name": "二次電池",
+      "category": "有害ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0603",
+      "name": "二段ベッド",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0604",
+      "name": "荷造りひも",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0605",
+      "name": "入浴剤",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0606",
+      "name": "人形",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0607",
+      "name": "人形（ケース入り）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0608",
+      "name": "ぬいぐるみ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0609",
+      "name": "ぬい針",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0610",
+      "name": "布くず",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0611",
+      "name": "布テープ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0612",
+      "name": "根",
+      "category": "燃えるごみ",
+      "note": "土は可能な限り落としてください"
+    },
+    {
+      "id": "shiraoka_0613",
+      "name": "ネクタイ",
+      "category": "古紙・布類",
+      "note": "リユース（紹介コンテンツ） / 当サイトは「可能な限り、ごみにしない」をミッションにしており、リユースにつながる選択肢を提案しています。 / 是非ごみとして捨てるのではなく、再利用できないか下記もあわせてご検討ください。 / ------------------------------------------------------------------"
+    },
+    {
+      "id": "shiraoka_0614",
+      "name": "寝袋",
+      "category": "燃えるごみ",
+      "note": "座ぶとん大の大きさに切って出してください"
+    },
+    {
+      "id": "shiraoka_0615",
+      "name": "ねんど（教材用）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0616",
+      "name": "農機具",
+      "category": "引き取り不可",
+      "note": "専門店へご依頼ください"
+    },
+    {
+      "id": "shiraoka_0617",
+      "name": "農薬",
+      "category": "持ち込み",
+      "note": "持ち込む場合はお問い合わせください"
+    },
+    {
+      "id": "shiraoka_0618",
+      "name": "のこぎり",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0619",
+      "name": "のり缶",
+      "category": "飲食料用缶",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0620",
+      "name": "のりびん",
+      "category": "ガラス類",
+      "note": "軽くすすいでから出してください"
+    },
+    {
+      "id": "shiraoka_0621",
+      "name": "ノート",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0622",
+      "name": "ノート型パソコン",
+      "category": "引き取り不可",
+      "note": "家電リサイクル法対象品は引き取り不可"
+    },
+    {
+      "id": "shiraoka_0623",
+      "name": "灰皿（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0624",
+      "name": "灰皿（ガラス製・陶磁器製）",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0625",
+      "name": "はかり",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0626",
+      "name": "はがき",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0627",
+      "name": "はくせい",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0628",
+      "name": "はけ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0629",
+      "name": "はさみ類",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0630",
+      "name": "箸（はし）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0631",
+      "name": "はしご",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0632",
+      "name": "柱時計",
+      "category": "粗大ごみ",
+      "note": "乾電池は有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0633",
+      "name": "発泡スチロール",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0634",
+      "name": "発電機",
+      "category": "持ち込み",
+      "note": "燃料は完全に使い切るか抜いてから出してください"
+    },
+    {
+      "id": "shiraoka_0635",
+      "name": "花火",
+      "category": "燃えるごみ",
+      "note": "水に浸してから出してください"
+    },
+    {
+      "id": "shiraoka_0636",
+      "name": "歯ブラシ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0637",
+      "name": "歯磨き粉",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0638",
+      "name": "刃物",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0639",
+      "name": "針（裁縫用）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0640",
+      "name": "針金",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0641",
+      "name": "ハンガー（木製・プラスチック製）",
+      "category": "できない場合は燃やせないごみへ",
+      "note": "金属部分分別できない場合は燃やせないごみへ"
+    },
+    {
+      "id": "shiraoka_0642",
+      "name": "ハンガー（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0643",
+      "name": "半紙",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0644",
+      "name": "ハンディファン",
+      "category": "有害ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0645",
+      "name": "ハンドバッグ",
+      "category": "燃えるごみ",
+      "note": "金属部分が外せない場合は燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0646",
+      "name": "ハンドミキサー",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0647",
+      "name": "ハンマー",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0648",
+      "name": "ハードディスク",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0649",
+      "name": "バイク（原付含む）",
+      "category": "引き取り不可",
+      "note": "専門店へご依頼ください"
+    },
+    {
+      "id": "shiraoka_0650",
+      "name": "バケットチェアー",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0651",
+      "name": "バケツ（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0652",
+      "name": "バケツ（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0653",
+      "name": "バッテリー（自動車・バイク等）",
+      "category": "引き取り不可",
+      "note": "センターで有料引取会を実施しています"
+    },
+    {
+      "id": "shiraoka_0654",
+      "name": "バット（木製）",
+      "category": "燃えるごみ",
+      "note": "袋に入りきらないものは粗大ごみ"
+    },
+    {
+      "id": "shiraoka_0655",
+      "name": "バット（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0656",
+      "name": "バドミントンラケット（カーボン製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0657",
+      "name": "バドミントンラケット（木製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0658",
+      "name": "バンソウコウ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0659",
+      "name": "バーベキューグリル",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0660",
+      "name": "バーベキューコンロ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0661",
+      "name": "バーベル",
+      "category": "持ち込み",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0662",
+      "name": "パイプハンガー",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0663",
+      "name": "パイプベッド",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0664",
+      "name": "パソコン",
+      "category": "引き取り不可",
+      "note": "家電リサイクル法対象品は引き取り不可"
+    },
+    {
+      "id": "shiraoka_0665",
+      "name": "パソコンデスク",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0666",
+      "name": "パネルヒーター",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0667",
+      "name": "パンツ",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0668",
+      "name": "ひげ剃り",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0669",
+      "name": "ひげそり替え刃",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0670",
+      "name": "ひな壇",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0671",
+      "name": "火鉢（ひばち）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0672",
+      "name": "百科事典",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0673",
+      "name": "肥料",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0674",
+      "name": "ビデオカメラ",
+      "category": "燃やせないごみ",
+      "note": "充電池は有害ごみ"
+    },
+    {
+      "id": "shiraoka_0675",
+      "name": "ビデオテープ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0676",
+      "name": "ビデオデッキ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0677",
+      "name": "ビニールコート紙",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0678",
+      "name": "ビニール合羽",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0679",
+      "name": "ビニールシート",
+      "category": "燃えるごみ",
+      "note": "座ぶとん大の大きさに切って出してください"
+    },
+    {
+      "id": "shiraoka_0680",
+      "name": "ビニール手袋",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0681",
+      "name": "ビニールテーブルクロス",
+      "category": "燃えるごみ",
+      "note": "座ぶとん大の大きさに切って出してください"
+    },
+    {
+      "id": "shiraoka_0682",
+      "name": "ビニールテープ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0683",
+      "name": "ビニール袋（レジ袋等）",
+      "category": "燃えるごみ",
+      "note": "透明、半透明のレジ袋は、ガラス類、飲食料用缶、有害ごみを出すときに使用できます。"
+    },
+    {
+      "id": "shiraoka_0684",
+      "name": "ビニール風呂敷",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0685",
+      "name": "ビニールホース",
+      "category": "燃えるごみ",
+      "note": "１ｍ以内に切ってください"
+    },
+    {
+      "id": "shiraoka_0686",
+      "name": "便箋（びんせん）",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0687",
+      "name": "びん類",
+      "category": "ガラス類",
+      "note": "中身の入っていないもの"
+    },
+    {
+      "id": "shiraoka_0688",
+      "name": "ＢＳチューナー",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0689",
+      "name": "ビー玉",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0690",
+      "name": "ビーチパラソル",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0691",
+      "name": "ビール缶",
+      "category": "飲食料用缶",
+      "note": "軽くすすいでから出してください"
+    },
+    {
+      "id": "shiraoka_0692",
+      "name": "ビールケース",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0693",
+      "name": "ビール瓶",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0694",
+      "name": "ピアノ",
+      "category": "引き取り不可",
+      "note": "専門店へご依頼ください"
+    },
+    {
+      "id": "shiraoka_0695",
+      "name": "ファイル",
+      "category": "燃えるごみ",
+      "note": "金属部分が外せない場合は燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0696",
+      "name": "ファックス（ＦＡＸ）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0697",
+      "name": "ファンシーケース（パイプ式）",
+      "category": "燃やせないごみ",
+      "note": "金属部分が外せない場合は燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0698",
+      "name": "ファンヒーター",
+      "category": "粗大ごみ",
+      "note": "燃料は完全に使い切るか抜いてから出してください"
+    },
+    {
+      "id": "shiraoka_0699",
+      "name": "フィルム（ネガ）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0700",
+      "name": "封筒",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0701",
+      "name": "風鈴",
+      "category": "燃やせないごみ",
+      "note": "陶器製及びガラス製はガラス類"
+    },
+    {
+      "id": "shiraoka_0702",
+      "name": "フェンス（金属製）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0703",
+      "name": "フォーク（台所用品）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0704",
+      "name": "ふすま",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0705",
+      "name": "ふた（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0706",
+      "name": "ふた（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0707",
+      "name": "筆",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0708",
+      "name": "筆箱",
+      "category": "燃えるごみ",
+      "note": "金属製は燃やせないごみとして出してください"
+    },
+    {
+      "id": "shiraoka_0709",
+      "name": "布団",
+      "category": "粗大ごみ",
+      "note": "座ぶとん大の大きさに切れば燃えるごみで出せます"
+    },
+    {
+      "id": "shiraoka_0710",
+      "name": "布団圧縮パック（ビニール製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0711",
+      "name": "布団乾燥機",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0712",
+      "name": "布団干し",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0713",
+      "name": "フライパン",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0714",
+      "name": "風呂椅子",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0715",
+      "name": "風呂ふた",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0716",
+      "name": "風呂マット",
+      "category": "燃えるごみ",
+      "note": "座ぶとん大の大きさに切って出してください"
+    },
+    {
+      "id": "shiraoka_0717",
+      "name": "噴霧器",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0718",
+      "name": "ブラインド",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0719",
+      "name": "ぶら下がり健康器",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0720",
+      "name": "ブルーレイディスク",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0721",
+      "name": "ブロック",
+      "category": "持ち込み",
+      "note": "少量のみ（４５ℓの指定袋に１/３以内で、５袋以内）"
+    },
+    {
+      "id": "shiraoka_0722",
+      "name": "プラズマテレビ",
+      "category": "引き取り不可",
+      "note": "家電リサイクル法対象品は引き取り不可"
+    },
+    {
+      "id": "shiraoka_0723",
+      "name": "プランター（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0724",
+      "name": "プリンター",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0725",
+      "name": "プロジェクター",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0726",
+      "name": "プロパンガス（ボンベ）",
+      "category": "引き取り不可",
+      "note": "専門店にご依頼ください"
+    },
+    {
+      "id": "shiraoka_0727",
+      "name": "ヘアピン",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0728",
+      "name": "ヘアードライヤー",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0729",
+      "name": "ヘッドホン",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0730",
+      "name": "ヘルメット",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0731",
+      "name": "ベスト",
+      "category": "古紙・布類",
+      "note": "綿が入っているものは燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0732",
+      "name": "ベッド",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0733",
+      "name": "ベニヤ板",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0734",
+      "name": "ベビーカー（乳母車）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0735",
+      "name": "ベビータンス",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0736",
+      "name": "ベビーチェアー",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0737",
+      "name": "ベビーバス",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0738",
+      "name": "ベビー布団",
+      "category": "粗大ごみ",
+      "note": "座ぶとん大の大きさに切って燃えるごみで出せます"
+    },
+    {
+      "id": "shiraoka_0739",
+      "name": "ベビーベッド",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0740",
+      "name": "ベビーラック",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0741",
+      "name": "ベルト（ズボン用）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0742",
+      "name": "便座カバー",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0743",
+      "name": "弁当箱（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0744",
+      "name": "弁当箱（木製・プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0745",
+      "name": "ペイントスプレー缶",
+      "category": "有害ごみ",
+      "note": "穴をあけずに出してください"
+    },
+    {
+      "id": "shiraoka_0746",
+      "name": "ペットフード缶",
+      "category": "飲食料用缶",
+      "note": "軽くすすいでから出してください"
+    },
+    {
+      "id": "shiraoka_0747",
+      "name": "ペットボトル",
+      "category": "ペットボトル",
+      "note": "キャップ・ラベルを外して軽くすすいでから出してください"
+    },
+    {
+      "id": "shiraoka_0748",
+      "name": "ペットボトルのキャップ（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0749",
+      "name": "ペットボトルのキャップ（プラスチック製）",
+      "category": "ペットボトル",
+      "note": "透明・半透明の袋で出してください"
+    },
+    {
+      "id": "shiraoka_0750",
+      "name": "ペット用の砂",
+      "category": "燃えるごみ",
+      "note": "少量ずつ出してください"
+    },
+    {
+      "id": "shiraoka_0751",
+      "name": "ペンキ（中身）",
+      "category": "燃えるごみ",
+      "note": "少量ずつ布などにしみこませて出してください"
+    },
+    {
+      "id": "shiraoka_0752",
+      "name": "ペンキ缶",
+      "category": "燃やせないごみ",
+      "note": "中身の入っていないもの"
+    },
+    {
+      "id": "shiraoka_0753",
+      "name": "ほうき",
+      "category": "燃えるごみ",
+      "note": "袋に入りきらないものは粗大ごみ"
+    },
+    {
+      "id": "shiraoka_0754",
+      "name": "包装紙",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0755",
+      "name": "包丁",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0756",
+      "name": "包丁研ぎ器",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0757",
+      "name": "歩行器（乳児用）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0758",
+      "name": "ホチキス",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0759",
+      "name": "ホチキス針",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0760",
+      "name": "ホットカーペット",
+      "category": "粗大ごみ",
+      "note": "スイッチ、コードは燃やせないごみへ"
+    },
+    {
+      "id": "shiraoka_0761",
+      "name": "ホットプレート",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0762",
+      "name": "哺乳瓶（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0763",
+      "name": "哺乳瓶（耐熱ガラス製）",
+      "category": "燃やせないごみ",
+      "note": "耐熱ガラス製は燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0764",
+      "name": "保冷剤",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0765",
+      "name": "ホワイトボード",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0766",
+      "name": "本",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0767",
+      "name": "本棚（木製・金属製）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0768",
+      "name": "本箱",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0769",
+      "name": "ホース（ビニール・ゴム）",
+      "category": "燃えるごみ",
+      "note": "１ｍ以内に切って出してください"
+    },
+    {
+      "id": "shiraoka_0770",
+      "name": "ホースリール",
+      "category": "燃やせないごみ",
+      "note": "プラスチックのみの製品は燃えるごみ。"
+    },
+    {
+      "id": "shiraoka_0771",
+      "name": "ホーローなべ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0772",
+      "name": "望遠鏡",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0773",
+      "name": "帽子",
+      "category": "燃えるごみ",
+      "note": "リユース（紹介コンテンツ） / 当サイトは「可能な限り、ごみにしない」をミッションにしており、リユースにつながる選択肢を提案しています。 / 是非ごみとして捨てるのではなく、再利用できないか下記もあわせてご検討ください。 / ------------------------------------------------------------------"
+    },
+    {
+      "id": "shiraoka_0774",
+      "name": "防虫剤",
+      "category": "燃えるごみ",
+      "note": "スプレー式は穴あけ不要、中身が入っていても有害ごみで出せます。"
+    },
+    {
+      "id": "shiraoka_0775",
+      "name": "ボウリング球",
+      "category": "持ち込み",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0776",
+      "name": "ボウル（台所用品・金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0777",
+      "name": "ボウル（台所用品・プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0778",
+      "name": "墨汁（ぼくじゅう）",
+      "category": "燃えるごみ",
+      "note": "中身は布や紙などにしみこませて出してください"
+    },
+    {
+      "id": "shiraoka_0779",
+      "name": "木刀",
+      "category": "燃えるごみ",
+      "note": "袋に入りきらないものは粗大ごみ"
+    },
+    {
+      "id": "shiraoka_0780",
+      "name": "ボタン電池",
+      "category": "有害ごみ",
+      "note": "絶縁対策をしてから出してください"
+    },
+    {
+      "id": "shiraoka_0781",
+      "name": "ボンド",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0782",
+      "name": "ボール（スポーツ用品）",
+      "category": "燃えるごみ",
+      "note": "空気を抜いてください"
+    },
+    {
+      "id": "shiraoka_0783",
+      "name": "ボールペン",
+      "category": "燃えるごみ",
+      "note": "金属製は燃やせないごみとして出してください"
+    },
+    {
+      "id": "shiraoka_0784",
+      "name": "ポット（魔法瓶）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0785",
+      "name": "ポリタンク",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0786",
+      "name": "ポリバケツ",
+      "category": "燃えるごみ",
+      "note": "金属部分が外せない場合は燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0787",
+      "name": "ポリ袋",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0788",
+      "name": "ポータブルプレーヤー",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0789",
+      "name": "マイク",
+      "category": "燃やせないごみ",
+      "note": "乾電池は有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0790",
+      "name": "マウス（パソコン用）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0791",
+      "name": "まくら",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0792",
+      "name": "マグカップ",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0793",
+      "name": "マグネット（磁石）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0794",
+      "name": "孫の手",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0795",
+      "name": "マジックペン",
+      "category": "燃やせないごみ",
+      "note": "プラスチック製は燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0796",
+      "name": "マッサージ器",
+      "category": "燃やせないごみ",
+      "note": "一般家庭用のみ"
+    },
+    {
+      "id": "shiraoka_0797",
+      "name": "マッサージチェア",
+      "category": "粗大ごみ",
+      "note": "一般家庭用のみ"
+    },
+    {
+      "id": "shiraoka_0798",
+      "name": "マッチ",
+      "category": "燃えるごみ",
+      "note": "水に浸してから出してください"
+    },
+    {
+      "id": "shiraoka_0799",
+      "name": "マットレス",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0800",
+      "name": "窓ガラス（板ガラス）",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0801",
+      "name": "窓用エアコン",
+      "category": "引き取り不可",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0802",
+      "name": "まな板（木製・プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0803",
+      "name": "マニキュアびん",
+      "category": "燃やせないごみ",
+      "note": "使い切ってから出してください"
+    },
+    {
+      "id": "shiraoka_0804",
+      "name": "魔法瓶（まほうびん）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0805",
+      "name": "豆電球",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0806",
+      "name": "マンガ本",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0807",
+      "name": "万歩計",
+      "category": "燃やせないごみ",
+      "note": "乾電池は有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0808",
+      "name": "麻雀パイ",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0809",
+      "name": "ミシン（電子）",
+      "category": "粗大ごみ",
+      "note": "工業用は引き取り不可"
+    },
+    {
+      "id": "shiraoka_0810",
+      "name": "耳当て",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0811",
+      "name": "耳かき（木製・プラスチック製）",
+      "category": "燃えるごみ",
+      "note": "金属製は燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0812",
+      "name": "ミルク缶",
+      "category": "飲食料用缶",
+      "note": "軽くすすいでから出してください"
+    },
+    {
+      "id": "shiraoka_0813",
+      "name": "ミルクびん",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0814",
+      "name": "虫かご（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0815",
+      "name": "虫かご（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0816",
+      "name": "蒸し器",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0817",
+      "name": "虫めがね",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0818",
+      "name": "むしろ",
+      "category": "燃えるごみ",
+      "note": "座ぶとん大の大きさに切って出してください"
+    },
+    {
+      "id": "shiraoka_0819",
+      "name": "めがね",
+      "category": "燃やせないごみ",
+      "note": "プラスチック製は燃えるごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0820",
+      "name": "滅菌装置",
+      "category": "粗大ごみ",
+      "note": "一般家庭用のみ"
+    },
+    {
+      "id": "shiraoka_0821",
+      "name": "メモリースティック",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0822",
+      "name": "毛布",
+      "category": "粗大ごみ",
+      "note": "座ぶとん大の大きさに切って燃えるごみで出せます / リユース（紹介コンテンツ） / 当サイトは「可能な限り、ごみにしない」をミッションにしており、リユースにつながる選択肢を提案しています。 / 是非ごみとして捨てるのではなく、再利用できないか下記もあわせてご検討ください。 / ------------------------------------------------------------------"
+    },
+    {
+      "id": "shiraoka_0823",
+      "name": "木材",
+      "category": "燃えるごみ",
+      "note": "指定袋に入る長さで１０ｃｍ角以内のもの"
+    },
+    {
+      "id": "shiraoka_0824",
+      "name": "木製板",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0825",
+      "name": "木製家具",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0826",
+      "name": "もちつき機",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0827",
+      "name": "モップ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0828",
+      "name": "モニター",
+      "category": "引き取り不可",
+      "note": "家電リサイクル法対象品は引き取り不可。"
+    },
+    {
+      "id": "shiraoka_0829",
+      "name": "物置",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0830",
+      "name": "物干し竿",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0831",
+      "name": "物干し台",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0832",
+      "name": "モバイルバッテリー",
+      "category": "有害ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0833",
+      "name": "モーター類（農機具用）",
+      "category": "引き取り不可",
+      "note": "専門店にご依頼ください"
+    },
+    {
+      "id": "shiraoka_0834",
+      "name": "やかん",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0835",
+      "name": "薬びん",
+      "category": "ガラス類",
+      "note": "中身の入っていないもの"
+    },
+    {
+      "id": "shiraoka_0836",
+      "name": "野菜くず",
+      "category": "燃えるごみ",
+      "note": "なるべく堆肥化してください"
+    },
+    {
+      "id": "shiraoka_0837",
+      "name": "ゆかた",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0838",
+      "name": "湯たんぽ（金属製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0839",
+      "name": "湯たんぽ（プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0840",
+      "name": "湯のみ茶碗",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0841",
+      "name": "湯沸し器（台所用）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0842",
+      "name": "ＵＳＢメモリー",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0843",
+      "name": "洋酒びん",
+      "category": "ガラス類",
+      "note": "中身のないもの"
+    },
+    {
+      "id": "shiraoka_0844",
+      "name": "洋服タンス",
+      "category": "粗大ごみ",
+      "note": "リユース（紹介コンテンツ） / 当サイトは「可能な限り、ごみにしない」をミッションにしており、リユースにつながる選択肢を提案しています。 / 是非ごみとして捨てるのではなく、再利用できないか下記もあわせてご検討ください。 / ------------------------------------------------------------------ / まだ着られる衣類を寄付してパラスポーツを応援しよう！ / ふくのわは衣類のリユースによる収益金を競技団体に寄付しています。 / < 株式会社 産業経済新聞社 >"
+    },
+    {
+      "id": "shiraoka_0845",
+      "name": "浴槽",
+      "category": "持ち込み",
+      "note": "一般家庭のみ（事業者は不可）"
+    },
+    {
+      "id": "shiraoka_0846",
+      "name": "よしず",
+      "category": "粗大ごみ",
+      "note": "座ぶとん大の大きさに切って燃えるごみで出せます"
+    },
+    {
+      "id": "shiraoka_0847",
+      "name": "ライター（金属製）",
+      "category": "燃やせないごみ",
+      "note": "ガスライターは有害ごみ。"
+    },
+    {
+      "id": "shiraoka_0848",
+      "name": "ラケット（金属製・カーボン製）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0849",
+      "name": "ラケット（木製・プラスチック製）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0850",
+      "name": "ラジオ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0851",
+      "name": "ラジカセ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0852",
+      "name": "ラップ（食品用）",
+      "category": "燃えるごみ",
+      "note": "ラップの芯は古紙"
+    },
+    {
+      "id": "shiraoka_0853",
+      "name": "ランチジャー",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0854",
+      "name": "ランドセル",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0855",
+      "name": "ランプ",
+      "category": "燃やせないごみ",
+      "note": "燃料は抜いて出してください"
+    },
+    {
+      "id": "shiraoka_0856",
+      "name": "リコーダー（笛）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0857",
+      "name": "リチウム電池",
+      "category": "有害ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0858",
+      "name": "リモコン",
+      "category": "燃やせないごみ",
+      "note": "乾電池は有害ごみの日に出してください"
+    },
+    {
+      "id": "shiraoka_0859",
+      "name": "リュックサック",
+      "category": "燃えるごみ",
+      "note": "金属部分が外せない場合は燃やせないごみ"
+    },
+    {
+      "id": "shiraoka_0860",
+      "name": "料理くず",
+      "category": "燃えるごみ",
+      "note": "なるべく堆肥化してください"
+    },
+    {
+      "id": "shiraoka_0861",
+      "name": "ルーズリーフ",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0862",
+      "name": "ルーペ",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0863",
+      "name": "ルームランナー（健康器具）",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0864",
+      "name": "冷水機",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0865",
+      "name": "冷蔵庫（冷凍庫）",
+      "category": "引き取り不可",
+      "note": "家電リサイクル法対象品は引き取り不可"
+    },
+    {
+      "id": "shiraoka_0866",
+      "name": "冷風機",
+      "category": "粗大ごみ",
+      "note": "冷媒がガスのものは引き取り不可"
+    },
+    {
+      "id": "shiraoka_0867",
+      "name": "レインコート",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0868",
+      "name": "レコード盤",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0869",
+      "name": "レコードプレーヤー",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0870",
+      "name": "レジ袋",
+      "category": "燃えるごみ",
+      "note": "透明・半透明のレジ袋は、ガラス類、飲食料用缶、有害ごみを出すときに使用できます。"
+    },
+    {
+      "id": "shiraoka_0871",
+      "name": "レジャーシート",
+      "category": "燃えるごみ",
+      "note": "座ぶとん大の大きさに切って出してください"
+    },
+    {
+      "id": "shiraoka_0872",
+      "name": "レジャーチェアー",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0873",
+      "name": "レジャーテーブル",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0874",
+      "name": "レターケース",
+      "category": "燃やせないごみ",
+      "note": "プラスチック製は燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0875",
+      "name": "レンガ",
+      "category": "持ち込み",
+      "note": "少量のみ（４５リットル袋で５袋以内）"
+    },
+    {
+      "id": "shiraoka_0876",
+      "name": "レンジ台",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0877",
+      "name": "レンズ",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0878",
+      "name": "レンチ（工具）",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0879",
+      "name": "ろう紙",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0880",
+      "name": "老眼鏡",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0881",
+      "name": "ロッカー",
+      "category": "粗大ごみ",
+      "note": "一般家庭用のみ"
+    },
+    {
+      "id": "shiraoka_0882",
+      "name": "ローソク",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0883",
+      "name": "ロープ（紙・ひも・ビニール製）",
+      "category": "燃えるごみ",
+      "note": "１ｍ以内に切って出してください"
+    },
+    {
+      "id": "shiraoka_0884",
+      "name": "ローラースケート",
+      "category": "燃やせないごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0885",
+      "name": "ワイシャツ",
+      "category": "古紙・布類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0886",
+      "name": "ワイパー",
+      "category": "燃やせないごみ",
+      "note": "ゴムの部分は燃えるごみ"
+    },
+    {
+      "id": "shiraoka_0887",
+      "name": "ワインのびん",
+      "category": "ガラス類",
+      "note": "中身の入っていないもの"
+    },
+    {
+      "id": "shiraoka_0888",
+      "name": "輪ゴム",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0889",
+      "name": "和たんす",
+      "category": "粗大ごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0890",
+      "name": "綿（わた）",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0891",
+      "name": "ワックスの缶",
+      "category": "燃やせないごみ",
+      "note": "中身の入っていないもの"
+    },
+    {
+      "id": "shiraoka_0892",
+      "name": "ワッペン",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0893",
+      "name": "割りばし",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0894",
+      "name": "割れたガラス・びん類",
+      "category": "ガラス類",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0895",
+      "name": "腕章",
+      "category": "燃えるごみ",
+      "note": ""
+    },
+    {
+      "id": "shiraoka_0896",
+      "name": "ワープロ",
+      "category": "燃やせないごみ",
+      "note": ""
+    }
+  ]
+}
