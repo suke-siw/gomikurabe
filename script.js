@@ -300,10 +300,80 @@ function hasSavedLocations() {
   );
 }
 
+/** 今と前に、まったく同じ場所（自治体・町名・丁目）が選ばれているか。このときは1地域モードで表示する */
+function isSameLocation() {
+  if (!hasSavedLocations()) return false;
+  const { current, previous } = appState;
+
+  return (
+    current.city === previous.city &&
+    current.town === previous.town &&
+    (current.block || "") === (previous.block || "")
+  );
+}
+
+/** 同じ自治体の中での引っ越し（自治体は同じで、町名・丁目が違う）か */
+function isSameCityMove() {
+  return (
+    hasSavedLocations() &&
+    !isSameLocation() &&
+    appState.current.city === appState.previous.city
+  );
+}
+
+/** タブを切り替える */
+function activateTab(targetId) {
+  for (const tab of document.querySelectorAll("[data-tab-target]")) {
+    const active = tab.dataset.tabTarget === targetId;
+    tab.classList.toggle("is-active", active);
+    tab.setAttribute("aria-selected", String(active));
+  }
+
+  for (const panel of document.querySelectorAll(".tab-panel")) {
+    const active = panel.id === targetId;
+    panel.classList.toggle("hidden", !active);
+    panel.hidden = !active;
+  }
+
+  if (targetId === "panel-schedule") {
+    renderScheduleList();
+  }
+}
+
+/*
+ * 1地域モード（今と前が同じ場所）の切り替え。
+ * 比較一覧タブを隠し、品目検索・収集日は1つの欄だけを「選んだ地域」として表示する。
+ */
+function applyLocationMode() {
+  const single = isSameLocation();
+  const compareTab = document.getElementById("tab-compare");
+
+  elements.features.classList.toggle("is-single-location", single);
+  compareTab.hidden = single;
+  document.getElementById("location-mode-notice").hidden = !single;
+
+  const currentTag = document.getElementById("current-location")?.previousElementSibling;
+  if (currentTag) currentTag.textContent = single ? "選んだ地域" : "今の自治体";
+
+  // 比較しないので、検索ボタンと小見出しの文言も1地域向けにする
+  elements.searchButton.textContent = single ? "検索する" : "引っ越し前後を比較";
+  const naviEyebrow = document.getElementById("navi-eyebrow");
+  if (naviEyebrow) {
+    naviEyebrow.textContent = single
+      ? "保存した地域で検索"
+      : "保存した今の地域・前の地域で検索";
+  }
+
+  if (single && compareTab.classList.contains("is-active")) {
+    activateTab("panel-navi");
+  }
+}
+
 function updateLocationSummary() {
   if (hasSavedLocations()) {
-    elements.summary.textContent =
-      `今：${formatLocation(appState.current)} ⇄ 前：${formatLocation(appState.previous)}`;
+    elements.summary.textContent = isSameLocation()
+      ? `今・前：${formatLocation(appState.current)}（同じ地域）`
+      : `今：${formatLocation(appState.current)} ⇄ 前：${formatLocation(appState.previous)}`;
     elements.settingsStatus.textContent = "設定済み";
     elements.settingsStatus.classList.add("is-saved");
     return;
@@ -743,6 +813,15 @@ function renderComparisonList() {
     return;
   }
 
+  // 同じ自治体の中での引っ越しは分別ルールが同じなので、説明だけを出す
+  if (isSameCityMove()) {
+    const name = MUNICIPALITIES[appState.current.city]?.name ?? "同じ自治体";
+    const message = `今と前は同じ自治体（${name}）なので、分別のルールは変わりません。収集日の違いは「収集日」タブで確認してください。`;
+    elements.comparisonMessage.textContent = "";
+    elements.comparisonResults.append(createTextElement("p", "empty-state", message));
+    return;
+  }
+
   const shown = matches.slice(0, comparisonLimit);
 
   elements.comparisonMessage.textContent =
@@ -909,7 +988,9 @@ function createScheduleCard(locationName) {
     createTextElement(
       "span",
       "result-tag",
-      locationName === "current" ? "今の自治体" : "前の自治体",
+      locationName === "current"
+        ? (isSameLocation() ? "選んだ地域" : "今の自治体")
+        : "前の自治体",
     ),
     createTextElement("h3", "schedule-location", formatLocation(location)),
     createTextElement(
@@ -972,6 +1053,12 @@ function renderScheduleList() {
         "スケジュールを確認するには、今の地域と前の地域を設定して保存してください。",
       ),
     );
+    return;
+  }
+
+  // 今と前が同じ場所なら、同じ内容を2回出さずに1つだけ表示する
+  if (isSameLocation()) {
+    elements.scheduleResults.append(createScheduleCard("current"));
     return;
   }
 
@@ -1268,6 +1355,12 @@ function updateMatchedHeading() {
     return;
   }
 
+  // 1地域モードでは比較ではなく、選んだ地域の品目として見出しを出す
+  if (isSameLocation()) {
+    elements.matchedItem.textContent = `品目${shown(currentName)}`;
+    return;
+  }
+
   elements.matchedItem.textContent =
     currentName === previousName
       ? `品目${shown(currentName)}の比較`
@@ -1404,6 +1497,7 @@ function saveSettings() {
   elements.toggleSettings.textContent = "地域設定を変更";
 
   updateLocationSummary();
+  applyLocationMode();
   renderDataSources();
   elements.comparisonFilter.value = "";
   resetComparisonList();
@@ -1445,6 +1539,7 @@ async function loadCityData() {
     populateCityOptions();
     restoreSavedLocations();
     updateLocationSummary();
+    applyLocationMode();
     renderDataSources();
 
     const configured = hasSavedLocations();
@@ -1527,25 +1622,7 @@ elements.searchButton.addEventListener("click", () => searchItem());
 // カメラ・写真の選択（AI写真判定）は image-search.js で処理する
 
 for (const button of document.querySelectorAll("[data-tab-target]")) {
-  button.addEventListener("click", () => {
-    const targetId = button.dataset.tabTarget;
-
-    for (const tab of document.querySelectorAll("[data-tab-target]")) {
-      const active = tab === button;
-      tab.classList.toggle("is-active", active);
-      tab.setAttribute("aria-selected", String(active));
-    }
-
-    for (const panel of document.querySelectorAll(".tab-panel")) {
-      const active = panel.id === targetId;
-      panel.classList.toggle("hidden", !active);
-      panel.hidden = !active;
-    }
-
-    if (targetId === "panel-schedule") {
-      renderScheduleList();
-    }
-  });
+  button.addEventListener("click", () => activateTab(button.dataset.tabTarget));
 }
 
 document.addEventListener("click", (event) => {

@@ -186,9 +186,26 @@ function getSavedCities() {
  * 判定結果に表示する欄と見出し。今の街 → 前の街の順に表示し、同じ街なら1つにまとめる。
  * 例：今＝世田谷・前＝中野なら「今の街：世田谷区」「前の街：中野区」。
  */
+/** 今と前にまったく同じ場所（自治体・町名・丁目）が選ばれているか（1地域モード） */
+function isSameSavedLocation() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(LOCATION_STORAGE_KEY) || "null");
+    return Boolean(
+      saved?.current &&
+      saved?.previous &&
+      saved.current.city === saved.previous.city &&
+      saved.current.town === saved.previous.town &&
+      (saved.current.block || "") === (saved.previous.block || ""),
+    );
+  } catch {
+    return false;
+  }
+}
+
 function getSections({ currentCity, previousCity }) {
   if (currentCity === previousCity) {
-    return [{ key: "current", title: `今・前の街：${cityName(currentCity)}` }];
+    const label = isSameSavedLocation() ? "選んだ地域" : "今・前の街";
+    return [{ key: "current", title: `${label}：${cityName(currentCity)}` }];
   }
 
   return [

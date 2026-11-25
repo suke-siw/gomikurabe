@@ -135,6 +135,10 @@
       </section>
 
       <div id="app-features" hidden>
+        <!-- 今と前に同じ場所が選ばれているとき（1地域モード）の案内。script.js が表示を切り替える -->
+        <p id="location-mode-notice" class="location-mode-notice" hidden>
+          今と前に同じ地域が選ばれているため、この地域の分別と収集日だけを表示しています（比較はしません）。引っ越し前の地域を比べたいときは「地域設定を変更」から選び直してください。
+        </p>
         <nav class="tabs" role="tablist" aria-label="機能切り替え">
           <button
             id="tab-compare"
@@ -231,7 +235,7 @@
             hidden
           >
             <section class="panel">
-              <p class="eyebrow">保存した今の地域・前の地域で検索</p>
+              <p id="navi-eyebrow" class="eyebrow">保存した今の地域・前の地域で検索</p>
               <h2 class="panel-title">個別検索・写真判定</h2>
 
               <div class="field item-field">
