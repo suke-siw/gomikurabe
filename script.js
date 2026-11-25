@@ -1212,7 +1212,7 @@ function createSimilarItems(names) {
   return container;
 }
 
-function searchItem(selectedName = null, photoMock = false) {
+function searchItem(selectedName = null) {
   elements.searchError.textContent = "";
   elements.photoMockResult.textContent = "";
   elements.photoMockResult.classList.add("hidden");
@@ -1255,12 +1255,6 @@ function searchItem(selectedName = null, photoMock = false) {
   renderLocationResult("previous", previousResult);
   elements.searchResult.classList.remove("hidden");
   elements.suggestions.classList.add("hidden");
-
-  if (photoMock) {
-    elements.photoMockResult.textContent =
-      `写真判定（モック）: 「${matchedName}」と判定しました。保存済みの今・前の地域で検索しています。`;
-    elements.photoMockResult.classList.remove("hidden");
-  }
 }
 
 function saveSettings() {
@@ -1412,21 +1406,7 @@ elements.itemSearch.addEventListener("keydown", (event) => {
 
 elements.searchButton.addEventListener("click", () => searchItem());
 
-elements.cameraInput.addEventListener("change", (event) => {
-  const file = event.target.files?.[0];
-  if (!file) return;
-
-  if (!file.type.startsWith("image/")) {
-    elements.searchError.textContent =
-      "画像ファイル（写真）を選択してください。";
-    event.target.value = "";
-    return;
-  }
-
-  elements.itemSearch.value = "ペットボトル";
-  searchItem("ペットボトル", true);
-  event.target.value = "";
-});
+// カメラ・写真の選択（AI写真判定）は image-search.js で処理する
 
 for (const button of document.querySelectorAll("[data-tab-target]")) {
   button.addEventListener("click", () => {

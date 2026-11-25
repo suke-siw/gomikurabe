@@ -85,7 +85,9 @@ async function resizeImageToBase64(file) {
   try {
     bitmap = await createImageBitmap(file);
   } catch {
-    throw new Error("画像ファイルを読み込めませんでした。");
+    throw new Error(
+      "この画像は読み込めませんでした。JPEG・PNG形式の写真を選ぶか、カメラで撮影してください。",
+    );
   }
 
   const maxDimension = 1500;
@@ -122,17 +124,68 @@ async function resizeImageToBase64(file) {
   };
 }
 
-function createMunicipalitySection(title, records) {
+const CITY_NAMES = {
+  nakano: "中野区",
+  setagaya: "世田谷区",
+};
+
+// script.js が保存している地域設定（今の街・前の街）
+const LOCATION_STORAGE_KEY = "move-gomi-navi.locations";
+
+/**
+ * 地域設定に合わせて、表示する自治体の順番と見出しを決める。
+ * 例：今＝世田谷・前＝中野なら「今の街：世田谷区」「前の街：中野区」の順。
+ */
+function getMunicipalityOrder() {
+  let saved = null;
+
+  try {
+    saved = JSON.parse(localStorage.getItem(LOCATION_STORAGE_KEY) || "null");
+  } catch {
+    saved = null;
+  }
+
+  const current = saved?.current?.city;
+  const previous = saved?.previous?.city;
+
+  if (!CITY_NAMES[current] || !CITY_NAMES[previous]) {
+    return Object.keys(CITY_NAMES).map((city) => ({ city, title: CITY_NAMES[city] }));
+  }
+
+  if (current === previous) {
+    return [{ city: current, title: `今・前の街：${CITY_NAMES[current]}` }];
+  }
+
+  return [
+    { city: current, title: `今の街：${CITY_NAMES[current]}` },
+    { city: previous, title: `前の街：${CITY_NAMES[previous]}` },
+  ];
+}
+
+function createMunicipalitySection(title, records, candidateName) {
   const section = createElement("section", "ai-photo-municipality");
   section.append(createElement("h4", "ai-photo-municipality-title", title));
 
   if (!Array.isArray(records) || records.length === 0) {
-    section.append(createElement("p", "ai-photo-no-match", "該当なし"));
+    section.append(
+      createElement(
+        "p",
+        "ai-photo-no-match",
+        "同じ名前の品目が見つかりません。下のボタンで検索すると、似た品目を確認できます。",
+      ),
+    );
     return section;
   }
 
   for (const record of records) {
     const details = createElement("div", "ai-photo-record");
+
+    // 候補と名前が違う品目（表記違い・複数該当）の場合は、どの品目の分別かを示す
+    if (record.name && record.name !== candidateName) {
+      details.append(
+        createElement("p", "ai-photo-record-name", `品目：${record.name}`),
+      );
+    }
 
     details.append(
       createElement(
@@ -184,17 +237,18 @@ function createResultCard(result, index) {
     ),
   );
 
-  if (result.classificationChanged) {
+  // 今と前が別の区のときだけ「分別が変わります」を表示する
+  if (result.classificationChanged && getMunicipalityOrder().length > 1) {
     heading.append(
       createElement("span", "ai-photo-change-badge", "分別が変わります"),
     );
   }
 
-  card.append(
-    heading,
-    createMunicipalitySection("中野区（新しい街）", result.nakano),
-    createMunicipalitySection("世田谷区（前の街）", result.setagaya),
-  );
+  card.append(heading);
+
+  for (const { city, title } of getMunicipalityOrder()) {
+    card.append(createMunicipalitySection(title, result[city], result.name));
+  }
 
   const selectButton = createElement(
     "button",

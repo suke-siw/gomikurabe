@@ -135,6 +135,13 @@
   overflow-wrap: anywhere;
 }
 
+.ai-photo-record-name {
+  margin-bottom: 4px;
+  color: var(--muted, #64748b);
+  font-size: 12px;
+  font-weight: 700;
+}
+
 .ai-photo-category {
   margin-bottom: 5px;
   color: var(--text, #0f172a);
@@ -149,7 +156,7 @@
 .ai-photo-select-button {
   display: block;
   width: calc(100% - 24px);
-  min-height: 42px;
+  min-height: 44px;
   margin: 0 12px 12px;
   padding: 9px 12px;
   border: 0;
