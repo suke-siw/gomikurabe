@@ -140,8 +140,8 @@ gomikurabe/
 
 | 項目 | 内容 |
 | --- | --- |
-| `GEMINI_MODEL` | 使うモデル（初期値 `gemini-3.8-flash`）。`gemini-2.5-flash` は新しいAPIキーでは使えません |
-| `GEMINI_FALLBACK_MODELS` | 設定したモデルが混雑・上限・使用不可のときに順に試すモデル（カンマ区切り、初期値 `gemini-3.7-flash,gemini-3.5-flash,gemini-3.5-flash-lite`） |
+| `GEMINI_MODEL` | 使うモデル（初期値 `gemini-3.5-flash`）。`gemini-2.5-flash` は新しいAPIキーでは使えません。上位の 3.8 / 3.7 は混雑しやすいため、安定して応答する 3.5-flash を基本にしています |
+| `GEMINI_FALLBACK_MODELS` | 設定したモデルが混雑・上限・使用不可のときに順に試すモデル（カンマ区切り、初期値 `gemini-3.8-flash,gemini-3.7-flash,gemini-3.5-flash-lite`） |
 | 待ち時間 | 1モデル20秒・全体40秒（サーバー）、50秒（ブラウザ）で打ち切り、「少し待ってから再度お試しください」と表示 |
 
 ## ⚠️ 注意（チーム全員へ）

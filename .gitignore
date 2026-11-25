@@ -10,5 +10,9 @@ node_modules/
 .DS_Store
 .vscode/
 
+# AI写真判定の結果キャッシュ（server.js が自動で作成する）
+results_cache.json
+results_cache.json.tmp
+
 # ログ
 npm-debug.log*

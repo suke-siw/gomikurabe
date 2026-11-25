@@ -10,17 +10,18 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 
 const PORT = Number(process.env.PORT || 3000);
-const RECOMMENDED_MODEL = "gemini-3.8-flash";
+const RECOMMENDED_MODEL = "gemini-3.5-flash";
 const MODEL = process.env.GEMINI_MODEL || RECOMMENDED_MODEL;
 
 /*
  * 設定したモデルが使えない（404）・混雑（503）・上限（429）などで失敗したときに
  * 順番に試す予備のモデルです。.env の GEMINI_FALLBACK_MODELS（カンマ区切り）で変更できます。
- * ※ gemini-2.5-flash は新規のAPIキーでは使えないため、初期値を gemini-3.8-flash にしています。
+ * ※ gemini-2.5-flash は新規のAPIキーでは使えません。上位の 3.8 / 3.7 は混雑しやすいため、
+ *   初期値は安定して応答した gemini-3.5-flash とし、混雑時は上位モデル → 軽量版の順に試します。
  */
 const FALLBACK_MODELS = (
   process.env.GEMINI_FALLBACK_MODELS ||
-  "gemini-3.7-flash,gemini-3.5-flash,gemini-3.5-flash-lite"
+  "gemini-3.8-flash,gemini-3.7-flash,gemini-3.5-flash-lite"
 )
   .split(",")
   .map((name) => name.trim())
